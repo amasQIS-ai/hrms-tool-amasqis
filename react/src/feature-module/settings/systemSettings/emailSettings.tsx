@@ -248,8 +248,8 @@ const EmailSettings = () => {
             <p className="mb-0">2014 - 2025 © SmartHR.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="#" className="text-primary">
-                Dreams
+              <Link to="amasQIS.ai" className="text-primary">
+                amasQIS.ai
               </Link>
             </p>
           </div>
