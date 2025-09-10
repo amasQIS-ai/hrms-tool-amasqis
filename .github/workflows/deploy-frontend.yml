@@ -18,16 +18,15 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ secrets.NODE_VERSION || '20' }}
 
       - name: Install & Build
         working-directory: react
-        env:
-          # Inject production envs for the build
-          ${{ fromJSON(format('{{"{}"}}', secrets.FRONTEND_ENV)) }}: ''
         run: |
-          # Write env file for CRA-style apps (if your app reads from process.env at build)
-          echo "${{ secrets.FRONTEND_ENV }}" > .env.production
+          # write production env for build (CRA or Vite — your code must use matching prefixes)
+          cat > .env.production << 'EOF'
+${{ secrets.FRONTEND_ENV }}
+EOF
           npm ci
           npm run build
 
@@ -35,7 +34,18 @@ jobs:
         working-directory: react
         run: tar -czf build.tar.gz build
 
-      - name: Upload to server
+      - name: Prepare release dir on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}
+
+      - name: Upload build artifact
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -55,11 +65,8 @@ jobs:
           script: |
             set -e
             cd /srv/hrms/frontend/releases/${{ github.sha }}
-            tar -xzf build.tar.gz
-            rm -f build.tar.gz
-            # atomically switch current -> this release
+            tar -xzf build.tar.gz && rm -f build.tar.gz
             ln -sfn /srv/hrms/frontend/releases/${{ github.sha }}/build /srv/hrms/frontend/current
-            # cleanup old releases (keep last 3)
+            # keep last 3 releases
             cd /srv/hrms/frontend/releases
             ls -1t | tail -n +4 | xargs -r rm -rf
-            sudo systemctl reload nginx || true
