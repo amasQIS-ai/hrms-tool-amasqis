@@ -23,13 +23,12 @@ jobs:
 
       - name: Create .env.production
         working-directory: react
-        run: |
-          printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
+        run: printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
 
       - name: Install & Build
         working-directory: react
         env:
-          CI: "false"   # keep build from failing on lint warnings; remove later when code is clean
+          CI: "false"
         run: |
           npm ci
           npm run build
@@ -37,6 +36,7 @@ jobs:
       - name: Tar build
         working-directory: react
         run: tar -czf build.tar.gz build
+
 
       - name: Ensure release dir on server
         uses: appleboy/ssh-action@v1.0.3
@@ -49,6 +49,17 @@ jobs:
             set -euxo pipefail
             mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}
 
+      - name: Show build artifact size
+        working-directory: react
+        run: |
+          set -euxo pipefail
+          ls -la
+          ls -la build || true
+          [ -f build.tar.gz ] || (echo "build.tar.gz is missing" && exit 1)
+          du -sh build || true
+          du -sh build.tar.gz
+
+
       - name: Upload artifact to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -56,8 +67,11 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          source: "react/build.tar.gz"
-          target: "/srv/hrms/frontend/releases/${{ github.sha }}/build.tar.gz"  # 👈 explicit
+          source: "./react/build.tar.gz"          # 👈 explicit relative path
+          target: "/srv/hrms/frontend/releases/${{ github.sha }}/build.tar.gz"
+          overwrite: true
+          timeout: 1200s                          # 20 minutes max
+          command_timeout: 1200s
 
       - name: Unpack & switch symlink
         uses: appleboy/ssh-action@v1.0.3
@@ -71,6 +85,7 @@ jobs:
             rel="/srv/hrms/frontend/releases/${{ github.sha }}"
             cd "$rel"
 
+            # If somehow uploaded into a nested folder (e.g., react/build.tar.gz), fix it
             if [ -f react/build.tar.gz ] && [ ! -f build.tar.gz ]; then
               mv react/build.tar.gz build.tar.gz
               rmdir -p --ignore-fail-on-non-empty react || true
@@ -78,12 +93,14 @@ jobs:
 
             if [ ! -f build.tar.gz ]; then
               echo "ERROR: build.tar.gz not found in $rel"
+              echo "Contents of release dir:"
               ls -laR "$rel"
               exit 1
             fi
 
             tar -xzf build.tar.gz
             rm -f build.tar.gz
+
             ln -sfn "$rel/build" /srv/hrms/frontend/current
             cd /srv/hrms/frontend/releases
             ls -1t | tail -n +6 | xargs -r rm -rf
