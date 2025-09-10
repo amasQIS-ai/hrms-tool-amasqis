@@ -6,6 +6,10 @@ on:
     paths:
       - "backend/**"
       - ".github/workflows/deploy-backend.yml"
+  workflow_dispatch: {}
+
+env:
+  BACKEND_DIR: /srv/hrms/backend/app/hrms-tool-amasqis/backend
 
 jobs:
   deploy:
@@ -15,6 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Ensure backend dir on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -euxo pipefail
+            mkdir -p ${{ env.BACKEND_DIR }}
+
       - name: Upload backend sources
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -23,9 +38,9 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "backend/*"
-          target: "/srv/hrms/backend/app/backend/"
+          target: "${{ env.BACKEND_DIR }}/"
 
-      - name: Install & restart on server
+      - name: Install & restart PM2 on server (with fallback if no lockfile)
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -33,15 +48,18 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            set -e
-            cd /srv/hrms/backend/app/backend
-            npm ci
-            # Ensure .env exists (we created earlier)
-            if [ ! -f ../.env ] && [ -f .env ]; then mv .env ../.env; fi
-            # Start or reload with PM2
+            set -euxo pipefail
+            cd ${{ env.BACKEND_DIR }}
+            if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+              npm ci
+            else
+              npm install
+            fi
+            # Do not overwrite .env – it lives on the server already.
             if pm2 list | grep -q hrms-api; then
               pm2 reload hrms-api
             else
-              pm2 start server.js --name hrms-api
+              pm2 start "node server.js" --name hrms-api --cwd ${{ env.BACKEND_DIR }}
             fi
             pm2 save
+            pm2 status

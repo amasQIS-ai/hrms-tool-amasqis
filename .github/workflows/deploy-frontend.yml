@@ -6,6 +6,7 @@ on:
     paths:
       - "react/**"
       - ".github/workflows/deploy-frontend.yml"
+  workflow_dispatch: {}
 
 jobs:
   build-and-deploy:
@@ -20,13 +21,17 @@ jobs:
         with:
           node-version: ${{ secrets.NODE_VERSION || '20' }}
 
+      # 👇 Write your multi-line secret directly to .env.production
+      - name: Create .env.production
+        working-directory: react
+        run: |
+          : > .env.production
+          printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
+          echo "Wrote react/.env.production"
+
       - name: Install & Build
         working-directory: react
         run: |
-          # write production env for build (CRA or Vite — your code must use matching prefixes)
-          cat > .env.production << 'EOF'
-${{ secrets.FRONTEND_ENV }}
-EOF
           npm ci
           npm run build
 
@@ -34,7 +39,7 @@ EOF
         working-directory: react
         run: tar -czf build.tar.gz build
 
-      - name: Prepare release dir on server
+      - name: Ensure release dir on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -42,10 +47,10 @@ EOF
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            set -e
+            set -euxo pipefail
             mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}
 
-      - name: Upload build artifact
+      - name: Upload artifact to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -63,10 +68,11 @@ EOF
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            set -e
+            set -euxo pipefail
             cd /srv/hrms/frontend/releases/${{ github.sha }}
-            tar -xzf build.tar.gz && rm -f build.tar.gz
+            tar -xzf build.tar.gz
+            rm -f build.tar.gz
             ln -sfn /srv/hrms/frontend/releases/${{ github.sha }}/build /srv/hrms/frontend/current
-            # keep last 3 releases
             cd /srv/hrms/frontend/releases
-            ls -1t | tail -n +4 | xargs -r rm -rf
+            ls -1t | tail -n +6 | xargs -r rm -rf
+            sudo nginx -t && sudo systemctl reload nginx || true
