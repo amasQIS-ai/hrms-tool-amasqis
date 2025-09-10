@@ -33,10 +33,12 @@ jobs:
           npm ci
           npm run build
 
-      - name: Tar build
+      - name: Show build artifact size
         working-directory: react
-        run: tar -czf build.tar.gz build
-
+        run: |
+          set -euxo pipefail
+          [ -f build.tar.gz ] || tar -czf build.tar.gz build
+          du -sh build build.tar.gz
 
       - name: Ensure release dir on server
         uses: appleboy/ssh-action@v1.0.3
@@ -49,17 +51,6 @@ jobs:
             set -euxo pipefail
             mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}
 
-      - name: Show build artifact size
-        working-directory: react
-        run: |
-          set -euxo pipefail
-          ls -la
-          ls -la build || true
-          [ -f build.tar.gz ] || (echo "build.tar.gz is missing" && exit 1)
-          du -sh build || true
-          du -sh build.tar.gz
-
-
       - name: Upload artifact to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -67,10 +58,11 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./react/build.tar.gz"          # 👈 explicit relative path
-          target: "/srv/hrms/frontend/releases/${{ github.sha }}/build.tar.gz"
+          source: "./react/build.tar.gz"
+          target: "/srv/hrms/frontend/releases/${{ github.sha }}/"  # directory
+          strip_components: 1                                       # strip 'react/'
           overwrite: true
-          timeout: 1200s                          # 20 minutes max
+          timeout: 1200s
           command_timeout: 1200s
 
       - name: Unpack & switch symlink
@@ -85,17 +77,8 @@ jobs:
             rel="/srv/hrms/frontend/releases/${{ github.sha }}"
             cd "$rel"
 
-            # If somehow uploaded into a nested folder (e.g., react/build.tar.gz), fix it
-            if [ -f react/build.tar.gz ] && [ ! -f build.tar.gz ]; then
-              mv react/build.tar.gz build.tar.gz
-              rmdir -p --ignore-fail-on-non-empty react || true
-            fi
-
             if [ ! -f build.tar.gz ]; then
-              echo "ERROR: build.tar.gz not found in $rel"
-              echo "Contents of release dir:"
-              ls -laR "$rel"
-              exit 1
+              echo "ERROR: build.tar.gz not found in $rel"; ls -laR "$rel"; exit 1
             fi
 
             tar -xzf build.tar.gz
