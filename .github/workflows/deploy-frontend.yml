@@ -23,42 +23,16 @@ jobs:
 
       - name: Create .env.production
         working-directory: react
-        run: printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
+        run: |
+          printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
 
       - name: Install & Build
         working-directory: react
         env:
-          CI: "false"
+          CI: "false"                   # keep build from failing on warnings
         run: |
           npm ci
           npm run build
-
-      - name: Upload build with rsync
-        uses: burnett01/rsync-deploy@v7
-        with:
-        switches: -avz --delete
-        path: ./react/build/
-        remote_path: /srv/hrms/frontend/releases/${{ github.sha }}/build/
-        remote_host: ${{ secrets.VPS_HOST }}
-        remote_user: ${{ secrets.VPS_USER }}
-        remote_key: ${{ secrets.SSH_KEY }}
-
-        name: Switch symlink & reload nginx
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        port: ${{ secrets.VPS_PORT }}
-        key: ${{ secrets.SSH_KEY }}
-        script: |
-          set -euxo pipefail
-          rel="/srv/hrms/frontend/releases/${{ github.sha }}"
-          test -d "$rel/build" || (echo "build dir missing in $rel" && exit 1)
-          ln -sfn "$rel/build" /srv/hrms/frontend/current
-           cd /srv/hrms/frontend/releases
-            ls -1t | tail -n +6 | xargs -r rm -rf
-           sudo nginx -t && sudo systemctl reload nginx || true
-
 
       - name: Ensure release dir on server
         uses: appleboy/ssh-action@v1.0.3
@@ -69,33 +43,20 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             set -euxo pipefail
-            mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}
+            mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}/build
 
-      - name: Show build artifact size
-        working-directory: react
-        run: |
-          set -euxo pipefail
-          ls -la
-          ls -la build || true
-          [ -f build.tar.gz ] || (echo "build.tar.gz is missing" && exit 1)
-          du -sh build || true
-          du -sh build.tar.gz
-
-
-      - name: Upload artifact to server
-        uses: appleboy/scp-action@v0.1.7
+      # --- Upload build folder via rsync (no tar files involved) ---
+      - name: Upload build with rsync
+        uses: burnett01/rsync-deploy@v7
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          port: ${{ secrets.VPS_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "./react/build.tar.gz"          # 👈 explicit relative path
-          target: "/srv/hrms/frontend/releases/${{ github.sha }}/build.tar.gz"
-          overwrite: true
-          timeout: 1200s                          # 20 minutes max
-          command_timeout: 1200s
+          switches: -avz --delete
+          path: ./react/build/
+          remote_path: /srv/hrms/frontend/releases/${{ github.sha }}/build/
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.SSH_KEY }}
 
-      - name: Unpack & switch symlink
+      - name: Switch symlink & reload nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -105,24 +66,7 @@ jobs:
           script: |
             set -euxo pipefail
             rel="/srv/hrms/frontend/releases/${{ github.sha }}"
-            cd "$rel"
-
-            # If somehow uploaded into a nested folder (e.g., react/build.tar.gz), fix it
-            if [ -f react/build.tar.gz ] && [ ! -f build.tar.gz ]; then
-              mv react/build.tar.gz build.tar.gz
-              rmdir -p --ignore-fail-on-non-empty react || true
-            fi
-
-            if [ ! -f build.tar.gz ]; then
-              echo "ERROR: build.tar.gz not found in $rel"
-              echo "Contents of release dir:"
-              ls -laR "$rel"
-              exit 1
-            fi
-
-            tar -xzf build.tar.gz
-            rm -f build.tar.gz
-
+            test -d "$rel/build" || (echo "build dir missing in $rel" && exit 1)
             ln -sfn "$rel/build" /srv/hrms/frontend/current
             cd /srv/hrms/frontend/releases
             ls -1t | tail -n +6 | xargs -r rm -rf
