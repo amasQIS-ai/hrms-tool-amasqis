@@ -1,0 +1,47 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "backend/**"
+      - ".github/workflows/deploy-backend.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload backend sources
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "backend/*"
+          target: "/srv/hrms/backend/app/backend/"
+
+      - name: Install & restart on server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          port: ${{ secrets.VPS_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd /srv/hrms/backend/app/backend
+            npm ci
+            # Ensure .env exists (we created earlier)
+            if [ ! -f ../.env ] && [ -f .env ]; then mv .env ../.env; fi
+            # Start or reload with PM2
+            if pm2 list | grep -q hrms-api; then
+              pm2 reload hrms-api
+            else
+              pm2 start server.js --name hrms-api
+            fi
+            pm2 save
