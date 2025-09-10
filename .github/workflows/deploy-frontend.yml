@@ -13,27 +13,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1) Checkout
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2) Node setup
       - name: Use Node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ secrets.NODE_VERSION || '20' }}
 
+      # 3) Write production env for CRA
       - name: Create .env.production
         working-directory: react
         run: |
           printf "%s\n" "${{ secrets.FRONTEND_ENV }}" > .env.production
 
+      # 4) Build (don’t fail on warnings)
       - name: Install & Build
         working-directory: react
         env:
-          CI: "false"                   # keep build from failing on warnings
+          CI: "false"
         run: |
           npm ci
           npm run build
 
+      # 5) Make sure remote release dir exists
       - name: Ensure release dir on server
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -45,17 +50,26 @@ jobs:
             set -euxo pipefail
             mkdir -p /srv/hrms/frontend/releases/${{ github.sha }}/build
 
-      # --- Upload build folder via rsync (no tar files involved) ---
-      - name: Upload build with rsync
-        uses: burnett01/rsync-deploy@v7
-        with:
-          switches: -avz --delete
-          path: ./react/build/
-          remote_path: /srv/hrms/frontend/releases/${{ github.sha }}/build/
-          remote_host: ${{ secrets.VPS_HOST }}
-          remote_user: ${{ secrets.VPS_USER }}
-          remote_key: ${{ secrets.SSH_KEY }}
+      # 6) Setup SSH key on runner for rsync
+      - name: Setup SSH for rsync
+        run: |
+          set -euxo pipefail
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # trust the host (optional: remove -o StrictHostKeyChecking=no and use ssh-keyscan instead)
+          ssh-keyscan -p ${{ secrets.VPS_PORT }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
+      # 7) Upload build/ using native rsync (no 3rd-party action)
+      - name: Rsync build to server
+        run: |
+          set -euxo pipefail
+          rsync -avz \
+            -e "ssh -p ${{ secrets.VPS_PORT }} -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes" \
+            ./react/build/ \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/srv/hrms/frontend/releases/${{ github.sha }}/build/
+
+      # 8) Switch symlink and reload nginx
       - name: Switch symlink & reload nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
