@@ -20,7 +20,7 @@ import { useUser, useAuth } from "@clerk/clerk-react";
 import { io, Socket } from "socket.io-client";
 
 const AddCompany = () => {
-  const backendUrl = "http://127.0.0.1:5000";
+  const backendUrl = "https://api.devhrms-pm.amasqis.ai/";
 
   const { isSignedIn, user } = useUser();
   const { getToken } = useAuth();
