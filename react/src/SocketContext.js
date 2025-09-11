@@ -30,7 +30,7 @@ export const SocketProvider = ({ children }) => {
         console.log("Backend ->", process.env.REACT_APP_BACKEND_URL);
 
         const backend_url =
-          process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+          process.env.REACT_APP_BACKEND_URL || "https://api.devhrms-pm.amasqis.ai/";
         const newSocket = io(backend_url, {
           auth: { token },
           timeout: 20000,
