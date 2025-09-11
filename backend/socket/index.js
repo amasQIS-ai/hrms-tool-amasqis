@@ -68,7 +68,7 @@ const allowedOrigins = [
 ];
 
 const authorizedParties = [
-  "https://devhrms-pm.amasqis.ai/",
+  "https://devmanagertc.amasqis.ai/",
   "http://localhost:3000",
   "http://185.199.53.177:5000/",
   "http://byte.localhost:3000",
