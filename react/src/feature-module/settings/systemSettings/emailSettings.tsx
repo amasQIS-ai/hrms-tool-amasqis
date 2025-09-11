@@ -31,7 +31,7 @@ const EmailSettings = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -86,10 +86,10 @@ const EmailSettings = () => {
                         Email Settings
                       </Link>
                       <Link
-                         to={routes.emailTemplates}
+                        to={routes.emailTemplates}
                         className="d-inline-flex align-items-center rounded   py-2 px-3"
                       >
-                        Email Templates
+                        Email Dashboards
                       </Link>
                       <Link
                         to={routes.smsSettings}
@@ -101,7 +101,7 @@ const EmailSettings = () => {
                         to={routes.smsTemplate}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        SMS Templates
+                        SMS Dashboards
                       </Link>
                       <Link
                         to={routes.otpSettings}
@@ -159,8 +159,8 @@ const EmailSettings = () => {
                                     </div>
                                   </div>
                                   <p>
-                                    Used to send emails safely and easily via PHP code
-                                    from a web server.
+                                    Used to send emails safely and easily via
+                                    PHP code from a web server.
                                   </p>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-between">
@@ -204,8 +204,8 @@ const EmailSettings = () => {
                                     </div>
                                   </div>
                                   <p>
-                                    SMTP is used to send, relay or forward messages
-                                    from a mail client.
+                                    SMTP is used to send, relay or forward
+                                    messages from a mail client.
                                   </p>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-between">
@@ -245,11 +245,11 @@ const EmailSettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -373,7 +373,6 @@ const EmailSettings = () => {
         </div>
         {/* /Add  SMTP */}
       </>
-
     </div>
   );
 };

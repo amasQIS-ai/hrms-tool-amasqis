@@ -1,18 +1,16 @@
-import React from 'react'
-import { all_routes } from '../../router/all_routes';
-import { Link } from 'react-router-dom';
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
+import React from "react";
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import { DatePicker } from "antd";
-import CommonSelect from '../../../core/common/commonSelect';
+import CommonSelect from "../../../core/common/commonSelect";
 import Table from "../../../core/common/dataTable/index";
-import { refferallistDetails } from './refferallistDetails';
-import { render } from 'react-dom';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
-
+import { refferallistDetails } from "./refferallistDetails";
+import { render } from "react-dom";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const RefferalList = () => {
-
   const data = refferallistDetails;
   const columns = [
     {
@@ -39,9 +37,9 @@ const RefferalList = () => {
             <span className="d-block mt-1">{record.Roll}</span>
           </div>
         </div>
-
       ),
-      sorter: (a: any, b: any) => a.Referrer_Name.length - b.Referrer_Name.length,
+      sorter: (a: any, b: any) =>
+        a.Referrer_Name.length - b.Referrer_Name.length,
     },
     {
       title: "Job Reffered",
@@ -61,7 +59,6 @@ const RefferalList = () => {
             </h6>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.Job_Reffered.length - b.Job_Reffered.length,
     },
@@ -84,14 +81,14 @@ const RefferalList = () => {
             <span className="d-block mt-1">{record.Email}</span>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.Referee_Name.length - b.Referee_Name.length,
     },
     {
       title: "Refferals Bonus",
       dataIndex: "Refferals_Bonus",
-      sorter: (a: any, b: any) => a.Refferals_Bonus.length - b.Refferals_Bonus.length,
+      sorter: (a: any, b: any) =>
+        a.Refferals_Bonus.length - b.Refferals_Bonus.length,
     },
     {
       title: "",
@@ -105,11 +102,9 @@ const RefferalList = () => {
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
-  ]
-
+  ];
 
   return (
     <>
@@ -147,19 +142,13 @@ const RefferalList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -168,7 +157,7 @@ const RefferalList = () => {
                 </div>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
           </div>
@@ -187,26 +176,17 @@ const RefferalList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Senior IOS Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Junior PHP Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Network Engineer
                       </Link>
                     </li>
@@ -222,42 +202,27 @@ const RefferalList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -271,21 +236,18 @@ const RefferalList = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
+  );
+};
 
-
-
-  )
-}
-
-export default RefferalList
+export default RefferalList;

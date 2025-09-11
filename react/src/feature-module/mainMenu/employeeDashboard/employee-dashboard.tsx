@@ -17,14 +17,14 @@ import io from "socket.io-client";
 import { ApexOptions } from "apexcharts";
 import RequestModals from "../../../core/modals/requestModal";
 import CryptoJS from "crypto-js";
-import { DateTime } from 'luxon';
+import { DateTime } from "luxon";
 import { current } from "immer";
 import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 
 interface DashboardData {
   employeeDetails?: {
-    _id: string
+    _id: string;
     name: string;
     designation: string;
     role: string;
@@ -34,104 +34,104 @@ interface DashboardData {
     reportOffice: string;
     joinedOn: string;
     timeZone: string;
-  },
+  };
   attendanceStats?: {
-    absent: number,
-    late: number,
-    onTime: number,
-    workFromHome: number,
-    workedDays: number,
-    workingDays: number,
-  }
+    absent: number;
+    late: number;
+    onTime: number;
+    workFromHome: number;
+    workedDays: number;
+    workingDays: number;
+  };
 
   leaveStats?: {
-    lossOfPay: number,
-    requestedLeaves: number,
-    sickLeaves: number,
-    takenLeaves: number,
-    totalLeavesAllowed: number,
-  }
+    lossOfPay: number;
+    requestedLeaves: number;
+    sickLeaves: number;
+    takenLeaves: number;
+    totalLeavesAllowed: number;
+  };
   workingHoursStats?: {
     today?: {
-      expectedHours?: number,
-      workedHours?: number,
-      breakHours?: number,
-      overtimeRequestStatus?: string,
-      expectedOvertimeHours?: number,
-      overtimeHours?: number,
-      punchIn?: string,
-    }
+      expectedHours?: number;
+      workedHours?: number;
+      breakHours?: number;
+      overtimeRequestStatus?: string;
+      expectedOvertimeHours?: number;
+      overtimeHours?: number;
+      punchIn?: string;
+    };
     thisWeek?: {
-      expectedHours: number,
-      workedHours: number,
-    }
+      expectedHours: number;
+      workedHours: number;
+    };
     thisMonth?: {
-      expectedHours: number,
-      workedHours: number,
-      expectedOvertimeHours: number,
-      overtimeHours: number,
-    }
-  }
+      expectedHours: number;
+      workedHours: number;
+      expectedOvertimeHours: number;
+      overtimeHours: number;
+    };
+  };
   projects?: Array<{
-    projectId: string
-    projectTitle: string,
-    dueDate: string,
-    totalTasks: number,
-    completedTasks: number,
+    projectId: string;
+    projectTitle: string;
+    dueDate: string;
+    totalTasks: number;
+    completedTasks: number;
     projectLeadAvatar: string | null;
     leadName: string | null;
     membersAvatars: string[];
-  }>
+  }>;
   tasks?: Array<{
-    _id: string,
-    title: string,
-    starred: boolean,
-    checked: boolean,
-    status: string,
-    avatars: Array<{ _id: string, avatar: string }>;
-  }>
+    _id: string;
+    title: string;
+    starred: boolean;
+    checked: boolean;
+    status: string;
+    avatars: Array<{ _id: string; avatar: string }>;
+  }>;
   skills?: Array<{
-    name: string,
-    updatedAt: string,
-    proficiency: number,
-  }>
+    name: string;
+    updatedAt: string;
+    proficiency: number;
+  }>;
   teamMembers?: Array<{
     _id: string;
     name: string;
     avatar: string;
     role: string;
-  }>,
+  }>;
   notifications?: Array<{
-    _id: string,
-    title: string,
-    createdAt: string,
-    avatar: string,
-  }>
+    _id: string;
+    title: string;
+    createdAt: string;
+    avatar: string;
+  }>;
   meetings?: Array<{
-    _id: string
-    title: string,
-    description: string,
-    startTime: string,
-    tag: string
-  }>
+    _id: string;
+    title: string;
+    description: string;
+    startTime: string;
+    tag: string;
+  }>;
   performance?: {
     months: string[];
     salaries: number[];
-  }
+  };
   birthdays?: Array<{
     _id: string;
     name: string;
     avatarUrl?: string;
     role?: string;
-  }>
+  }>;
 }
 
-const ENCRYPTION_KEY = 'your-strong-encryption-key';
+const ENCRYPTION_KEY = "your-strong-encryption-key";
 const leaveType = [
   { value: "Select", label: "Select" },
   { value: "Sick Leave", label: "Medical Leave" },
   { value: "Casual Leave", label: "Casual Leave" },
-  { label: "Loss of Pay", value: "lossOfPay" }
+  { label: "Loss of Pay", value: "lossOfPay" },
 ];
 const EmployeeDashboard = () => {
   const routes = all_routes;
@@ -158,8 +158,8 @@ const EmployeeDashboard = () => {
 
   const [filters, setFilters] = useState({
     attendanceStats: year,
-    projects: 'ongoing',
-    tasks: 'ongoing',
+    projects: "ongoing",
+    tasks: "ongoing",
     performance: year,
     skills: year,
     meetings: "today",
@@ -178,7 +178,7 @@ const EmployeeDashboard = () => {
     }
   };
 
-  // export function 
+  // export function
   const exportToPDF = () => {
     try {
       const doc = new jsPDF();
@@ -225,7 +225,11 @@ const EmployeeDashboard = () => {
       doc.setFontSize(10);
       const attendance = dashboardData.attendanceStats;
       if (attendance) {
-        doc.text(`Worked Days: ${attendance.workedDays}/${attendance.workingDays}`, 20, yPosition);
+        doc.text(
+          `Worked Days: ${attendance.workedDays}/${attendance.workingDays}`,
+          20,
+          yPosition
+        );
         yPosition += 8;
         doc.text(`On Time: ${attendance.onTime}`, 20, yPosition);
         yPosition += 8;
@@ -248,25 +252,53 @@ const EmployeeDashboard = () => {
         if (workingHours.today) {
           doc.text("Today:", 20, yPosition);
           yPosition += 8;
-          doc.text(`• Worked: ${workingHours.today.workedHours || 0}h`, 30, yPosition);
+          doc.text(
+            `• Worked: ${workingHours.today.workedHours || 0}h`,
+            30,
+            yPosition
+          );
           yPosition += 8;
-          doc.text(`• Break: ${workingHours.today.breakHours || 0}h`, 30, yPosition);
+          doc.text(
+            `• Break: ${workingHours.today.breakHours || 0}h`,
+            30,
+            yPosition
+          );
           yPosition += 8;
-          doc.text(`• Overtime: ${workingHours.today.overtimeHours || 0}h`, 30, yPosition);
+          doc.text(
+            `• Overtime: ${workingHours.today.overtimeHours || 0}h`,
+            30,
+            yPosition
+          );
           yPosition += 8;
-          doc.text(`• Punch In: ${workingHours.today.punchIn || 'N/A'}`, 30, yPosition);
+          doc.text(
+            `• Punch In: ${workingHours.today.punchIn || "N/A"}`,
+            30,
+            yPosition
+          );
           yPosition += 15;
         }
 
         if (workingHours.thisWeek) {
-          doc.text(`This Week: ${workingHours.thisWeek.workedHours}h worked / ${workingHours.thisWeek.expectedHours}h expected`, 20, yPosition);
+          doc.text(
+            `This Week: ${workingHours.thisWeek.workedHours}h worked / ${workingHours.thisWeek.expectedHours}h expected`,
+            20,
+            yPosition
+          );
           yPosition += 15;
         }
 
         if (workingHours.thisMonth) {
-          doc.text(`This Month: ${workingHours.thisMonth.workedHours}h worked / ${workingHours.thisMonth.expectedHours}h expected`, 20, yPosition);
+          doc.text(
+            `This Month: ${workingHours.thisMonth.workedHours}h worked / ${workingHours.thisMonth.expectedHours}h expected`,
+            20,
+            yPosition
+          );
           yPosition += 8;
-          doc.text(`Overtime: ${workingHours.thisMonth.overtimeHours || 0}h`, 20, yPosition);
+          doc.text(
+            `Overtime: ${workingHours.thisMonth.overtimeHours || 0}h`,
+            20,
+            yPosition
+          );
           yPosition += 15;
         }
       }
@@ -301,7 +333,7 @@ const EmployeeDashboard = () => {
         yPosition += 15;
 
         doc.setFontSize(10);
-        dashboardData.projects.forEach(project => {
+        dashboardData.projects.forEach((project) => {
           if (yPosition > 280) {
             doc.addPage();
             yPosition = 20;
@@ -310,20 +342,29 @@ const EmployeeDashboard = () => {
           yPosition += 8;
           doc.text(`  Due: ${project.dueDate}`, 30, yPosition);
           yPosition += 8;
-          doc.text(`  Tasks: ${project.completedTasks}/${project.totalTasks}`, 30, yPosition);
+          doc.text(
+            `  Tasks: ${project.completedTasks}/${project.totalTasks}`,
+            30,
+            yPosition
+          );
           yPosition += 8;
-          doc.text(`  Lead: ${project.leadName || 'N/A'}`, 30, yPosition);
+          doc.text(`  Lead: ${project.leadName || "N/A"}`, 30, yPosition);
           yPosition += 12;
         });
       }
 
       // Save the PDF
-      doc.save(`employee-dashboard-${employee?.name || 'report'}-${currentDate.replace(/\//g, '-')}.pdf`);
+      doc.save(
+        `employee-dashboard-${employee?.name || "report"}-${currentDate.replace(
+          /\//g,
+          "-"
+        )}.pdf`
+      );
     } catch (error) {
       console.error("Error generating PDF:", error);
       alert("Error generating PDF export. Please try again.");
     }
-  }
+  };
 
   const exportToExcel = () => {
     try {
@@ -340,7 +381,7 @@ const EmployeeDashboard = () => {
           ["Phone", dashboardData.employeeDetails.phoneNumber],
           ["Report Office", dashboardData.employeeDetails.reportOffice],
           ["Joined On", dashboardData.employeeDetails.joinedOn],
-          ["Time Zone", dashboardData.employeeDetails.timeZone]
+          ["Time Zone", dashboardData.employeeDetails.timeZone],
         ];
         const employeeWS = XLSX.utils.aoa_to_sheet(employeeData);
         XLSX.utils.book_append_sheet(wb, employeeWS, "Employee Info");
@@ -350,11 +391,14 @@ const EmployeeDashboard = () => {
       if (dashboardData.attendanceStats) {
         const attendanceData: (string | number)[][] = [
           ["Attendance Statistics", ""],
-          ["Worked Days", `${dashboardData.attendanceStats.workedDays}/${dashboardData.attendanceStats.workingDays}`],
+          [
+            "Worked Days",
+            `${dashboardData.attendanceStats.workedDays}/${dashboardData.attendanceStats.workingDays}`,
+          ],
           ["On Time", dashboardData.attendanceStats.onTime],
           ["Late Arrivals", dashboardData.attendanceStats.late],
           ["Absent Days", dashboardData.attendanceStats.absent],
-          ["Work From Home", dashboardData.attendanceStats.workFromHome]
+          ["Work From Home", dashboardData.attendanceStats.workFromHome],
         ];
         const attendanceWS = XLSX.utils.aoa_to_sheet(attendanceData);
         XLSX.utils.book_append_sheet(wb, attendanceWS, "Attendance");
@@ -367,10 +411,22 @@ const EmployeeDashboard = () => {
         if (dashboardData.workingHoursStats.today) {
           workingHoursData.push(
             ["Today's Hours", ""],
-            ["Worked Hours", dashboardData.workingHoursStats.today.workedHours || 0],
-            ["Break Hours", dashboardData.workingHoursStats.today.breakHours || 0],
-            ["Overtime Hours", dashboardData.workingHoursStats.today.overtimeHours || 0],
-            ["Punch In Time", dashboardData.workingHoursStats.today.punchIn || 'N/A']
+            [
+              "Worked Hours",
+              dashboardData.workingHoursStats.today.workedHours || 0,
+            ],
+            [
+              "Break Hours",
+              dashboardData.workingHoursStats.today.breakHours || 0,
+            ],
+            [
+              "Overtime Hours",
+              dashboardData.workingHoursStats.today.overtimeHours || 0,
+            ],
+            [
+              "Punch In Time",
+              dashboardData.workingHoursStats.today.punchIn || "N/A",
+            ]
           );
         }
 
@@ -378,8 +434,14 @@ const EmployeeDashboard = () => {
           workingHoursData.push(
             ["", ""],
             ["This Week", ""],
-            ["Worked Hours", dashboardData.workingHoursStats.thisWeek.workedHours],
-            ["Expected Hours", dashboardData.workingHoursStats.thisWeek.expectedHours]
+            [
+              "Worked Hours",
+              dashboardData.workingHoursStats.thisWeek.workedHours,
+            ],
+            [
+              "Expected Hours",
+              dashboardData.workingHoursStats.thisWeek.expectedHours,
+            ]
           );
         }
 
@@ -387,9 +449,18 @@ const EmployeeDashboard = () => {
           workingHoursData.push(
             ["", ""],
             ["This Month", ""],
-            ["Worked Hours", dashboardData.workingHoursStats.thisMonth.workedHours],
-            ["Expected Hours", dashboardData.workingHoursStats.thisMonth.expectedHours],
-            ["Overtime Hours", dashboardData.workingHoursStats.thisMonth.overtimeHours || 0]
+            [
+              "Worked Hours",
+              dashboardData.workingHoursStats.thisMonth.workedHours,
+            ],
+            [
+              "Expected Hours",
+              dashboardData.workingHoursStats.thisMonth.expectedHours,
+            ],
+            [
+              "Overtime Hours",
+              dashboardData.workingHoursStats.thisMonth.overtimeHours || 0,
+            ]
           );
         }
 
@@ -405,7 +476,7 @@ const EmployeeDashboard = () => {
           ["Taken Leaves", dashboardData.leaveStats.takenLeaves],
           ["Sick Leaves", dashboardData.leaveStats.sickLeaves],
           ["Loss of Pay", dashboardData.leaveStats.lossOfPay],
-          ["Requested Leaves", dashboardData.leaveStats.requestedLeaves]
+          ["Requested Leaves", dashboardData.leaveStats.requestedLeaves],
         ];
         const leaveWS = XLSX.utils.aoa_to_sheet(leaveData);
         XLSX.utils.book_append_sheet(wb, leaveWS, "Leaves");
@@ -414,16 +485,22 @@ const EmployeeDashboard = () => {
       // Projects Sheet
       if (dashboardData.projects && dashboardData.projects.length > 0) {
         const projectData: (string | number)[][] = [
-          ["Project Title", "Due Date", "Tasks Completed", "Total Tasks", "Lead"]
+          [
+            "Project Title",
+            "Due Date",
+            "Tasks Completed",
+            "Total Tasks",
+            "Lead",
+          ],
         ];
 
-        dashboardData.projects.forEach(project => {
+        dashboardData.projects.forEach((project) => {
           projectData.push([
             project.projectTitle,
             project.dueDate,
             project.completedTasks,
             project.totalTasks,
-            project.leadName || 'N/A'
+            project.leadName || "N/A",
           ]);
         });
 
@@ -434,15 +511,11 @@ const EmployeeDashboard = () => {
       // Tasks Sheet
       if (dashboardData.tasks && dashboardData.tasks.length > 0) {
         const taskData: (string | boolean)[][] = [
-          ["Task Title", "Status", "Starred"]
+          ["Task Title", "Status", "Starred"],
         ];
 
-        dashboardData.tasks.forEach(task => {
-          taskData.push([
-            task.title,
-            task.status,
-            task.starred
-          ]);
+        dashboardData.tasks.forEach((task) => {
+          taskData.push([task.title, task.status, task.starred]);
         });
 
         const taskWS = XLSX.utils.aoa_to_sheet(taskData);
@@ -452,15 +525,11 @@ const EmployeeDashboard = () => {
       // Skills Sheet
       if (dashboardData.skills && dashboardData.skills.length > 0) {
         const skillData: (string | number)[][] = [
-          ["Skill Name", "Proficiency", "Last Updated"]
+          ["Skill Name", "Proficiency", "Last Updated"],
         ];
 
-        dashboardData.skills.forEach(skill => {
-          skillData.push([
-            skill.name,
-            skill.proficiency,
-            skill.updatedAt
-          ]);
+        dashboardData.skills.forEach((skill) => {
+          skillData.push([skill.name, skill.proficiency, skill.updatedAt]);
         });
 
         const skillWS = XLSX.utils.aoa_to_sheet(skillData);
@@ -468,7 +537,9 @@ const EmployeeDashboard = () => {
       }
 
       // Save the Excel file
-      const fileName = `employee-dashboard-${dashboardData.employeeDetails?.name || 'report'}-${currentDate.replace(/\//g, '-')}.xlsx`;
+      const fileName = `employee-dashboard-${
+        dashboardData.employeeDetails?.name || "report"
+      }-${currentDate.replace(/\//g, "-")}.xlsx`;
       XLSX.writeFile(wb, fileName);
     } catch (error) {
       console.error("Error generating Excel:", error);
@@ -507,95 +578,120 @@ const EmployeeDashboard = () => {
           currentSocket.emit("employee/dashboard/get-all-data");
         });
 
-        currentSocket.on("employee/dashboard/get-all-data-response", (response: any) => {
-          console.log("Received dashboard data response:", response);
-          clearTimeout(timeoutId);
-          if (!isMounted) return;
-          if (response.done) {
-            console.log("Dashboard data loaded successfully");
-            setDashboardData(response.data);
-            setLoading(false);
-          } else {
-            console.error("Dashboard data error:", response.error);
-            setError(response.error || "Failed to fetch dashboard data");
-            setLoading(false);
+        currentSocket.on(
+          "employee/dashboard/get-all-data-response",
+          (response: any) => {
+            console.log("Received dashboard data response:", response);
+            clearTimeout(timeoutId);
+            if (!isMounted) return;
+            if (response.done) {
+              console.log("Dashboard data loaded successfully");
+              setDashboardData(response.data);
+              setLoading(false);
+            } else {
+              console.error("Dashboard data error:", response.error);
+              setError(response.error || "Failed to fetch dashboard data");
+              setLoading(false);
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/get-attendance-stats-response", (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            console.log("Attendance data", response);
-            setDashboardData(prev => ({
-              ...prev,
-              attendanceStats: response.data,
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-attendance-stats-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              console.log("Attendance data", response);
+              setDashboardData((prev) => ({
+                ...prev,
+                attendanceStats: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/get-leave-stats-response", (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            setDashboardData(prev => ({
-              ...prev,
-              leaveStats: response.data,
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-leave-stats-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              setDashboardData((prev) => ({
+                ...prev,
+                leaveStats: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on('employee/dashboard/get-projects-response', (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            console.log(response);
-            setDashboardData(prev => ({
-              ...prev,
-              projects: response.data
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-projects-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              console.log(response);
+              setDashboardData((prev) => ({
+                ...prev,
+                projects: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on('employee/dashboard/get-tasks-response', (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            setDashboardData(prev => ({
-              ...prev,
-              tasks: response.data
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-tasks-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              setDashboardData((prev) => ({
+                ...prev,
+                tasks: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/get-skills-response", (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            setDashboardData(prev => ({
-              ...prev,
-              skills: response.data
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-skills-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              setDashboardData((prev) => ({
+                ...prev,
+                skills: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/get-meetings-response", (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            setDashboardData(prev => ({
-              ...prev,
-              meetings: response.data
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-meetings-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              setDashboardData((prev) => ({
+                ...prev,
+                meetings: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/get-performance-response", (response: any) => {
-          if (!isMounted) return;
-          if (response.done) {
-            console.log(response);
-            setDashboardData(prev => ({
-              ...(prev ?? {}),
-              performance: response.data
-            }));
+        currentSocket.on(
+          "employee/dashboard/get-performance-response",
+          (response: any) => {
+            if (!isMounted) return;
+            if (response.done) {
+              console.log(response);
+              setDashboardData((prev) => ({
+                ...(prev ?? {}),
+                performance: response.data,
+              }));
+            }
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/punch-in-response",
+        currentSocket.on(
+          "employee/dashboard/punch-in-response",
           (response: {
             done: boolean;
             data?: {
@@ -603,12 +699,12 @@ const EmployeeDashboard = () => {
               overtimeRequestStatus?: string;
               overtimeHours?: number;
             };
-            error?: string
+            error?: string;
           }) => {
             if (!isMounted) return;
 
             if (response?.done) {
-              setDashboardData(prev => ({
+              setDashboardData((prev) => ({
                 ...prev,
                 workingHoursStats: {
                   ...prev.workingHoursStats,
@@ -620,17 +716,26 @@ const EmployeeDashboard = () => {
                   },
                   thisWeek: prev.workingHoursStats?.thisWeek,
                   thisMonth: prev.workingHoursStats?.thisMonth,
-                }
+                },
               }));
 
               setIsPunchIn(true);
-              const punchInTime = response.data?.punchIn || new Date().toISOString();
+              const punchInTime =
+                response.data?.punchIn || new Date().toISOString();
               setCheckInTime(punchInTime);
 
-              const breakDetails: Array<{ breakStartTime: string; breakEndTime: string }> = [];
-              const encryptedBreaks = encryptValue(JSON.stringify(breakDetails));
+              const breakDetails: Array<{
+                breakStartTime: string;
+                breakEndTime: string;
+              }> = [];
+              const encryptedBreaks = encryptValue(
+                JSON.stringify(breakDetails)
+              );
               localStorage.setItem("encryptedBreakDetails", encryptedBreaks);
-              localStorage.setItem("encryptedPunchInTime", encryptValue(punchInTime));
+              localStorage.setItem(
+                "encryptedPunchInTime",
+                encryptValue(punchInTime)
+              );
 
               setBreakDetails(breakDetails);
               setPunchInError(null);
@@ -638,136 +743,173 @@ const EmployeeDashboard = () => {
               console.warn("[PunchIn] Failed:", response?.error);
               setPunchInError(response?.error ?? "Punch-in failed.");
             }
-          });
-
-        currentSocket.on("employee/dashboard/punch-out-response", (response: any) => {
-          console.log("Hello3");
-
-          if (!isMounted) return;
-          if (response?.done) {
-            console.log("Hello2");
-
-            localStorage.removeItem("encryptedPunchInTime");
-            localStorage.removeItem("encryptedBreakDetails");
-            setIsPunchIn(false);
-            setCheckInTime(null);
-            setBreakDetails([]);
-            setIsOnBreak(false);
-            setPunchOutError(null);
-            currentSocket.emit("employee/dashboard/working-hours-stats");
-          } else {
-            console.warn("[PunchOUT] Failed:", response?.error);
-            setPunchOutError(response?.error ?? "Punch-out failed.");
           }
-        });
+        );
 
-        currentSocket.on("employee/dashboard/working-hours-stats-response", (response: any) => {
-          if (!isMounted) return;
+        currentSocket.on(
+          "employee/dashboard/punch-out-response",
+          (response: any) => {
+            console.log("Hello3");
 
-          if (response?.done) {
-            console.log("Hello1");
+            if (!isMounted) return;
+            if (response?.done) {
+              console.log("Hello2");
 
-            setDashboardData(prev => ({
-              ...prev,
-              workingHoursStats: {
-                today: {
-                  ...prev?.workingHoursStats?.today,
-                  expectedHours: response.data.today.expectedHours,
-                  workedHours: response.data.today.workedHours,
-                  breakHours: response.data.today.breakHours,
-                  overtimeHours: response.data.today.overtimeHours
+              localStorage.removeItem("encryptedPunchInTime");
+              localStorage.removeItem("encryptedBreakDetails");
+              setIsPunchIn(false);
+              setCheckInTime(null);
+              setBreakDetails([]);
+              setIsOnBreak(false);
+              setPunchOutError(null);
+              currentSocket.emit("employee/dashboard/working-hours-stats");
+            } else {
+              console.warn("[PunchOUT] Failed:", response?.error);
+              setPunchOutError(response?.error ?? "Punch-out failed.");
+            }
+          }
+        );
+
+        currentSocket.on(
+          "employee/dashboard/working-hours-stats-response",
+          (response: any) => {
+            if (!isMounted) return;
+
+            if (response?.done) {
+              console.log("Hello1");
+
+              setDashboardData((prev) => ({
+                ...prev,
+                workingHoursStats: {
+                  today: {
+                    ...prev?.workingHoursStats?.today,
+                    expectedHours: response.data.today.expectedHours,
+                    workedHours: response.data.today.workedHours,
+                    breakHours: response.data.today.breakHours,
+                    overtimeHours: response.data.today.overtimeHours,
+                  },
+                  thisWeek: {
+                    ...prev?.workingHoursStats?.thisWeek,
+                    expectedHours: response.data.thisWeek.expectedHours,
+                    workedHours: response.data.thisWeek.workedHours,
+                  },
+                  thisMonth: {
+                    ...prev?.workingHoursStats?.thisMonth,
+                    expectedHours: response.data.thisMonth.expectedHours,
+                    workedHours: response.data.thisMonth.workedHours,
+                    overtimeHours: response.data.thisMonth.overtimeHours,
+                    expectedOvertimeHours:
+                      response.data.thisMonth.expectedOvertimeHours,
+                  },
                 },
-                thisWeek: {
-                  ...prev?.workingHoursStats?.thisWeek,
-                  expectedHours: response.data.thisWeek.expectedHours,
-                  workedHours: response.data.thisWeek.workedHours
-                },
-                thisMonth: {
-                  ...prev?.workingHoursStats?.thisMonth,
-                  expectedHours: response.data.thisMonth.expectedHours,
-                  workedHours: response.data.thisMonth.workedHours,
-                  overtimeHours: response.data.thisMonth.overtimeHours,
-                  expectedOvertimeHours: response.data.thisMonth.expectedOvertimeHours
+              }));
+            } else {
+              console.error(
+                "Failed to load working hours stats:",
+                response?.error
+              );
+            }
+          }
+        );
+
+        currentSocket.on(
+          "employee/dashboard/start-break-response",
+          (response: any) => {
+            if (!isMounted) return;
+
+            let currentBreaks: Array<{
+              breakStartTime: string;
+              breakEndTime: string;
+            }> = [];
+            try {
+              const encrypted = localStorage.getItem("encryptedBreakDetails");
+              if (encrypted) {
+                const decryptedStr = decryptValue(encrypted);
+                if (decryptedStr) {
+                  currentBreaks = JSON.parse(decryptedStr);
                 }
               }
-            }));
-          } else {
-            console.error("Failed to load working hours stats:", response?.error);
-          }
-        });
-
-        currentSocket.on('employee/dashboard/start-break-response', (response: any) => {
-          if (!isMounted) return;
-
-          let currentBreaks: Array<{ breakStartTime: string; breakEndTime: string }> = [];
-          try {
-            const encrypted = localStorage.getItem('encryptedBreakDetails');
-            if (encrypted) {
-              const decryptedStr = decryptValue(encrypted);
-              if (decryptedStr) {
-                currentBreaks = JSON.parse(decryptedStr);
-              }
-            }
-          } catch (error) {
-            console.error('Error reading or parsing break details:', error);
-            currentBreaks = [];
-          }
-          if (response?.done) {
-            const newBreak = {
-              breakStartTime: response.data?.breakStartTime || new Date().toISOString(),
-              breakEndTime: "",
-            };
-            const updatedBreaks = [...currentBreaks, newBreak];
-            setBreakDetails(updatedBreaks);
-            try {
-              const encryptedUpdatedBreaks = encryptValue(JSON.stringify(updatedBreaks));
-              localStorage.setItem('encryptedBreakDetails', encryptedUpdatedBreaks);
             } catch (error) {
-              console.error('Failed to encrypt and save break details:', error);
+              console.error("Error reading or parsing break details:", error);
+              currentBreaks = [];
             }
-            setIsOnBreak(true);
-          } else {
-            console.warn('Break start failed:', response?.error);
-          }
-        });
-
-        currentSocket.on('employee/dashboard/end-break-response', (response: any) => {
-          if (!isMounted) return;
-
-          if (response?.done) {
-            let breakDetails = [];
-            try {
-              const encrypted = localStorage.getItem('encryptedBreakDetails');
-              if (encrypted) {
-                const decrypted = decryptValue(encrypted);
-                breakDetails = decrypted ? JSON.parse(decrypted) : [];
-              }
-            } catch (err) {
-              console.error('Failed to decrypt break details', err);
-              breakDetails = [];
-            }
-            const breakEndTime = new Date().toISOString();
-            const lastBreak = breakDetails[breakDetails.length - 1];
-            if (lastBreak && !lastBreak.breakEndTime) {
-              lastBreak.breakEndTime = breakEndTime;
+            if (response?.done) {
+              const newBreak = {
+                breakStartTime:
+                  response.data?.breakStartTime || new Date().toISOString(),
+                breakEndTime: "",
+              };
+              const updatedBreaks = [...currentBreaks, newBreak];
+              setBreakDetails(updatedBreaks);
               try {
-                const encryptedUpdated = encryptValue(JSON.stringify(breakDetails));
-                localStorage.setItem('encryptedBreakDetails', encryptedUpdated);
-              } catch (err) {
-                console.error('Failed to encrypt or save break details', err);
+                const encryptedUpdatedBreaks = encryptValue(
+                  JSON.stringify(updatedBreaks)
+                );
+                localStorage.setItem(
+                  "encryptedBreakDetails",
+                  encryptedUpdatedBreaks
+                );
+              } catch (error) {
+                console.error(
+                  "Failed to encrypt and save break details:",
+                  error
+                );
               }
-              setIsOnBreak(false);
-              setBreakDetails(breakDetails);
-              setEndBreakError(null);
+              setIsOnBreak(true);
             } else {
-              console.warn('No open break session found to close.');
-              setEndBreakError("No open break session found to close.");
+              console.warn("Break start failed:", response?.error);
             }
-          } else {
-            console.error('Break end failed:', response?.error || 'Unknown error');
-            setEndBreakError(response?.error ?? "Failed to end break.");
           }
-        });
+        );
+
+        currentSocket.on(
+          "employee/dashboard/end-break-response",
+          (response: any) => {
+            if (!isMounted) return;
+
+            if (response?.done) {
+              let breakDetails = [];
+              try {
+                const encrypted = localStorage.getItem("encryptedBreakDetails");
+                if (encrypted) {
+                  const decrypted = decryptValue(encrypted);
+                  breakDetails = decrypted ? JSON.parse(decrypted) : [];
+                }
+              } catch (err) {
+                console.error("Failed to decrypt break details", err);
+                breakDetails = [];
+              }
+              const breakEndTime = new Date().toISOString();
+              const lastBreak = breakDetails[breakDetails.length - 1];
+              if (lastBreak && !lastBreak.breakEndTime) {
+                lastBreak.breakEndTime = breakEndTime;
+                try {
+                  const encryptedUpdated = encryptValue(
+                    JSON.stringify(breakDetails)
+                  );
+                  localStorage.setItem(
+                    "encryptedBreakDetails",
+                    encryptedUpdated
+                  );
+                } catch (err) {
+                  console.error("Failed to encrypt or save break details", err);
+                }
+                setIsOnBreak(false);
+                setBreakDetails(breakDetails);
+                setEndBreakError(null);
+              } else {
+                console.warn("No open break session found to close.");
+                setEndBreakError("No open break session found to close.");
+              }
+            } else {
+              console.error(
+                "Break end failed:",
+                response?.error || "Unknown error"
+              );
+              setEndBreakError(response?.error ?? "Failed to end break.");
+            }
+          }
+        );
 
         currentSocket.on("connect_error", (err: any) => {
           console.error("Socket connection error:", err);
@@ -795,8 +937,7 @@ const EmployeeDashboard = () => {
       }
     };
 
-    if (!socket)
-      initSocket();
+    if (!socket) initSocket();
 
     return () => {
       isMounted = false;
@@ -806,13 +947,12 @@ const EmployeeDashboard = () => {
         currentSocket.disconnect();
       }
     };
-
   }, []);
-
 
   // helper functions
   const baseHours = dashboardData?.workingHoursStats?.today?.expectedHours ?? 8;
-  const overtimeHours = dashboardData?.workingHoursStats?.today?.expectedOvertimeHours ?? 0;
+  const overtimeHours =
+    dashboardData?.workingHoursStats?.today?.expectedOvertimeHours ?? 0;
   const expectedHours = baseHours + overtimeHours;
   const expectedSeconds = expectedHours * 3600;
   const punchInTimeUTC = checkInTime ?? null;
@@ -821,18 +961,24 @@ const EmployeeDashboard = () => {
     getLeftoverTimeObject(punchInTimeUTC, timeZone, expectedSeconds)
   );
 
-  function getLeftoverTimeObject(punchIn: string | null, timeZone: string, expectedSeconds: number) {
+  function getLeftoverTimeObject(
+    punchIn: string | null,
+    timeZone: string,
+    expectedSeconds: number
+  ) {
     if (!punchIn || !timeZone) {
       return {
         c_time: "00:00:00",
         hrs: 0,
         mins: 0,
         secs: 0,
-        isTimerExpired: true
+        isTimerExpired: true,
       };
     }
 
-    const punchInDT = DateTime.fromISO(punchIn, { zone: "utc" }).setZone(timeZone);
+    const punchInDT = DateTime.fromISO(punchIn, { zone: "utc" }).setZone(
+      timeZone
+    );
     const now = DateTime.now().setZone(timeZone);
 
     let elapsed = now.diff(punchInDT, "seconds").seconds ?? 0;
@@ -845,20 +991,24 @@ const EmployeeDashboard = () => {
     const hrs = Math.floor(leftover / 3600);
     const mins = Math.floor((leftover % 3600) / 60);
     const secs = Math.floor(leftover % 60);
-    const c_time = [hrs, mins, secs].map(n => String(n).padStart(2, "0")).join(":");
+    const c_time = [hrs, mins, secs]
+      .map((n) => String(n).padStart(2, "0"))
+      .join(":");
 
     return {
       c_time,
       hrs,
       mins,
       secs,
-      isTimerExpired
+      isTimerExpired,
     };
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLeftover(getLeftoverTimeObject(punchInTimeUTC ?? "", timeZone, expectedSeconds));
+      setLeftover(
+        getLeftoverTimeObject(punchInTimeUTC ?? "", timeZone, expectedSeconds)
+      );
     }, 1000);
     return () => clearInterval(interval);
   }, [punchInTimeUTC, timeZone, expectedSeconds]);
@@ -867,7 +1017,11 @@ const EmployeeDashboard = () => {
     if (!punchInTimeUTC || leftover.isTimerExpired) return;
 
     const interval = setInterval(() => {
-      const newLeftover = getLeftoverTimeObject(punchInTimeUTC, timeZone, expectedSeconds);
+      const newLeftover = getLeftoverTimeObject(
+        punchInTimeUTC,
+        timeZone,
+        expectedSeconds
+      );
       setLeftover(newLeftover);
 
       if (newLeftover.c_time === "00:00:00" && !punchOutInitiated) {
@@ -882,17 +1036,19 @@ const EmployeeDashboard = () => {
   const calculateElapsedTime = (punchInISO: string) => {
     const now = DateTime.now();
     const punchIn = DateTime.fromISO(punchInISO);
-    const diff = now.diff(punchIn, ['hours', 'minutes', 'seconds']);
+    const diff = now.diff(punchIn, ["hours", "minutes", "seconds"]);
 
     return {
       c_time: `${diff.hours}h ${diff.minutes}m`,
       hrs: diff.hours,
       mins: diff.minutes,
-      secs: Math.floor(diff.seconds)
+      secs: Math.floor(diff.seconds),
     };
   };
 
-  const [elapsedTime, setElapsedTime] = useState(calculateElapsedTime(checkInTime!));
+  const [elapsedTime, setElapsedTime] = useState(
+    calculateElapsedTime(checkInTime!)
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -939,8 +1095,10 @@ const EmployeeDashboard = () => {
     timeZone: string,
     format = "HH:mm:ss"
   ): string {
-    return DateTime
-      .fromISO(typeof utcDate === 'string' ? utcDate : utcDate.toISOString(), { zone: 'utc' })
+    return DateTime.fromISO(
+      typeof utcDate === "string" ? utcDate : utcDate.toISOString(),
+      { zone: "utc" }
+    )
       .setZone(timeZone)
       .toFormat(format);
   }
@@ -955,7 +1113,7 @@ const EmployeeDashboard = () => {
       setPunchInError("Unable to connect to server.");
       return;
     }
-    socket.emit('employee/dashboard/punch-in');
+    socket.emit("employee/dashboard/punch-in");
   }
 
   let time;
@@ -969,12 +1127,12 @@ const EmployeeDashboard = () => {
       console.error("Socket not connected");
       return;
     }
-    socket.emit('employee/dashboard/start-break');
+    socket.emit("employee/dashboard/start-break");
   }
 
   function handleEndBreak(
     socket: any,
-    setEndBreakError: (v: string | null) => void,
+    setEndBreakError: (v: string | null) => void
   ) {
     console.log("[EndBreak] Called");
     if (!socket || !socket.connected) {
@@ -982,7 +1140,7 @@ const EmployeeDashboard = () => {
       setEndBreakError("Unable to connect to server.");
       return;
     }
-    socket.emit('employee/dashboard/end-break');
+    socket.emit("employee/dashboard/end-break");
   }
 
   const handlePunchOut = async () => {
@@ -1000,35 +1158,35 @@ const EmployeeDashboard = () => {
   };
 
   function pad(value: number): string {
-    return value.toString().padStart(2, '0');
+    return value.toString().padStart(2, "0");
   }
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
-      case 'completed':
-        return 'badge-soft-success';
-      case 'pending':
-        return 'badge-secondary-transparent';
-      case 'inprogress':
-        return 'bg-transparent-purple';
-      case 'onhold':
-        return 'bg-soft-pink';
+      case "completed":
+        return "badge-soft-success";
+      case "pending":
+        return "badge-secondary-transparent";
+      case "inprogress":
+        return "bg-transparent-purple";
+      case "onhold":
+        return "bg-soft-pink";
       default:
-        return 'bg-light';
+        return "bg-light";
     }
   };
 
   function formatDateProject(dateString: string): string {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return "Invalid date";
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
 
   function convertHoursDecimalToHoursMinutes(decimalHours: number): string {
-    if (decimalHours === undefined || decimalHours === null) return '0h 0m';
+    if (decimalHours === undefined || decimalHours === null) return "0h 0m";
     const totalMinutes = Math.round(decimalHours * 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
@@ -1036,7 +1194,9 @@ const EmployeeDashboard = () => {
   }
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTime(DateTime.now().setZone(dashboardData?.employeeDetails?.timeZone));
+      setCurrentTime(
+        DateTime.now().setZone(dashboardData?.employeeDetails?.timeZone)
+      );
     }, 1000);
     return () => clearInterval(timer);
   }, [dashboardData?.employeeDetails?.timeZone]);
@@ -1055,7 +1215,7 @@ const EmployeeDashboard = () => {
     totalWorkingHours?: number,
     productiveHours?: number,
     overtimeHours?: number,
-    breakTime?: number,
+    breakTime?: number
   ) {
     const total = parseHourDecimal(totalWorkingHours);
     const productive = parseHourDecimal(productiveHours);
@@ -1075,7 +1235,7 @@ const EmployeeDashboard = () => {
       overtimePercent: (overtime / total) * 100,
       breakPercent: (brk / total) * 100,
     };
-  };
+  }
 
   //New Chart
   const leavesChart_series = [
@@ -1106,20 +1266,21 @@ const EmployeeDashboard = () => {
       dashboardData?.attendanceStats?.absent || 0,
       dashboardData?.leaveStats?.sickLeaves || 0,
     ],
-    colors: ["#0C4B5E", "#03C95A", "#F26522", "#E70D0D", "#FFC107",],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: { width: 200 },
-        legend: { show: false },
+    colors: ["#0C4B5E", "#03C95A", "#F26522", "#E70D0D", "#FFC107"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: { width: 200 },
+          legend: { show: false },
+        },
       },
-    }],
+    ],
     legend: { show: false },
   };
 
   const performance_chart2_series = dashboardData?.performance?.salaries ?? [];
   const months = dashboardData?.performance?.months ?? [];
-
 
   const performance_chart2_options: ApexOptions = {
     chart: {
@@ -1143,45 +1304,43 @@ const EmployeeDashboard = () => {
     xaxis: {
       categories: months,
     },
-    yaxis: {
-
-    },
+    yaxis: {},
     legend: {
       position: "top",
     },
   };
 
   const handleMeetingFilterChange = (filter: "today" | "month" | "year") => {
-    setFilters(prev => ({ ...prev, meetings: filter }));
-    socket.emit('employee/dashboard/get-meetings', { filter: filter });
-  }
+    setFilters((prev) => ({ ...prev, meetings: filter }));
+    socket.emit("employee/dashboard/get-meetings", { filter: filter });
+  };
 
   const handleProjectFilterChange = (filter: "all" | "ongoing") => {
-    setFilters(prev => ({ ...prev, projects: filter }));
-    socket.emit('employee/dashboard/get-projects', { filter: filter });
-  }
+    setFilters((prev) => ({ ...prev, projects: filter }));
+    socket.emit("employee/dashboard/get-projects", { filter: filter });
+  };
 
   const handleTaskChange = (filter: "all" | "ongoing") => {
-    setFilters(prev => ({ ...prev, tasks: filter }));
-    socket.emit('employee/dashboard/get-tasks', { filter: filter });
-  }
+    setFilters((prev) => ({ ...prev, tasks: filter }));
+    socket.emit("employee/dashboard/get-tasks", { filter: filter });
+  };
   const handleYearChange = (widget: string, year: number) => {
     console.log(`[YEAR FILTER] ${widget}: ${year}`);
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [widget]: year
+      [widget]: year,
     }));
     if (socket) {
       const payload = { year: Number(year) };
-      if (widget === 'attendanceStats') {
-        console.log('[SOCKET EMIT] Payload:', payload);
+      if (widget === "attendanceStats") {
+        console.log("[SOCKET EMIT] Payload:", payload);
         socket.emit("employee/dashboard/get-attendance-stats", payload);
         socket.emit("employee/dashboard/get-leave-stats", payload);
       }
-      if (widget === 'performance') {
+      if (widget === "performance") {
         socket.emit("employee/dashboard/get-performance", payload);
       }
-      if (widget === 'skills') {
+      if (widget === "skills") {
         socket.emit("employee/dashboard/get-skills", payload);
       }
     }
@@ -1289,12 +1448,17 @@ const EmployeeDashboard = () => {
                   <div className="d-flex align-items-center">
                     <span className="avatar avatar-lg avatar-rounded border border-white border-2 flex-shrink-0 me-2">
                       <ImageWithBasePath
-                        src={dashboardData?.employeeDetails?.avatar || "assets/img/users/user-01.jpg"}
+                        src={
+                          dashboardData?.employeeDetails?.avatar ||
+                          "assets/img/users/user-01.jpg"
+                        }
                         alt="Img"
                       />
                     </span>
                     <div>
-                      <h5 className="text-white mb-1">{dashboardData?.employeeDetails?.name}</h5>
+                      <h5 className="text-white mb-1">
+                        {dashboardData?.employeeDetails?.name}
+                      </h5>
                       <div className="d-flex align-items-center">
                         <p className="text-white fs-12 mb-0">
                           {dashboardData?.employeeDetails?.designation}
@@ -1302,7 +1466,9 @@ const EmployeeDashboard = () => {
                         <span className="mx-1">
                           <i className="ti ti-point-filled text-primary" />
                         </span>
-                        <p className="fs-12">{dashboardData?.employeeDetails?.role}</p>
+                        <p className="fs-12">
+                          {dashboardData?.employeeDetails?.role}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1316,19 +1482,27 @@ const EmployeeDashboard = () => {
                 <div className="card-body">
                   <div className="mb-3">
                     <span className="d-block mb-1 fs-13">Phone Number</span>
-                    <p className="text-gray-9">{dashboardData?.employeeDetails?.phoneNumber}</p>
+                    <p className="text-gray-9">
+                      {dashboardData?.employeeDetails?.phoneNumber}
+                    </p>
                   </div>
                   <div className="mb-3">
                     <span className="d-block mb-1 fs-13">Email Address</span>
-                    <p className="text-gray-9">{dashboardData?.employeeDetails?.email}</p>
+                    <p className="text-gray-9">
+                      {dashboardData?.employeeDetails?.email}
+                    </p>
                   </div>
                   <div className="mb-3">
                     <span className="d-block mb-1 fs-13">Report Office</span>
-                    <p className="text-gray-9">{dashboardData?.employeeDetails?.reportOffice}</p>
+                    <p className="text-gray-9">
+                      {dashboardData?.employeeDetails?.reportOffice}
+                    </p>
                   </div>
                   <div>
                     <span className="d-block mb-1 fs-13">Joined on</span>
-                    <p className="text-gray-9">{dashboardData?.employeeDetails?.joinedOn}</p>
+                    <p className="text-gray-9">
+                      {dashboardData?.employeeDetails?.joinedOn}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1353,7 +1527,9 @@ const EmployeeDashboard = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              onClick={() => handleYearChange('attendanceStats', year)}
+                              onClick={() =>
+                                handleYearChange("attendanceStats", year)
+                              }
                             >
                               {year}
                             </Link>
@@ -1415,7 +1591,10 @@ const EmployeeDashboard = () => {
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div className="d-flex justify-content-md-end" style={{ width: '100%' }}>
+                      <div
+                        className="d-flex justify-content-md-end"
+                        style={{ width: "100%" }}
+                      >
                         <div style={{ width: 200, height: 165 }}>
                           <ReactApexChart
                             id="leaves_chart"
@@ -1452,7 +1631,9 @@ const EmployeeDashboard = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              onClick={() => handleYearChange('attendanceStats', year)}
+                              onClick={() =>
+                                handleYearChange("attendanceStats", year)
+                              }
                             >
                               {year}
                             </Link>
@@ -1526,16 +1707,21 @@ const EmployeeDashboard = () => {
                     <h6 className="fw-medium text-gray-5 mb-1">Attendance</h6>
                     <h4>{formattedMins}</h4>
                   </div>
-                  <CircleProgress working_hour={expectedSeconds} time={leftover} />;
+                  <CircleProgress
+                    working_hour={expectedSeconds}
+                    time={leftover}
+                  />
+                  ;
                   <div className="text-center">
                     {isPunchIn && checkInTime && (
                       <h6 className="fw-medium d-flex align-items-center justify-content-center mb-4">
                         <i className="ti ti-fingerprint text-primary me-1" />
-                        {leftover.isTimerExpired ? (
-                          "Auto-Punched Out"
-                        ) : (
-                          `Punch In at ${convertUtcToTimeZone(checkInTime, dashboardData?.employeeDetails?.timeZone || "")}`
-                        )}
+                        {leftover.isTimerExpired
+                          ? "Auto-Punched Out"
+                          : `Punch In at ${convertUtcToTimeZone(
+                              checkInTime,
+                              dashboardData?.employeeDetails?.timeZone || ""
+                            )}`}
                       </h6>
                     )}
 
@@ -1558,14 +1744,26 @@ const EmployeeDashboard = () => {
                     ) : (
                       <>
                         <button
-                          className={`btn btn-danger w-100 mb-2 ${isPunchingOut ? 'disabled' : ''}`}
-                          disabled={!(leftover.hrs === 0 && leftover.mins === 0 && leftover.secs === 0) || isPunchingOut}
+                          className={`btn btn-danger w-100 mb-2 ${
+                            isPunchingOut ? "disabled" : ""
+                          }`}
+                          disabled={
+                            !(
+                              leftover.hrs === 0 &&
+                              leftover.mins === 0 &&
+                              leftover.secs === 0
+                            ) || isPunchingOut
+                          }
                           onClick={handlePunchOut}
                         >
                           {isPunchingOut ? (
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span
+                              className="spinner-border spinner-border-sm"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
                           ) : (
-                            'Punch Out'
+                            "Punch Out"
                           )}
                         </button>
 
@@ -1579,7 +1777,9 @@ const EmployeeDashboard = () => {
                         ) : (
                           <button
                             className="btn btn-outline-secondary w-100"
-                            onClick={() => handleEndBreak(socket, setEndBreakError)}
+                            onClick={() =>
+                              handleEndBreak(socket, setEndBreakError)
+                            }
                           >
                             Resume Work
                           </button>
@@ -1605,7 +1805,14 @@ const EmployeeDashboard = () => {
                           <i className="ti ti-clock-stop" />
                         </span>
                         <h2 className="mb-2">
-                          {dashboardData?.workingHoursStats?.today?.workedHours} / <span className="fs-20 text-gray-5">{dashboardData?.workingHoursStats?.today?.expectedHours}</span>
+                          {dashboardData?.workingHoursStats?.today?.workedHours}{" "}
+                          /{" "}
+                          <span className="fs-20 text-gray-5">
+                            {
+                              dashboardData?.workingHoursStats?.today
+                                ?.expectedHours
+                            }
+                          </span>
                         </h2>
                         <p className="fw-medium text-truncate">
                           Total Hours Today
@@ -1630,7 +1837,18 @@ const EmployeeDashboard = () => {
                           <i className="ti ti-clock-up" />
                         </span>
                         <h2 className="mb-2">
-                          {dashboardData?.workingHoursStats?.thisWeek?.workedHours} / <span className="fs-20 text-gray-5"> {dashboardData?.workingHoursStats?.thisWeek?.expectedHours}</span>
+                          {
+                            dashboardData?.workingHoursStats?.thisWeek
+                              ?.workedHours
+                          }{" "}
+                          /{" "}
+                          <span className="fs-20 text-gray-5">
+                            {" "}
+                            {
+                              dashboardData?.workingHoursStats?.thisWeek
+                                ?.expectedHours
+                            }
+                          </span>
                         </h2>
                         <p className="fw-medium text-truncate">
                           Total Hours Week
@@ -1655,7 +1873,18 @@ const EmployeeDashboard = () => {
                           <i className="ti ti-calendar-up" />
                         </span>
                         <h2 className="mb-2">
-                          {dashboardData?.workingHoursStats?.thisMonth?.workedHours} / <span className="fs-20 text-gray-5"> {dashboardData?.workingHoursStats?.thisMonth?.expectedHours}</span>
+                          {
+                            dashboardData?.workingHoursStats?.thisMonth
+                              ?.workedHours
+                          }{" "}
+                          /{" "}
+                          <span className="fs-20 text-gray-5">
+                            {" "}
+                            {
+                              dashboardData?.workingHoursStats?.thisMonth
+                                ?.expectedHours
+                            }
+                          </span>
                         </h2>
                         <p className="fw-medium text-truncate">
                           Total Hours Month
@@ -1680,7 +1909,18 @@ const EmployeeDashboard = () => {
                           <i className="ti ti-calendar-star" />
                         </span>
                         <h2 className="mb-2">
-                          {dashboardData?.workingHoursStats?.thisMonth?.overtimeHours} / <span className="fs-20 text-gray-5"> {dashboardData?.workingHoursStats?.thisMonth?.overtimeHours}</span>
+                          {
+                            dashboardData?.workingHoursStats?.thisMonth
+                              ?.overtimeHours
+                          }{" "}
+                          /{" "}
+                          <span className="fs-20 text-gray-5">
+                            {" "}
+                            {
+                              dashboardData?.workingHoursStats?.thisMonth
+                                ?.overtimeHours
+                            }
+                          </span>
                         </h2>
                         <p className="fw-medium text-truncate">
                           Overtime this Month
@@ -1707,7 +1947,12 @@ const EmployeeDashboard = () => {
                               <i className="ti ti-point-filled text-dark-transparent me-1" />
                               Total Working hours
                             </p>
-                            <h3>{convertHoursDecimalToHoursMinutes(dashboardData?.workingHoursStats?.today?.expectedHours ?? 0)}</h3>
+                            <h3>
+                              {convertHoursDecimalToHoursMinutes(
+                                dashboardData?.workingHoursStats?.today
+                                  ?.expectedHours ?? 0
+                              )}
+                            </h3>
                           </div>
                         </div>
                         <div className="col-xl-3">
@@ -1716,7 +1961,12 @@ const EmployeeDashboard = () => {
                               <i className="ti ti-point-filled text-success me-1" />
                               Productive Hours
                             </p>
-                            <h3>{convertHoursDecimalToHoursMinutes(dashboardData?.workingHoursStats?.today?.workedHours ?? 0)}</h3>
+                            <h3>
+                              {convertHoursDecimalToHoursMinutes(
+                                dashboardData?.workingHoursStats?.today
+                                  ?.workedHours ?? 0
+                              )}
+                            </h3>
                           </div>
                         </div>
                         <div className="col-xl-3">
@@ -1725,7 +1975,12 @@ const EmployeeDashboard = () => {
                               <i className="ti ti-point-filled text-warning me-1" />
                               Break hours
                             </p>
-                            <h3>{convertHoursDecimalToHoursMinutes(dashboardData?.workingHoursStats?.today?.breakHours ?? 0)}</h3>
+                            <h3>
+                              {convertHoursDecimalToHoursMinutes(
+                                dashboardData?.workingHoursStats?.today
+                                  ?.breakHours ?? 0
+                              )}
+                            </h3>
                           </div>
                         </div>
                         <div className="col-xl-3">
@@ -1734,7 +1989,12 @@ const EmployeeDashboard = () => {
                               <i className="ti ti-point-filled text-info me-1" />
                               Overtime
                             </p>
-                            <h3>{convertHoursDecimalToHoursMinutes(dashboardData?.workingHoursStats?.today?.overtimeHours ?? 0)}</h3>
+                            <h3>
+                              {convertHoursDecimalToHoursMinutes(
+                                dashboardData?.workingHoursStats?.today
+                                  ?.overtimeHours ?? 0
+                              )}
+                            </h3>
                           </div>
                         </div>
                       </div>
@@ -1760,14 +2020,20 @@ const EmployeeDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleProjectFilterChange("all")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleProjectFilterChange("all")}
+                          >
                             All Projects
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleProjectFilterChange("ongoing")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleProjectFilterChange("ongoing")}
+                          >
                             Ongoing Projects
                           </Link>
                         </li>
@@ -1777,7 +2043,9 @@ const EmployeeDashboard = () => {
                 </div>
                 <div className="card-body">
                   {dashboardData?.projects?.length === 0 ? (
-                    <p className="text-center text-gray-500 text-lg">No available projects</p>
+                    <p className="text-center text-gray-500 text-lg">
+                      No available projects
+                    </p>
                   ) : (
                     <div className="row">
                       {dashboardData?.projects?.map((project) => (
@@ -1812,7 +2080,8 @@ const EmployeeDashboard = () => {
                                         data-bs-toggle="modal"
                                         data-bs-target="#delete_modal"
                                       >
-                                        <i className="ti ti-trash me-2" /> Delete
+                                        <i className="ti ti-trash me-2" />{" "}
+                                        Delete
                                       </Link>
                                     </li>
                                   </ul>
@@ -1823,27 +2092,41 @@ const EmployeeDashboard = () => {
                               <div className="d-flex align-items-center mb-3">
                                 <Link to="#" className="avatar">
                                   <img
-                                    src={project.projectLeadAvatar || 'assets/img/users/user-placeholder.jpg'}
+                                    src={
+                                      project.projectLeadAvatar ||
+                                      "assets/img/users/user-placeholder.jpg"
+                                    }
                                     className="img-fluid rounded-circle"
                                     alt="lead"
                                   />
                                 </Link>
                                 <div className="ms-2">
                                   <h6 className="fw-normal">
-                                    <Link to="#">{project.leadName || 'N/A'}</Link>
+                                    <Link to="#">
+                                      {project.leadName || "N/A"}
+                                    </Link>
                                   </h6>
-                                  <span className="fs-13 d-block">Project Leader</span>
+                                  <span className="fs-13 d-block">
+                                    Project Leader
+                                  </span>
                                 </div>
                               </div>
 
                               {/* Deadline */}
                               <div className="d-flex align-items-center mb-3">
-                                <Link to="#" className="avatar bg-soft-primary rounded-circle">
+                                <Link
+                                  to="#"
+                                  className="avatar bg-soft-primary rounded-circle"
+                                >
                                   <i className="ti ti-calendar text-primary fs-16" />
                                 </Link>
                                 <div className="ms-2">
-                                  <h6 className="fw-normal">{formatDateProject(project.dueDate)}</h6>
-                                  <span className="fs-13 d-block">Deadline</span>
+                                  <h6 className="fw-normal">
+                                    {formatDateProject(project.dueDate)}
+                                  </h6>
+                                  <span className="fs-13 d-block">
+                                    Deadline
+                                  </span>
                                 </div>
                               </div>
 
@@ -1854,15 +2137,31 @@ const EmployeeDashboard = () => {
                                     <i className="ti ti-checklist fs-16" />
                                   </span>
                                   <p>
-                                    Tasks : <span className="text-gray-9">{project.completedTasks}</span> / {project.totalTasks}
+                                    Tasks :{" "}
+                                    <span className="text-gray-9">
+                                      {project.completedTasks}
+                                    </span>{" "}
+                                    / {project.totalTasks}
                                   </p>
                                 </div>
                                 <div className="avatar-list-stacked avatar-group-sm">
-                                  {project.membersAvatars.slice(0, 3).map((avatarUrl, idx) => (
-                                    <span key={idx} className="avatar avatar-rounded">
-                                      <img className="border border-white" src={avatarUrl || "assets/img/profiles/avatar-31.jpg"} alt="member" />
-                                    </span>
-                                  ))}
+                                  {project.membersAvatars
+                                    .slice(0, 3)
+                                    .map((avatarUrl, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="avatar avatar-rounded"
+                                      >
+                                        <img
+                                          className="border border-white"
+                                          src={
+                                            avatarUrl ||
+                                            "assets/img/profiles/avatar-31.jpg"
+                                          }
+                                          alt="member"
+                                        />
+                                      </span>
+                                    ))}
                                   {project.membersAvatars.length > 3 && (
                                     <Link
                                       className="avatar bg-primary avatar-rounded text-fixed-white fs-12 fw-medium"
@@ -1897,14 +2196,20 @@ const EmployeeDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleTaskChange("all")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleTaskChange("all")}
+                          >
                             All Projects
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleTaskChange("ongoing")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleTaskChange("ongoing")}
+                          >
                             Ongoing Projects
                           </Link>
                         </li>
@@ -1915,11 +2220,16 @@ const EmployeeDashboard = () => {
                 <div className="card-body">
                   <div className="list-group list-group-flush">
                     {dashboardData?.tasks?.map((task) => (
-                      <div key={task._id} className="list-group-item border rounded mb-3 p-2">
+                      <div
+                        key={task._id}
+                        className="list-group-item border rounded mb-3 p-2"
+                      >
                         <div className="row align-items-center row-gap-3">
                           <div className="col-md-8">
                             <div className="todo-inbox-check d-flex align-items-center">
-                              <span><i className="ti ti-grid-dots me-2" /></span>
+                              <span>
+                                <i className="ti ti-grid-dots me-2" />
+                              </span>
                               <div className="form-check">
                                 <input
                                   className="form-check-input"
@@ -1928,27 +2238,51 @@ const EmployeeDashboard = () => {
                                 />
                               </div>
                               <span className="me-2 d-flex align-items-center rating-select">
-                                <i className={`ti ${task.starred ? 'ti-star-filled filled' : 'ti-star'}`} />
+                                <i
+                                  className={`ti ${
+                                    task.starred
+                                      ? "ti-star-filled filled"
+                                      : "ti-star"
+                                  }`}
+                                />
                               </span>
                               <div className="strike-info">
-                                <h4 className="fs-14 text-truncate">{task.title}</h4>
+                                <h4 className="fs-14 text-truncate">
+                                  {task.title}
+                                </h4>
                               </div>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div className="d-flex align-items-center justify-content-md-end flex-wrap row-gap-3">
-                              <span className={`badge d-inline-flex align-items-center me-2 ${getStatusBadgeClass(task.status)}`}>
+                              <span
+                                className={`badge d-inline-flex align-items-center me-2 ${getStatusBadgeClass(
+                                  task.status
+                                )}`}
+                              >
                                 <i className="fas fa-circle fs-6 me-1" />
                                 {task.status}
                               </span>
                               <div className="d-flex align-items-center">
                                 <div className="avatar-list-stacked avatar-group-sm">
                                   {task.avatars.slice(0, 3).map((member) => (
-                                    <span key={member._id} className="avatar avatar-rounded">
+                                    <span
+                                      key={member._id}
+                                      className="avatar avatar-rounded"
+                                    >
                                       {member.avatar ? (
-                                        <img className="border border-white" src={member.avatar || "assets/img/profiles/avatar-31.jpg"} alt="member" />
+                                        <img
+                                          className="border border-white"
+                                          src={
+                                            member.avatar ||
+                                            "assets/img/profiles/avatar-31.jpg"
+                                          }
+                                          alt="member"
+                                        />
                                       ) : (
-                                        <span className="avatar bg-secondary avatar-rounded text-white">U</span>
+                                        <span className="avatar bg-secondary avatar-rounded text-white">
+                                          U
+                                        </span>
                                       )}
                                     </span>
                                   ))}
@@ -1966,7 +2300,6 @@ const EmployeeDashboard = () => {
                     ))}
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -1991,7 +2324,9 @@ const EmployeeDashboard = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              onClick={() => handleYearChange('performance', year)}
+                              onClick={() =>
+                                handleYearChange("performance", year)
+                              }
                             >
                               {year}
                             </Link>
@@ -2010,20 +2345,28 @@ const EmployeeDashboard = () => {
                       </span>
                       <span>vs last years</span>
                     </div>
-                    {performance_chart2_series.length === months.length && performance_chart2_series.length > 0 ? (
+                    {performance_chart2_series.length === months.length &&
+                    performance_chart2_series.length > 0 ? (
                       <ReactApexChart
                         options={{
                           ...performance_chart2_options,
-                          xaxis: { ...performance_chart2_options.xaxis, categories: months }
+                          xaxis: {
+                            ...performance_chart2_options.xaxis,
+                            categories: months,
+                          },
                         }}
-                        series={[{ name: "Monthly Salary", data: performance_chart2_series }]}
+                        series={[
+                          {
+                            name: "Monthly Salary",
+                            data: performance_chart2_series,
+                          },
+                        ]}
                         type="area"
                         height={288}
                       />
                     ) : (
                       <div>Loading performance...</div>
                     )}
-
                   </div>
                 </div>
               </div>
@@ -2048,7 +2391,7 @@ const EmployeeDashboard = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              onClick={() => handleYearChange('skills', year)}
+                              onClick={() => handleYearChange("skills", year)}
                             >
                               {year}
                             </Link>
@@ -2061,7 +2404,9 @@ const EmployeeDashboard = () => {
                 <div className="card-body">
                   <div>
                     {dashboardData?.skills?.length === 0 && (
-                      <div className="text-muted text-center">No skills available.</div>
+                      <div className="text-muted text-center">
+                        No skills available.
+                      </div>
                     )}
                     {dashboardData?.skills?.map((skill, idx) => {
                       const borderColors = [
@@ -2071,10 +2416,13 @@ const EmployeeDashboard = () => {
                         "border-info",
                         "border-dark",
                       ];
-                      const colorClass = borderColors[idx % borderColors.length];
+                      const colorClass =
+                        borderColors[idx % borderColors.length];
                       const dateObj = new Date(skill.updatedAt);
-                      const formattedDate =
-                        dateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                      const formattedDate = dateObj.toLocaleDateString(
+                        "en-GB",
+                        { day: "2-digit", month: "short", year: "numeric" }
+                      );
                       return (
                         <div
                           key={skill.name}
@@ -2088,9 +2436,7 @@ const EmployeeDashboard = () => {
                               />
                               <div>
                                 <h6 className="fw-medium mb-1">{skill.name}</h6>
-                                <p>
-                                  Updated : {formattedDate}
-                                </p>
+                                <p>Updated : {formattedDate}</p>
                               </div>
                             </div>
                             <CircleProgressSmall value={skill.proficiency} />
@@ -2108,12 +2454,16 @@ const EmployeeDashboard = () => {
                   <div className="card-body">
                     <div className="text-center">
                       <h5 className="text-white mb-4">Team Birthday</h5>
-                      {dashboardData?.birthdays && dashboardData?.birthdays.length > 0 ? (
-                        dashboardData?.birthdays.map(birthday => (
+                      {dashboardData?.birthdays &&
+                      dashboardData?.birthdays.length > 0 ? (
+                        dashboardData?.birthdays.map((birthday) => (
                           <div key={birthday._id} className="mb-4">
                             <span className="avatar avatar-xl avatar-rounded mb-2">
                               <ImageWithBasePath
-                                src={birthday.avatarUrl || "assets/img/users/default-avatar.jpg"}
+                                src={
+                                  birthday.avatarUrl ||
+                                  "assets/img/users/default-avatar.jpg"
+                                }
                                 alt={birthday.name}
                               />
                             </span>
@@ -2129,7 +2479,9 @@ const EmployeeDashboard = () => {
                           </div>
                         ))
                       ) : (
-                        <div className="text-white-50">No team birthdays today.</div>
+                        <div className="text-white-50">
+                          No team birthdays today.
+                        </div>
                       )}
                     </div>
                   </div>
@@ -2177,7 +2529,9 @@ const EmployeeDashboard = () => {
                 </div>
                 <div className="card-body">
                   {dashboardData?.teamMembers?.length === 0 && (
-                    <p className="text-muted text-center">No team members available.</p>
+                    <p className="text-muted text-center">
+                      No team members available.
+                    </p>
                   )}
 
                   {dashboardData?.teamMembers?.map((member) => (
@@ -2188,7 +2542,10 @@ const EmployeeDashboard = () => {
                       <div className="d-flex align-items-center">
                         <Link to="#" className="avatar flex-shrink-0">
                           <ImageWithBasePath
-                            src={member.avatar || "assets/img/profiles/avatar-31.jpg"}
+                            src={
+                              member.avatar ||
+                              "assets/img/profiles/avatar-31.jpg"
+                            }
                             className="rounded-circle border border-2"
                             alt={`${member.name}'s avatar`}
                           />
@@ -2242,13 +2599,21 @@ const EmployeeDashboard = () => {
                 </div>
                 <div className="card-body">
                   {dashboardData?.notifications?.length === 0 && (
-                    <p className="text-muted text-center">No new notifications</p>
+                    <p className="text-muted text-center">
+                      No new notifications
+                    </p>
                   )}
                   {dashboardData?.notifications?.map((notification) => (
-                    <div className="d-flex align-items-start mb-4" key={notification._id}>
+                    <div
+                      className="d-flex align-items-start mb-4"
+                      key={notification._id}
+                    >
                       <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
-                          src={notification.avatar || "assets/img/profiles/avatar-31.jpg"}
+                          src={
+                            notification.avatar ||
+                            "assets/img/profiles/avatar-31.jpg"
+                          }
                           className="rounded-circle border border-2"
                           alt="Avatar"
                         />
@@ -2258,13 +2623,16 @@ const EmployeeDashboard = () => {
                           {notification.title}
                         </h6>
                         <p className="fs-13 mb-0">
-                          {new Date(notification.createdAt).toLocaleString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                            day: "2-digit",
-                            month: "short",
-                          })}
+                          {new Date(notification.createdAt).toLocaleString(
+                            "en-US",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                              day: "2-digit",
+                              month: "short",
+                            }
+                          )}
                         </p>
                       </div>
                     </div>
@@ -2288,27 +2656,35 @@ const EmployeeDashboard = () => {
                           {filters.meetings === "today"
                             ? "Today"
                             : filters.meetings === "month"
-                              ? "This Month"
-                              : "This Year"}
+                            ? "This Month"
+                            : "This Year"}
                         </span>
-
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleMeetingFilterChange("today")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleMeetingFilterChange("today")}
+                          >
                             Today
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleMeetingFilterChange("month")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleMeetingFilterChange("month")}
+                          >
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#" className="dropdown-item rounded-1"
-                            onClick={() => handleMeetingFilterChange("year")}>
+                          <Link
+                            to="#"
+                            className="dropdown-item rounded-1"
+                            onClick={() => handleMeetingFilterChange("year")}
+                          >
                             This Year
                           </Link>
                         </li>
@@ -2318,36 +2694,51 @@ const EmployeeDashboard = () => {
                 </div>
                 <div className="card-body schedule-timeline">
                   {dashboardData?.meetings?.length === 0 && (
-                    <div className="text-muted text-center">No meetings scheduled.</div>
+                    <div className="text-muted text-center">
+                      No meetings scheduled.
+                    </div>
                   )}
                   {dashboardData?.meetings?.map((meeting) => {
                     let colorClass = "text-primary";
                     switch ((meeting.tag || "").toLowerCase()) {
                       case "review":
-                        colorClass = "text-secondary"; break;
+                        colorClass = "text-secondary";
+                        break;
                       case "celebration":
-                        colorClass = "text-warning"; break;
+                        colorClass = "text-warning";
+                        break;
                       case "development":
-                        colorClass = "text-success"; break;
+                        colorClass = "text-success";
+                        break;
                       default:
                         colorClass = "text-primary";
                     }
                     return (
-                      <div className="d-flex align-items-start" key={meeting._id}>
+                      <div
+                        className="d-flex align-items-start"
+                        key={meeting._id}
+                      >
                         <div className="d-flex align-items-center active-time">
                           <span>
-                            {new Date(meeting.startTime).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
+                            {new Date(meeting.startTime).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
                           </span>
                           <span>
-                            <i className={`ti ti-point-filled ${colorClass} fs-20`} />
+                            <i
+                              className={`ti ti-point-filled ${colorClass} fs-20`}
+                            />
                           </span>
                         </div>
                         <div className="flex-fill ps-3 pb-4 timeline-flow">
                           <div className="bg-light p-2 rounded">
-                            <p className="fw-medium text-gray-9 mb-1">{meeting.title}</p>
+                            <p className="fw-medium text-gray-9 mb-1">
+                              {meeting.title}
+                            </p>
                             <span>{meeting.tag}</span>
                           </div>
                         </div>
@@ -2360,18 +2751,18 @@ const EmployeeDashboard = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       <RequestModals
         onLeaveRequestCreated={() => {
-          if(socket){
+          if (socket) {
             socket?.emit("admin/dashboard/get-all-data", { year: currentYear });
           }
         }}

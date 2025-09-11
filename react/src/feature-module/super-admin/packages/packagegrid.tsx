@@ -1,12 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes'
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header'
-import ImageWithBasePath from '../../../core/common/imageWithBasePath'
-import CommonSelect from '../../../core/common/commonSelect'
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
 
 const PackagesGrid = () => {
-
   const planName = [
     { value: "Advanced", label: "Advanced" },
     { value: "Basic", label: "Basic" },
@@ -63,7 +62,10 @@ const PackagesGrid = () => {
               <div className="d-flex my-xl-auto right-content align-items-center flex-wrap ">
                 <div className="me-2 mb-2">
                   <div className="d-flex align-items-center border bg-white rounded p-1 me-2 icon-list">
-                    <Link to={all_routes.superAdminPackages} className="btn btn-icon btn-sm me-1">
+                    <Link
+                      to={all_routes.superAdminPackages}
+                      className="btn btn-icon btn-sm me-1"
+                    >
                       <i className="ti ti-list-tree" />
                     </Link>
                     <Link
@@ -86,19 +88,13 @@ const PackagesGrid = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           <i className="ti ti-file-type-pdf me-1" />
                           Export as PDF
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           <i className="ti ti-file-type-xls me-1" />
                           Export as Excel{" "}
                         </Link>
@@ -118,7 +114,7 @@ const PackagesGrid = () => {
                   </Link>
                 </div>
                 <div className="ms-2 head-icons">
-                  <CollapseHeader/>
+                  <CollapseHeader />
                 </div>
               </div>
             </div>
@@ -224,34 +220,22 @@ const PackagesGrid = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Basic
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Advanced
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Premium
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Enterprise
                           </Link>
                         </li>
@@ -267,42 +251,27 @@ const PackagesGrid = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Recently Added
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Ascending
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Desending
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last 7 Days
                           </Link>
                         </li>
@@ -543,11 +512,11 @@ const PackagesGrid = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -596,10 +565,7 @@ const PackagesGrid = () => {
                               multiple
                             />
                           </div>
-                          <Link
-                            to="#"
-                            className="btn btn-light btn-sm"
-                          >
+                          <Link to="#" className="btn btn-light btn-sm">
                             Cancel
                           </Link>
                         </div>
@@ -612,7 +578,7 @@ const PackagesGrid = () => {
                         Plan Name<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planName}
                         defaultValue={planName[0]}
                       />
@@ -624,7 +590,7 @@ const PackagesGrid = () => {
                         Plan Type<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planType}
                         defaultValue={planType[0]}
                       />
@@ -636,7 +602,7 @@ const PackagesGrid = () => {
                         Plan Position<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planPosition}
                         defaultValue={planPosition[0]}
                       />
@@ -648,7 +614,7 @@ const PackagesGrid = () => {
                         Plan Currency<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={currency}
                         defaultValue={currency[0]}
                       />
@@ -666,7 +632,7 @@ const PackagesGrid = () => {
                         </span>
                       </div>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={plancurrency}
                         defaultValue={plancurrency[0]}
                       />
@@ -679,7 +645,7 @@ const PackagesGrid = () => {
                       </label>
                       <div className="pass-group">
                         <CommonSelect
-                          className='select'
+                          className="select"
                           options={discountType}
                           defaultValue={discountType[0]}
                         />
@@ -904,7 +870,7 @@ const PackagesGrid = () => {
                           Status<span className="text-danger"> *</span>
                         </label>
                         <CommonSelect
-                          className='select'
+                          className="select"
                           options={status}
                           defaultValue={status[0]}
                         />
@@ -927,7 +893,11 @@ const PackagesGrid = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Plan
                 </button>
               </div>
@@ -977,10 +947,7 @@ const PackagesGrid = () => {
                               multiple
                             />
                           </div>
-                          <Link
-                            to="#"
-                            className="btn btn-light btn-sm"
-                          >
+                          <Link to="#" className="btn btn-light btn-sm">
                             Cancel
                           </Link>
                         </div>
@@ -993,7 +960,7 @@ const PackagesGrid = () => {
                         Plan Name<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planName}
                         defaultValue={planName[1]}
                       />
@@ -1005,7 +972,7 @@ const PackagesGrid = () => {
                         Plan Type<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planType}
                         defaultValue={planType[1]}
                       />
@@ -1017,7 +984,7 @@ const PackagesGrid = () => {
                         Plan Position<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={planPosition}
                         defaultValue={planPosition[1]}
                       />
@@ -1029,7 +996,7 @@ const PackagesGrid = () => {
                         Plan Currency<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={currency}
                         defaultValue={currency[1]}
                       />
@@ -1047,7 +1014,7 @@ const PackagesGrid = () => {
                         </span>
                       </div>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={plancurrency}
                         defaultValue={plancurrency[1]}
                       />
@@ -1060,7 +1027,7 @@ const PackagesGrid = () => {
                       </label>
                       <div className="pass-group">
                         <CommonSelect
-                          className='select'
+                          className="select"
                           options={discountType}
                           defaultValue={discountType[1]}
                         />
@@ -1285,7 +1252,7 @@ const PackagesGrid = () => {
                           Status<span className="text-danger"> *</span>
                         </label>
                         <CommonSelect
-                          className='select'
+                          className="select"
                           options={status}
                           defaultValue={status[1]}
                         />
@@ -1308,7 +1275,11 @@ const PackagesGrid = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Changes
                 </button>
               </div>
@@ -1318,8 +1289,7 @@ const PackagesGrid = () => {
       </div>
       {/* /Edit Plan */}
     </>
+  );
+};
 
-  )
-}
-
-export default PackagesGrid
+export default PackagesGrid;

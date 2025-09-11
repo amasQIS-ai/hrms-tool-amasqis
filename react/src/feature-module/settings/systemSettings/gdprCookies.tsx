@@ -34,7 +34,7 @@ const GdprCookies = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -85,14 +85,13 @@ const GdprCookies = () => {
                         to={routes.emailSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Email Settings
                       </Link>
                       <Link
                         to={routes.emailTemplates}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        Email Templates
+                        Email Dashboards
                       </Link>
                       <Link
                         to={routes.smsSettings}
@@ -104,13 +103,12 @@ const GdprCookies = () => {
                         to={routes.smsTemplate}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        SMS Templates
+                        SMS Dashboards
                       </Link>
                       <Link
                         to={routes.otpSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         OTP
                       </Link>
                       <Link
@@ -143,19 +141,23 @@ const GdprCookies = () => {
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Cookies Consent Text</h6>
+                                  <h6 className="fw-medium">
+                                    Cookies Consent Text
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-8">
                                 <div className="mb-3">
-                                <CommonTextEditor />
+                                  <CommonTextEditor />
                                 </div>
                               </div>
                             </div>
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Cookies Position</h6>
+                                  <h6 className="fw-medium">
+                                    Cookies Position
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-3">
@@ -164,14 +166,15 @@ const GdprCookies = () => {
                                     className="select"
                                     options={gdprCookies}
                                   />
-
                                 </div>
                               </div>
                             </div>
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Agree Button Text</h6>
+                                  <h6 className="fw-medium">
+                                    Agree Button Text
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-3">
@@ -183,7 +186,9 @@ const GdprCookies = () => {
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Decline Button Text</h6>
+                                  <h6 className="fw-medium">
+                                    Decline Button Text
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-3">
@@ -195,7 +200,9 @@ const GdprCookies = () => {
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Show Decline Button</h6>
+                                  <h6 className="fw-medium">
+                                    Show Decline Button
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-3">
@@ -211,7 +218,9 @@ const GdprCookies = () => {
                             <div className="row align-items-center">
                               <div className="col-lg-4">
                                 <div className="mb-3">
-                                  <h6 className="fw-medium">Link for Cookies Page</h6>
+                                  <h6 className="fw-medium">
+                                    Link for Cookies Page
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-8">
@@ -241,18 +250,17 @@ const GdprCookies = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

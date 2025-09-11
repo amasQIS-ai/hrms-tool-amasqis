@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
-
 const Seosettings = () => {
   const routes = all_routes;
   return (
@@ -201,7 +200,9 @@ const Seosettings = () => {
                           <div className="col-md-12">
                             <div className="row align-items-center mb-3">
                               <div className="col-xxl-2 col-md-3">
-                                <label className="form-label mb-md-0">Og Title</label>
+                                <label className="form-label mb-md-0">
+                                  Og Title
+                                </label>
                               </div>
                               <div className="col-xxl-10 col-md-9">
                                 <input type="text" className="form-control" />
@@ -226,7 +227,9 @@ const Seosettings = () => {
                           </div>
                           <div className="col-md-12 d-flex align-items-start">
                             <div className="col-xxl-2 col-md-3">
-                              <label className="form-label mb-md-0">Og Image</label>
+                              <label className="form-label mb-md-0">
+                                Og Image
+                              </label>
                             </div>
                             <div className="col-xxl-10 col-md-9">
                               <div className="d-flex align-items-center flex-wrap row-gap-3 bg-light w-100 rounded p-3 mb-4">
@@ -280,21 +283,19 @@ const Seosettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
-  )
-}
-
+  );
+};
 
 export default Seosettings;

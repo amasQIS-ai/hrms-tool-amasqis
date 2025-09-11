@@ -96,223 +96,262 @@ const Tickets = () => {
     },
   });
   const [Areachart1] = useState<any>({
-    series: [{
+    series: [
+      {
         name: "Messages",
-        data: [8,5,6,3,4,6,7,3,8,6,4,7]
-      }],
+        data: [8, 5, 6, 3, 4, 6, 7, 3, 8, 6, 4, 7],
+      },
+    ],
 
-      chart: {
-        type: 'bar',
-        width: 70,
-        height:70,
-        toolbar: {
-          show: false
-        },
-        zoom: {
-          enabled: false
-        },
-        dropShadow: {
-          enabled: false,
-          top: 3,
-          left: 14,
-          blur: 4,
-          opacity: .12,
-          color: "#fff"
-        },
-        sparkline: {
-          enabled: !0
-        }
+    chart: {
+      type: "bar",
+      width: 70,
+      height: 70,
+      toolbar: {
+        show: false,
       },
-      markers: {
-        size: 0,
-        colors: ["#F26512"],
-        strokeColors: "#fff",
-        strokeWidth: 2,
-        hover: {
-          size: 7
-        }
+      zoom: {
+        enabled: false,
       },
-      plotOptions: {
-        bar: {
-          horizontal: !1,
-          columnWidth: "35%",
-          endingShape: "rounded"
-        }
+      dropShadow: {
+        enabled: false,
+        top: 3,
+        left: 14,
+        blur: 4,
+        opacity: 0.12,
+        color: "#fff",
       },
-      dataLabels: {
-        enabled: false
+      sparkline: {
+        enabled: !0,
       },
-      stroke: {
-        show: !0,
-        width: 2.5,
-        curve: "smooth"
+    },
+    markers: {
+      size: 0,
+      colors: ["#F26512"],
+      strokeColors: "#fff",
+      strokeWidth: 2,
+      hover: {
+        size: 7,
       },
-      colors: ["#AB47BC"],
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-        labels: {
-          show: false,}
+    },
+    plotOptions: {
+      bar: {
+        horizontal: !1,
+        columnWidth: "35%",
+        endingShape: "rounded",
       },
-      tooltip: {
-        show:false,
-        theme: "dark",
-        fixed: {
-          enabled: false
-        },
-        x: {
-          show: false
-        },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: !0,
+      width: 2.5,
+      curve: "smooth",
+    },
+    colors: ["#AB47BC"],
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+      ],
+      labels: {
+        show: false,
+      },
+    },
+    tooltip: {
+      show: false,
+      theme: "dark",
+      fixed: {
+        enabled: false,
+      },
+      x: {
+        show: false,
+      },
 
-        marker: {
-          show: false
-        }
-      }
+      marker: {
+        show: false,
+      },
+    },
   });
   const [Areachart2] = useState<any>({
-    series: [{
+    series: [
+      {
         name: "Messages",
-        data: [8,5,6,3,4,6,7,3,8,6,4,7]
-      }],
+        data: [8, 5, 6, 3, 4, 6, 7, 3, 8, 6, 4, 7],
+      },
+    ],
 
-      chart: {
-        type: 'bar',
-        width: 70,
-        height:70,
-        toolbar: {
-          show: false
-        },
-        zoom: {
-          enabled: false
-        },
-        dropShadow: {
-          enabled: false,
-          top: 3,
-          left: 14,
-          blur: 4,
-          opacity: .12,
-          color: "#fff"
-        },
-        sparkline: {
-          enabled: !0
-        }
+    chart: {
+      type: "bar",
+      width: 70,
+      height: 70,
+      toolbar: {
+        show: false,
       },
-      markers: {
-        size: 0,
-        colors: ["#F26522"],
-        strokeColors: "#fff",
-        strokeWidth: 2,
-        hover: {
-          size: 7
-        }
+      zoom: {
+        enabled: false,
       },
-      plotOptions: {
-        bar: {
-          horizontal: !1,
-          columnWidth: "35%",
-          endingShape: "rounded"
-        }
+      dropShadow: {
+        enabled: false,
+        top: 3,
+        left: 14,
+        blur: 4,
+        opacity: 0.12,
+        color: "#fff",
       },
-      dataLabels: {
-        enabled: false
+      sparkline: {
+        enabled: !0,
       },
-      stroke: {
-        show: !0,
-        width: 2.5,
-        curve: "smooth"
+    },
+    markers: {
+      size: 0,
+      colors: ["#F26522"],
+      strokeColors: "#fff",
+      strokeWidth: 2,
+      hover: {
+        size: 7,
       },
-      colors: ["#02C95A"],
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-        labels: {
-          show: false,}
+    },
+    plotOptions: {
+      bar: {
+        horizontal: !1,
+        columnWidth: "35%",
+        endingShape: "rounded",
       },
-      tooltip: {
-        show:false,
-        theme: "dark",
-        fixed: {
-          enabled: false
-        },
-        x: {
-          show: false
-        },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: !0,
+      width: 2.5,
+      curve: "smooth",
+    },
+    colors: ["#02C95A"],
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+      ],
+      labels: {
+        show: false,
+      },
+    },
+    tooltip: {
+      show: false,
+      theme: "dark",
+      fixed: {
+        enabled: false,
+      },
+      x: {
+        show: false,
+      },
 
-        marker: {
-          show: false
-        }
-      }
+      marker: {
+        show: false,
+      },
+    },
   });
   const [Areachart3] = useState<any>({
-    series: [{
+    series: [
+      {
         name: "Messages",
-        data: [8,5,6,3,4,6,7,3,8,6,4,7]
-      }],
+        data: [8, 5, 6, 3, 4, 6, 7, 3, 8, 6, 4, 7],
+      },
+    ],
 
-      chart: {
-        type: 'bar',
-        width: 70,
-        height:70,
-        toolbar: {
-          show: false
-        },
-        zoom: {
-          enabled: false
-        },
-        dropShadow: {
-          enabled: false,
-          top: 3,
-          left: 14,
-          blur: 4,
-          opacity: .12,
-          color: "#fff"
-        },
-        sparkline: {
-          enabled: !0
-        }
+    chart: {
+      type: "bar",
+      width: 70,
+      height: 70,
+      toolbar: {
+        show: false,
       },
-      markers: {
-        size: 0,
-        colors: ["#F26522"],
-        strokeColors: "#fff",
-        strokeWidth: 2,
-        hover: {
-          size: 7
-        }
+      zoom: {
+        enabled: false,
       },
-      plotOptions: {
-        bar: {
-          horizontal: !1,
-          columnWidth: "35%",
-          endingShape: "rounded"
-        }
+      dropShadow: {
+        enabled: false,
+        top: 3,
+        left: 14,
+        blur: 4,
+        opacity: 0.12,
+        color: "#fff",
       },
-      dataLabels: {
-        enabled: false
+      sparkline: {
+        enabled: !0,
       },
-      stroke: {
-        show: !0,
-        width: 2.5,
-        curve: "smooth"
+    },
+    markers: {
+      size: 0,
+      colors: ["#F26522"],
+      strokeColors: "#fff",
+      strokeWidth: 2,
+      hover: {
+        size: 7,
       },
-      colors: ["#0DCAF0"],
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-        labels: {
-          show: false,}
+    },
+    plotOptions: {
+      bar: {
+        horizontal: !1,
+        columnWidth: "35%",
+        endingShape: "rounded",
       },
-      tooltip: {
-        show:false,
-        theme: "dark",
-        fixed: {
-          enabled: false
-        },
-        x: {
-          show: false
-        },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: !0,
+      width: 2.5,
+      curve: "smooth",
+    },
+    colors: ["#0DCAF0"],
+    xaxis: {
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+      ],
+      labels: {
+        show: false,
+      },
+    },
+    tooltip: {
+      show: false,
+      theme: "dark",
+      fixed: {
+        enabled: false,
+      },
+      x: {
+        show: false,
+      },
 
-        marker: {
-          show: false
-        }
-      }
+      marker: {
+        show: false,
+      },
+    },
   });
 
   return (
@@ -347,10 +386,7 @@ const Tickets = () => {
                   >
                     <i className="ti ti-list-tree" />
                   </Link>
-                  <Link
-                    to={routes.ticketGrid}
-                    className="btn btn-icon btn-sm"
-                  >
+                  <Link to={routes.ticketGrid} className="btn btn-icon btn-sm">
                     <i className="ti ti-layout-grid" />
                   </Link>
                 </div>
@@ -367,19 +403,13 @@ const Tickets = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -515,9 +545,7 @@ const Tickets = () => {
                             <i className="ti ti-progress-alert fs-20" />
                           </span>
                         </div>
-                        <p className="fw-medium fs-12 mb-1">
-                          Pending Tickets
-                        </p>
+                        <p className="fw-medium fs-12 mb-1">Pending Tickets</p>
                         <h4>10</h4>
                       </div>
                     </div>
@@ -555,34 +583,22 @@ const Tickets = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Priority
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           High
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Low
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Medium
                         </Link>
                       </li>
@@ -598,26 +614,17 @@ const Tickets = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Open
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           On Hold
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Reopened
                         </Link>
                       </li>
@@ -633,42 +640,27 @@ const Tickets = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Recently Added
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Ascending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Desending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last Month
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 7 Days
                         </Link>
                       </li>
@@ -990,11 +982,11 @@ const Tickets = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>

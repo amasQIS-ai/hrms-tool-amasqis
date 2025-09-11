@@ -13,7 +13,6 @@ import CollapseHeader from "../../../core/common/collapse-header/collapse-header
 const DealsDashboard = () => {
   const routes = all_routes;
 
-
   const [pipeline_chart] = useState<any>({
     series: [
       {
@@ -22,7 +21,7 @@ const DealsDashboard = () => {
       },
     ],
     chart: {
-      type: 'bar',
+      type: "bar",
       height: 280,
     },
     plotOptions: {
@@ -30,32 +29,38 @@ const DealsDashboard = () => {
         borderRadius: 0,
         horizontal: true,
         distributed: true,
-        barHeight: '80%',
+        barHeight: "80%",
         isFunnel: true,
       },
     },
-    colors: [
-      '#F26522',
-      '#F37438',
-      '#F5844E',
-      '#F69364',
-      '#F7A37A',
-      '#F9B291'
-    ],
+    colors: ["#F26522", "#F37438", "#F5844E", "#F69364", "#F7A37A", "#F9B291"],
     dataLabels: {
       enabled: true,
-      formatter: function (val: any, opt: { w: { globals: { labels: { [x: string]: any; }; }; }; dataPointIndex: string | number; }) {
-        return opt.w.globals.labels[opt.dataPointIndex]
+      formatter: function (
+        val: any,
+        opt: {
+          w: { globals: { labels: { [x: string]: any } } };
+          dataPointIndex: string | number;
+        }
+      ) {
+        return opt.w.globals.labels[opt.dataPointIndex];
       },
       dropShadow: {
         enabled: true,
       },
     },
     title: {
-      align: 'top',
+      align: "top",
     },
     xaxis: {
-      categories: ['Marketing : 7,898', 'Sales : 4658', 'Email : 2898', 'Chat : 789', 'Operational : 655', 'Calls : 454'],
+      categories: [
+        "Marketing : 7,898",
+        "Sales : 4658",
+        "Email : 2898",
+        "Chat : 789",
+        "Operational : 655",
+        "Calls : 454",
+      ],
     },
     legend: {
       show: false,
@@ -65,67 +70,72 @@ const DealsDashboard = () => {
   const [deals_stage] = useState<any>({
     chart: {
       height: 310,
-      type: 'bar',
+      type: "bar",
       stacked: true,
       toolbar: {
         show: false,
-      }
+      },
     },
-    colors: ['#FF6F28', '#F8F9FA'],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0
-        }
-      }
-    }],
+    colors: ["#FF6F28", "#F8F9FA"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: "bottom",
+            offsetX: -10,
+            offsetY: 0,
+          },
+        },
+      },
+    ],
     plotOptions: {
       bar: {
         borderRadius: 5,
         horizontal: false,
-        endingShape: 'rounded'
+        endingShape: "rounded",
       },
     },
-    series: [{
-      name: 'Income',
-      data: [80, 40, 100, 20]
-    }, {
-      name: 'Expenses',
-      data: [100, 100, 100, 100]
-    }],
+    series: [
+      {
+        name: "Income",
+        data: [80, 40, 100, 20],
+      },
+      {
+        name: "Expenses",
+        data: [100, 100, 100, 100],
+      },
+    ],
     xaxis: {
-      categories: ['Inpipeline', 'Follow Up', 'Schedule', 'Conversion'],
+      categories: ["Inpipeline", "Follow Up", "Schedule", "Conversion"],
       labels: {
         style: {
-          colors: '#6B7280',
-          fontSize: '13px',
-        }
-      }
+          colors: "#6B7280",
+          fontSize: "13px",
+        },
+      },
     },
     yaxis: {
       labels: {
         offsetX: -15,
         style: {
-          colors: '#6B7280',
-          fontSize: '13px',
-        }
-      }
+          colors: "#6B7280",
+          fontSize: "13px",
+        },
+      },
     },
     grid: {
-      borderColor: '#E5E7EB',
-      strokeDashArray: 5
+      borderColor: "#E5E7EB",
+      strokeDashArray: 5,
     },
     legend: {
-      show: false
+      show: false,
     },
     dataLabels: {
-      enabled: false // Disable data labels
+      enabled: false, // Disable data labels
     },
     fill: {
-      opacity: 1
+      opacity: 1,
     },
   });
 
@@ -135,42 +145,42 @@ const DealsDashboard = () => {
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
     const data = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ayg'], // Common labels for both series
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ayg"], // Common labels for both series
       datasets: [
         {
-          label: 'Email', // First series
+          label: "Email", // First series
           data: [40, 70, 20, 40, 40, 70, 40, 60],
-          backgroundColor: '#2dcb73',
-          borderColor: '#2dcb73',
-          pointBackgroundColor: '#2dcb73',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: "#2dcb73",
+          borderColor: "#2dcb73",
+          pointBackgroundColor: "#2dcb73",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(255, 99, 132, 1)",
           tension: 0.3,
         },
         {
-          label: 'Chat', // Second series
+          label: "Chat", // Second series
           data: [30, 30, 90, 30, 60, 30, 60, 90],
-          backgroundColor: '#4b3088',
-          borderColor: '#4b3088',
-          pointBackgroundColor: '#4b3088',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: "#4b3088",
+          borderColor: "#4b3088",
+          pointBackgroundColor: "#4b3088",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(54, 162, 235, 1)",
           tension: 0.4,
         },
         {
-          label: 'Series 3', // Second series
+          label: "Series 3", // Second series
           data: [70, 43, 70, 90, 30, 30, 30, 40],
-          backgroundColor: '#F26522',
-          borderColor: '#F26522',
-          pointBackgroundColor: '#F26522',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: "#F26522",
+          borderColor: "#F26522",
+          pointBackgroundColor: "#F26522",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(54, 162, 235, 1)",
           tension: 0.4,
-        }
-      ]
+        },
+      ],
     };
     const options = {
       responsive: false,
@@ -178,29 +188,28 @@ const DealsDashboard = () => {
         r: {
           angleLines: {
             display: true,
-            color: '#e9e9e9' // Color of the radial lines
+            color: "#e9e9e9", // Color of the radial lines
           },
           grid: {
-            circular: true // Make the grid lines circular
+            circular: true, // Make the grid lines circular
           },
           suggestedMin: 0,
           suggestedMax: 100,
           ticks: {
-            stepSize: 30
-          }
-        }
+            stepSize: 30,
+          },
+        },
       },
       plugins: {
         legend: {
-          display: false // This hides the legend
-        }
-      }
+          display: false, // This hides the legend
+        },
+      },
     };
 
     setCanvaData(data);
     setCanvaOptions(options);
   }, []);
-
 
   const today = new Date();
   const year = today.getFullYear();
@@ -245,19 +254,13 @@ const DealsDashboard = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -473,26 +476,17 @@ const DealsDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Week
                           </Link>
                         </li>
@@ -579,26 +573,17 @@ const DealsDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Week
                           </Link>
                         </li>
@@ -642,26 +627,17 @@ const DealsDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Week
                           </Link>
                         </li>
@@ -816,26 +792,17 @@ const DealsDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Week
                           </Link>
                         </li>
@@ -845,7 +812,12 @@ const DealsDashboard = () => {
                 </div>
                 <div className="card-body">
                   <div className="text-center">
-                    <Chart type="radar" data={CanvaData} options={CanvaData} className="mx-auto mb-3 canvachart" />
+                    <Chart
+                      type="radar"
+                      data={CanvaData}
+                      options={CanvaData}
+                      className="mx-auto mb-3 canvachart"
+                    />
                   </div>
                   <div>
                     <h6 className="mb-3">Status</h6>
@@ -920,7 +892,10 @@ const DealsDashboard = () => {
                           </td>
                           <td>
                             <div className="text-center mb-2">
-                              <span className="country-chart-1" data-width="100%">
+                              <span
+                                className="country-chart-1"
+                                data-width="100%"
+                              >
                                 0,3,0,2,1,3,1
                               </span>
                             </div>
@@ -957,7 +932,10 @@ const DealsDashboard = () => {
                           </td>
                           <td>
                             <div className="text-center mb-2">
-                              <span className="country-chart-1" data-width="100%">
+                              <span
+                                className="country-chart-1"
+                                data-width="100%"
+                              >
                                 0,3,0,2,1,3,1
                               </span>
                             </div>
@@ -994,7 +972,10 @@ const DealsDashboard = () => {
                           </td>
                           <td>
                             <div className="text-center mb-2">
-                              <span className="country-chart-2" data-width="100%">
+                              <span
+                                className="country-chart-2"
+                                data-width="100%"
+                              >
                                 0,3,0,2,1,3,1
                               </span>
                             </div>
@@ -1031,7 +1012,10 @@ const DealsDashboard = () => {
                           </td>
                           <td>
                             <div className="text-center mb-2">
-                              <span className="country-chart-1" data-width="100%">
+                              <span
+                                className="country-chart-1"
+                                data-width="100%"
+                              >
                                 0,3,0,2,1,3,1
                               </span>
                             </div>
@@ -1068,7 +1052,10 @@ const DealsDashboard = () => {
                           </td>
                           <td>
                             <div className="text-center">
-                              <span className="country-chart-2" data-width="100%">
+                              <span
+                                className="country-chart-2"
+                                data-width="100%"
+                              >
                                 0,3,0,2,1,3,1
                               </span>
                             </div>
@@ -1099,26 +1086,17 @@ const DealsDashboard = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Week
                           </Link>
                         </li>
@@ -1139,7 +1117,9 @@ const DealsDashboard = () => {
                   <div className="stage-chart-main">
                     <div className="deal-stage-chart">
                       <div className="text-center d-flex align-items-center justify-content-center flex-column bg-secondary rounded-circle chart-stage-1">
-                        <span className="d-block text-white mb-1">Conversion</span>
+                        <span className="d-block text-white mb-1">
+                          Conversion
+                        </span>
                         <h6 className="text-white">48%</h6>
                       </div>
                       <div className="text-center d-flex align-items-center justify-content-center flex-column bg-danger rounded-circle chart-stage-2">
@@ -1174,10 +1154,7 @@ const DealsDashboard = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <div className="d-flex align-items-center">
-                      <Link
-                        to="#"
-                        className="avatar flex-shrink-0"
-                      >
+                      <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
                           src="assets/img/users/user-27.jpg"
                           className="rounded-circle border border-2"
@@ -1199,10 +1176,7 @@ const DealsDashboard = () => {
                   </div>
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <div className="d-flex align-items-center">
-                      <Link
-                        to="#"
-                        className="avatar flex-shrink-0"
-                      >
+                      <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
                           src="assets/img/users/user-42.jpg"
                           className="rounded-circle border border-2"
@@ -1224,10 +1198,7 @@ const DealsDashboard = () => {
                   </div>
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <div className="d-flex align-items-center">
-                      <Link
-                        to="#"
-                        className="avatar flex-shrink-0"
-                      >
+                      <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
                           src="assets/img/users/user-43.jpg"
                           className="rounded-circle border border-2"
@@ -1249,10 +1220,7 @@ const DealsDashboard = () => {
                   </div>
                   <div className="d-flex align-items-center justify-content-between mb-4">
                     <div className="d-flex align-items-center">
-                      <Link
-                        to="#"
-                        className="avatar flex-shrink-0"
-                      >
+                      <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
                           src="assets/img/users/user-11.jpg"
                           className="rounded-circle border border-2"
@@ -1274,10 +1242,7 @@ const DealsDashboard = () => {
                   </div>
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="d-flex align-items-center">
-                      <Link
-                        to="#"
-                        className="avatar flex-shrink-0"
-                      >
+                      <Link to="#" className="avatar flex-shrink-0">
                         <ImageWithBasePath
                           src="assets/img/users/user-44.jpg"
                           className="rounded-circle border border-2"
@@ -1308,7 +1273,10 @@ const DealsDashboard = () => {
                   <h5>Recent Deals</h5>
                   <div className="d-flex align-items-center">
                     <div>
-                      <Link to="deals.html" className="btn btn-sm btn-light px-3">
+                      <Link
+                        to="deals.html"
+                        className="btn btn-sm btn-light px-3"
+                      >
                         View All
                       </Link>
                     </div>
@@ -1341,7 +1309,10 @@ const DealsDashboard = () => {
                                 to="#"
                                 className="avatar avatar-rounded flex-shrink-0 me-2"
                               >
-                                <ImageWithBasePath src="assets/img/users/user-32.jpg" alt="Img" />
+                                <ImageWithBasePath
+                                  src="assets/img/users/user-32.jpg"
+                                  alt="Img"
+                                />
                               </Link>
                               <h6 className="fw-medium">
                                 <Link to="#">Anthony Lewis</Link>
@@ -1364,7 +1335,10 @@ const DealsDashboard = () => {
                                 to="#"
                                 className="avatar avatar-rounded flex-shrink-0 me-2"
                               >
-                                <ImageWithBasePath src="assets/img/users/user-09.jpg" alt="Img" />
+                                <ImageWithBasePath
+                                  src="assets/img/users/user-09.jpg"
+                                  alt="Img"
+                                />
                               </Link>
                               <h6 className="fw-medium">
                                 <Link to="#">Brian Villalobos</Link>
@@ -1387,7 +1361,10 @@ const DealsDashboard = () => {
                                 to="#"
                                 className="avatar avatar-rounded flex-shrink-0 me-2"
                               >
-                                <ImageWithBasePath src="assets/img/users/user-01.jpg" alt="Img" />
+                                <ImageWithBasePath
+                                  src="assets/img/users/user-01.jpg"
+                                  alt="Img"
+                                />
                               </Link>
                               <h6 className="fw-medium">
                                 <Link to="#">Harvey Smith</Link>
@@ -1410,7 +1387,10 @@ const DealsDashboard = () => {
                                 to="#"
                                 className="avatar avatar-rounded flex-shrink-0 me-2"
                               >
-                                <ImageWithBasePath src="assets/img/users/user-33.jpg" alt="Img" />
+                                <ImageWithBasePath
+                                  src="assets/img/users/user-33.jpg"
+                                  alt="Img"
+                                />
                               </Link>
                               <h6 className="fw-medium">
                                 <Link to="#">Stephan Peralt</Link>
@@ -1433,7 +1413,10 @@ const DealsDashboard = () => {
                                 to="#"
                                 className="avatar avatar-rounded flex-shrink-0 me-2"
                               >
-                                <ImageWithBasePath src="assets/img/users/user-34.jpg" alt="Img" />
+                                <ImageWithBasePath
+                                  src="assets/img/users/user-34.jpg"
+                                  alt="Img"
+                                />
                               </Link>
                               <h6 className="fw-medium">
                                 <Link to="#">Doglas Martini</Link>
@@ -1454,7 +1437,10 @@ const DealsDashboard = () => {
                   <div className="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
                     <h5>Recent Activities</h5>
                     <div>
-                      <Link to="activity.html" className="btn btn-sm btn-light px-3">
+                      <Link
+                        to="activity.html"
+                        className="btn btn-sm btn-light px-3"
+                      >
                         View All
                       </Link>
                     </div>
@@ -1480,7 +1466,9 @@ const DealsDashboard = () => {
                     </div>
                     <div className="flex-fill ps-3 pb-4 timeline-flow">
                       <p className="fw-medium text-gray-9 mb-1">
-                        <Link to="activity.html">You sent 1 Message to the James.</Link>
+                        <Link to="activity.html">
+                          You sent 1 Message to the James.
+                        </Link>
                       </p>
                       <span>10:25 PM</span>
                     </div>
@@ -1492,8 +1480,8 @@ const DealsDashboard = () => {
                     <div className="flex-fill ps-3 pb-4 timeline-flow">
                       <p className="fw-medium text-gray-9 mb-1">
                         <Link to="activity.html">
-                          Denwar responded to your appointment on 25 Jan 2025, 08:15
-                          PM
+                          Denwar responded to your appointment on 25 Jan 2025,
+                          08:15 PM
                         </Link>
                       </p>
                       <span>09:25 PM</span>
@@ -1527,18 +1515,17 @@ const DealsDashboard = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
-
   );
 };
 

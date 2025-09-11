@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { all_routes } from '../../router/all_routes';
-import { Link } from 'react-router-dom';
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 type PasswordField = "password" | "confirmPassword" | "confirmPasswordOne";
@@ -153,7 +153,9 @@ const Securitysettings = () => {
                           <h5 className="fw-medium mb-1">
                             Two Factor Authentication
                           </h5>
-                          <p>Receive codes via SMS or email every time you login</p>
+                          <p>
+                            Receive codes via SMS or email every time you login
+                          </p>
                         </div>
                         <div className="mb-3">
                           <Link to="#" className="btn btn-dark btn-sm">
@@ -282,8 +284,8 @@ const Securitysettings = () => {
                         <div className="mb-3">
                           <h5 className="fw-medium mb-1">Deactivate Account</h5>
                           <p>
-                            This will shutdown your account. Your account will be
-                            reactive when you sign in again
+                            This will shutdown your account. Your account will
+                            be reactive when you sign in again
                           </p>
                         </div>
                         <div className="mb-3">
@@ -315,11 +317,11 @@ const Securitysettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -333,11 +335,7 @@ const Securitysettings = () => {
             <div className="modal-content doctor-profile">
               <div className="modal-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 className="modal-title">Change Password</h5>
-                <Link
-                  to="#"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <Link to="#" data-bs-dismiss="modal" aria-label="Close">
                   <i className="ti ti-circle-x-filled fs-20" />
                 </Link>
               </div>
@@ -349,21 +347,14 @@ const Securitysettings = () => {
                     </label>
                     <div className="pass-group">
                       <input
-                        type={
-                          passwordVisibility.password
-                            ? "text"
-                            : "password"
-                        }
+                        type={passwordVisibility.password ? "text" : "password"}
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.password
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
-                        onClick={() =>
-                          togglePasswordVisibility("password")
-                        }
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.password ? "ti-eye" : "ti-eye-off"
+                        }`}
+                        onClick={() => togglePasswordVisibility("password")}
                       ></span>
                     </div>
                   </div>
@@ -381,10 +372,11 @@ const Securitysettings = () => {
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.confirmPassword
+                            ? "ti-eye"
+                            : "ti-eye-off"
+                        }`}
                         onClick={() =>
                           togglePasswordVisibility("confirmPassword")
                         }
@@ -405,10 +397,11 @@ const Securitysettings = () => {
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.confirmPasswordOne
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.confirmPasswordOne
+                            ? "ti-eye"
+                            : "ti-eye-off"
+                        }`}
                         onClick={() =>
                           togglePasswordVisibility("confirmPasswordOne")
                         }
@@ -426,7 +419,11 @@ const Securitysettings = () => {
                   >
                     Cancel
                   </Link>
-                  <button className="btn btn-primary" data-bs-dismiss="modal" type="button">
+                  <button
+                    className="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  >
                     Save
                   </button>
                 </div>
@@ -441,11 +438,7 @@ const Securitysettings = () => {
             <div className="modal-content doctor-profile">
               <div className="modal-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 className="modal-title">Change Email</h5>
-                <Link
-                  to="#"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <Link to="#" data-bs-dismiss="modal" aria-label="Close">
                   <i className="ti ti-circle-x-filled fs-20" />
                 </Link>
               </div>
@@ -453,7 +446,9 @@ const Securitysettings = () => {
                 <form>
                   <div className="wallet-add">
                     <div className="mb-3">
-                      <label className="form-label">Current Email Address</label>
+                      <label className="form-label">
+                        Current Email Address
+                      </label>
                       <input type="email" className="form-control" />
                     </div>
                     <div className="mb-3">
@@ -464,25 +459,23 @@ const Securitysettings = () => {
                     </div>
                     <div className="mb-3">
                       <label className="form-label">
-                        Confirm New Password<span className="text-danger">*</span>
+                        Confirm New Password
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="pass-group">
                         <input
                           type={
-                            passwordVisibility.password
-                              ? "text"
-                              : "password"
+                            passwordVisibility.password ? "text" : "password"
                           }
                           className="pass-input form-control"
                         />
                         <span
-                          className={`ti toggle-passwords ${passwordVisibility.password
-                            ? "ti-eye"
-                            : "ti-eye-off"
-                            }`}
-                          onClick={() =>
-                            togglePasswordVisibility("password")
-                          }
+                          className={`ti toggle-passwords ${
+                            passwordVisibility.password
+                              ? "ti-eye"
+                              : "ti-eye-off"
+                          }`}
+                          onClick={() => togglePasswordVisibility("password")}
                         ></span>
                       </div>
                     </div>
@@ -498,7 +491,11 @@ const Securitysettings = () => {
                   >
                     Cancel
                   </Link>
-                  <button className="btn btn-primary" type="button" data-bs-dismiss="modal">
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                    data-bs-dismiss="modal"
+                  >
                     Save Change
                   </button>
                 </div>
@@ -513,11 +510,7 @@ const Securitysettings = () => {
             <div className="modal-content doctor-profile">
               <div className="modal-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 className="modal-title">Change Phone Number</h5>
-                <Link
-                  to="#"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <Link to="#" data-bs-dismiss="modal" aria-label="Close">
                   <i className="ti ti-circle-x-filled fs-20" />
                 </Link>
               </div>
@@ -548,25 +541,23 @@ const Securitysettings = () => {
                     </div>
                     <div className="mb-3">
                       <label className="form-label">
-                        Confirm New Password<span className="text-danger">*</span>
+                        Confirm New Password
+                        <span className="text-danger">*</span>
                       </label>
                       <div className="pass-group">
                         <input
                           type={
-                            passwordVisibility.password
-                              ? "text"
-                              : "password"
+                            passwordVisibility.password ? "text" : "password"
                           }
                           className="pass-input form-control"
                         />
                         <span
-                          className={`ti toggle-passwords ${passwordVisibility.password
-                            ? "ti-eye"
-                            : "ti-eye-off"
-                            }`}
-                          onClick={() =>
-                            togglePasswordVisibility("password")
-                          }
+                          className={`ti toggle-passwords ${
+                            passwordVisibility.password
+                              ? "ti-eye"
+                              : "ti-eye-off"
+                          }`}
+                          onClick={() => togglePasswordVisibility("password")}
                         ></span>
                       </div>
                     </div>
@@ -582,7 +573,11 @@ const Securitysettings = () => {
                   >
                     Cancel
                   </Link>
-                  <button className="btn btn-dark" data-bs-dismiss="modal" type="button">
+                  <button
+                    className="btn btn-dark"
+                    data-bs-dismiss="modal"
+                    type="button"
+                  >
                     Change Number
                   </button>
                 </div>
@@ -597,11 +592,7 @@ const Securitysettings = () => {
             <div className="modal-content">
               <div className="modal-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 className="modal-title">Device Management</h5>
-                <Link
-                  to="#"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <Link to="#" data-bs-dismiss="modal" aria-label="Close">
                   <i className="ti ti-circle-x-filled fs-20" />
                 </Link>
               </div>
@@ -676,11 +667,7 @@ const Securitysettings = () => {
             <div className="modal-content">
               <div className="modal-header d-flex align-items-center justify-content-between border-bottom">
                 <h5 className="modal-title">Account Activity</h5>
-                <Link
-                  to="#"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
+                <Link to="#" data-bs-dismiss="modal" aria-label="Close">
                   <i className="ti ti-circle-x-filled fs-20" />
                 </Link>
               </div>
@@ -754,10 +741,8 @@ const Securitysettings = () => {
         </div>
         {/* /Activity Management */}
       </>
-
     </div>
-  )
-}
+  );
+};
 
-export default Securitysettings
-
+export default Securitysettings;

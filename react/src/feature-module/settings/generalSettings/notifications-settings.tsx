@@ -128,7 +128,9 @@ const Notificationssettings = () => {
                               <h5 className="mb-1 fw-medium">
                                 New Hire and Onboarding Notifications
                               </h5>
-                              <p>Alerts when a new hire is added to the system.</p>
+                              <p>
+                                Alerts when a new hire is added to the system.
+                              </p>
                             </td>
                             <td>
                               <div className="form-check form-check-md form-switch me-2">
@@ -167,8 +169,8 @@ const Notificationssettings = () => {
                                 Time Off and Leave Requests
                               </h5>
                               <p>
-                                Notifications when leave requests are approved or
-                                rejected.
+                                Notifications when leave requests are approved
+                                or rejected.
                               </p>
                             </td>
                             <td>
@@ -208,8 +210,8 @@ const Notificationssettings = () => {
                                 Employee Performance and Review Updates
                               </h5>
                               <p>
-                                Notifications when leave requests are approved or
-                                rejected.
+                                Notifications when leave requests are approved
+                                or rejected.
                               </p>
                             </td>
                             <td>
@@ -249,7 +251,8 @@ const Notificationssettings = () => {
                                 Payroll and Compensation
                               </h5>
                               <p>
-                                Alerts when payroll is processed or pending approval.
+                                Alerts when payroll is processed or pending
+                                approval.
                               </p>
                             </td>
                             <td>
@@ -288,7 +291,9 @@ const Notificationssettings = () => {
                               <h5 className="mb-1 fw-medium">
                                 Job Applications and Recruitment
                               </h5>
-                              <p>Alerts for new applications or stage updates.</p>
+                              <p>
+                                Alerts for new applications or stage updates.
+                              </p>
                             </td>
                             <td>
                               <div className="form-check form-check-md form-switch me-2">
@@ -330,18 +335,17 @@ const Notificationssettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

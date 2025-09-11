@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes'
-import PredefinedDateRanges from '../../../core/common/datePicker'
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import Table from "../../../core/common/dataTable/index";
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header'
-import { domain_details } from '../../../core/data/json/domainDetails'
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
+import { domain_details } from "../../../core/data/json/domainDetails";
 
 const Domain = () => {
   const data = domain_details;
@@ -28,7 +28,6 @@ const Domain = () => {
             </h6>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.CompanyName.length - b.CompanyName.length,
     },
@@ -52,33 +51,43 @@ const Domain = () => {
       dataIndex: "DomainStatus",
       render: (text: string, record: any) => (
         <Link
-        to="#"
-        className={`badge ${text==='Approved'?'badge-soft-success':text==='Pending'?'badge-soft-info':'badge-soft-danger'} d-inline-flex align-items-center badge-xs`}
-      >
-        <i className="ti ti-checks me-1" />
-        {text}
-      </Link>      
+          to="#"
+          className={`badge ${
+            text === "Approved"
+              ? "badge-soft-success"
+              : text === "Pending"
+              ? "badge-soft-info"
+              : "badge-soft-danger"
+          } d-inline-flex align-items-center badge-xs`}
+        >
+          <i className="ti ti-checks me-1" />
+          {text}
+        </Link>
       ),
       sorter: (a: any, b: any) => a.DomainStatus.length - b.DomainStatus.length,
     },
     {
       title: "",
       dataIndex: "DomainStatus",
-      render: (text:String) => (
+      render: (text: String) => (
         <div className="action-icon d-inline-flex">
           <Link
             to="#"
             className="me-2"
             data-bs-toggle="modal"
-            data-bs-target={`${text==='Approved'?'#domain_approved':text==='Pending'?'#domain_pending':text==='Rejected'?'#domain_rejected':''}`}
+            data-bs-target={`${
+              text === "Approved"
+                ? "#domain_approved"
+                : text === "Pending"
+                ? "#domain_pending"
+                : text === "Rejected"
+                ? "#domain_rejected"
+                : ""
+            }`}
           >
             <i className="ti ti-eye" />
           </Link>
-          <Link
-            to="#"
-            data-bs-toggle="modal"
-            data-bs-target="#delete_modal"
-          >
+          <Link to="#" data-bs-toggle="modal" data-bs-target="#delete_modal">
             <i className="ti ti-trash" />
           </Link>
         </div>
@@ -123,19 +132,13 @@ const Domain = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -171,18 +174,12 @@ const Domain = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Monthly
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Yearly
                       </Link>
                     </li>
@@ -198,26 +195,17 @@ const Domain = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Approved
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Pending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Rejected
                       </Link>
                     </li>
@@ -233,42 +221,27 @@ const Domain = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -282,11 +255,11 @@ const Domain = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -585,10 +558,7 @@ const Domain = () => {
       </div>
       {/* /Domain Details */}
     </>
+  );
+};
 
-
-
-  )
-}
-
-export default Domain
+export default Domain;

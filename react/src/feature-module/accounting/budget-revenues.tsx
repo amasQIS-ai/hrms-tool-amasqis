@@ -8,63 +8,66 @@ import Table from "../../core/common/dataTable/index";
 import BudgetRevenuesModal from "../../core/modals/budgetRevenuesModal";
 
 const BudgetRevenues = () => {
-    const routes = all_routes;
-    const data = budgetRevenuesData;
-    const columns = [
-        {
-          title: "Revenue Name",
-          dataIndex: "RevenueName",
-          render: (text: string) => (
-            <h6 className="fw-medium">
-              <Link to="#">{text}</Link>
-            </h6>
-          ),
-          sorter: (a: any, b: any) => a.RevenueName.length - b.RevenueName.length,
-        },
-        {
-            title: "Category Name",
-            dataIndex: "CategoryName",
-            sorter: (a: any, b: any) => a.BudgetType.length - b.BudgetType.length,
-        },
-        {
-            title: "Sub Category Name",
-            dataIndex: "SubCategoryName",
-            sorter: (a: any, b: any) => a.SubCategoryName.length - b.SubCategoryName.length,
-        },
-        {
-            title: "Amount",
-            dataIndex: "Amount",
-            sorter: (a: any, b: any) => a.Amount.length - b.Amount.length,
-        },
-        {
-            title: "Expense Date",
-            dataIndex: "ExpenseDate",
-            sorter: (a: any, b: any) => a.ExpenseDate.length - b.ExpenseDate.length,
-        },
-        {
-            title: "",
-            dataIndex: "actions",
-            render: () => (
-                <div className="action-icon d-inline-flex">
-                    <Link
-                        to="#"
-                        className="me-2"
-                        data-bs-toggle="modal" data-inert={true}
-                        data-bs-target="#edit_new_expense"
-                    >
-                        <i className="ti ti-edit" />
-                    </Link>
-                    <Link
-                        to="#"
-                        data-bs-toggle="modal" data-inert={true}
-                        data-bs-target="#delete_modal"
-                    >
-                    <   i className="ti ti-trash" />
-                    </Link>
-                </div>
-            ),
-          },
-    ];
+  const routes = all_routes;
+  const data = budgetRevenuesData;
+  const columns = [
+    {
+      title: "Revenue Name",
+      dataIndex: "RevenueName",
+      render: (text: string) => (
+        <h6 className="fw-medium">
+          <Link to="#">{text}</Link>
+        </h6>
+      ),
+      sorter: (a: any, b: any) => a.RevenueName.length - b.RevenueName.length,
+    },
+    {
+      title: "Category Name",
+      dataIndex: "CategoryName",
+      sorter: (a: any, b: any) => a.BudgetType.length - b.BudgetType.length,
+    },
+    {
+      title: "Sub Category Name",
+      dataIndex: "SubCategoryName",
+      sorter: (a: any, b: any) =>
+        a.SubCategoryName.length - b.SubCategoryName.length,
+    },
+    {
+      title: "Amount",
+      dataIndex: "Amount",
+      sorter: (a: any, b: any) => a.Amount.length - b.Amount.length,
+    },
+    {
+      title: "Expense Date",
+      dataIndex: "ExpenseDate",
+      sorter: (a: any, b: any) => a.ExpenseDate.length - b.ExpenseDate.length,
+    },
+    {
+      title: "",
+      dataIndex: "actions",
+      render: () => (
+        <div className="action-icon d-inline-flex">
+          <Link
+            to="#"
+            className="me-2"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#edit_new_expense"
+          >
+            <i className="ti ti-edit" />
+          </Link>
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
+            <i className="ti ti-trash" />
+          </Link>
+        </div>
+      ),
+    },
+  ];
   return (
     <>
       {/* Page Wrapper */}
@@ -101,19 +104,13 @@ const BudgetRevenues = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -124,7 +121,8 @@ const BudgetRevenues = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_new_expense"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -161,26 +159,17 @@ const BudgetRevenues = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         1000 - 2000
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         2000 - 3000
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         3000 - 4000
                       </Link>
                     </li>
@@ -196,26 +185,17 @@ const BudgetRevenues = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Office Supplies
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recruitment
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Tender
                       </Link>
                     </li>
@@ -231,26 +211,17 @@ const BudgetRevenues = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Category
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Project
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Category
                       </Link>
                     </li>
@@ -266,42 +237,27 @@ const BudgetRevenues = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -316,11 +272,11 @@ const BudgetRevenues = () => {
           {/* /Budgets list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>

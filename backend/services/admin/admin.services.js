@@ -1037,15 +1037,19 @@ export const getTodos = async (
     const collections = getTenantCollections(companyId);
     // Build the base query - for admin users, show all todos in the company
     let query = {
-      isDeleted: { $ne: true }
+      isDeleted: { $ne: true },
     };
 
     // Only filter by userId for non-admin users (if needed in the future)
     // For now, admin users see all todos in the company
 
     // Add priority filter if not "all"
-    if (filter && filter !== "all" && ["high", "medium", "low"].includes(filter.toLowerCase())) {
-      query.priority = { $regex: new RegExp(`^${filter}$`, 'i') };
+    if (
+      filter &&
+      filter !== "all" &&
+      ["high", "medium", "low"].includes(filter.toLowerCase())
+    ) {
+      query.priority = { $regex: new RegExp(`^${filter}$`, "i") };
     }
 
     // Calculate date ranges for filtering (only for date-based filters)
@@ -1100,34 +1104,6 @@ export const getTodos = async (
     };
   } catch (error) {
     console.error("Error fetching todos:", error);
-    return { done: false, error: error.message };
-  }
-};
-
-export const deleteTodoPermanently = async (companyId, todoId) => {
-  try {
-    const collections = getTenantCollections(companyId);
-    if (!todoId || !ObjectId.isValid(todoId)) {
-      return { done: false, error: "Invalid todo ID format" };
-    }
-
-    const result = await collections.todos.deleteOne({
-      _id: new ObjectId(todoId)
-    });
-
-    if (result.deletedCount === 0) {
-      return { done: false, error: "Todo not found or already deleted" };
-    }
-
-    console.log(`[DELETE TODO] Successfully deleted todo: ${todoId}`);
-
-    return {
-      done: true,
-      message: "Todo deleted permanently",
-      data: { deletedId: todoId }
-    };
-  } catch (error) {
-    console.error("Error deleting todo permanently:", error);
     return { done: false, error: error.message };
   }
 };
@@ -1974,7 +1950,7 @@ export const getAllUsers = async (companyId, filters = {}) => {
   const query = {};
 
   // 1. Build the query based on filters
-  if (filters.status && filters.status !== 'All') {
+  if (filters.status && filters.status !== "All") {
     query.status = filters.status;
   }
   if (filters.dateRange?.startDate) {
@@ -1987,13 +1963,13 @@ export const getAllUsers = async (companyId, filters = {}) => {
   // 2. Build the sort options
   const sortOptions = {};
   switch (filters.sortBy) {
-    case 'name_asc':
+    case "name_asc":
       sortOptions.name = 1;
       break;
-    case 'name_desc':
+    case "name_desc":
       sortOptions.name = -1;
       break;
-    case 'recent':
+    case "recent":
     default:
       sortOptions.createdAt = -1;
       break;
@@ -2003,9 +1979,9 @@ export const getAllUsers = async (companyId, filters = {}) => {
   let employeeDocs = [];
   let clientDocs = [];
 
-  if (filters.role === 'Employee') {
+  if (filters.role === "Employee") {
     employeeDocs = await employees.find(query).sort(sortOptions).toArray();
-  } else if (filters.role === 'Client') {
+  } else if (filters.role === "Client") {
     clientDocs = await clients.find(query).sort(sortOptions).toArray();
   } else {
     // Fetch from both if role is 'All' or undefined
@@ -2014,26 +1990,26 @@ export const getAllUsers = async (companyId, filters = {}) => {
   }
 
   // 4. Map and combine results
-  const formattedEmployees = employeeDocs.map(emp => ({
+  const formattedEmployees = employeeDocs.map((emp) => ({
     _id: emp._id,
-    name: `${emp.firstName || ''} ${emp.lastName || ''}`.trim(),
+    name: `${emp.firstName || ""} ${emp.lastName || ""}`.trim(),
     image_url: emp.avatar || "default_avatar.png",
     email: emp.email,
     created_date: emp.createdAt,
-    role: 'Employee',
-    status: emp.status || 'Active',
+    role: "Employee",
+    status: emp.status || "Active",
   }));
 
-  const formattedClients = clientDocs.map(client => ({
+  const formattedClients = clientDocs.map((client) => ({
     _id: client._id,
     name: client.name,
     image_url: client.logo || "default_avatar.png",
     email: client.email,
     created_date: client.createdAt,
-    role: 'Client',
-    status: client.status || 'Active',
+    role: "Client",
+    status: client.status || "Active",
   }));
-  
+
   const combinedUsers = [...formattedEmployees, ...formattedClients];
 
   return { done: true, data: combinedUsers };
@@ -2045,13 +2021,14 @@ export const getAllUsers = async (companyId, filters = {}) => {
 export const createUser = async (companyId, userData) => {
   const { role, ...restOfData } = userData;
   const collections = getTenantCollections(companyId);
-  
+
   // 1. Choose the collection based on the role.
-  const collection = role === 'Employee' ? collections.employees : collections.clients;
-  
+  const collection =
+    role === "Employee" ? collections.employees : collections.clients;
+
   // 2. Insert the new user data into the collection.
   await collection.insertOne({ ...restOfData, createdAt: new Date() });
-  
+
   return { done: true, message: "User created successfully." };
 };
 
@@ -2060,27 +2037,38 @@ export const createUser = async (companyId, userData) => {
  */
 export const updateUser = async (companyId, userId, updatedData) => {
   const collections = getTenantCollections(companyId);
-  
+
   // Determine which collection to update based on the user's role
-  const collection = updatedData.role === 'Employee' ? collections.employees : collections.clients;
+  const collection =
+    updatedData.role === "Employee"
+      ? collections.employees
+      : collections.clients;
 
   // Prepare the data for the database update
   // We separate the id and role, as we don't want to update those fields
   const { _id, role, ...dataToSet } = updatedData;
-  
+
   const result = await collection.updateOne(
     { _id: new ObjectId(userId) },
     { $set: dataToSet }
   );
 
   if (result.matchedCount === 0) {
-      // If the user wasn't found in the first collection, try the other one.
-      // This handles cases where a user's role might be changed.
-      const otherCollection = updatedData.role === 'Employee' ? collections.clients : collections.employees;
-      await otherCollection.deleteOne({ _id: new ObjectId(userId) }); // Delete from old collection
-      await collection.insertOne({ _id: new ObjectId(userId), ...dataToSet, role: updatedData.role, createdAt: new Date() }); // Insert into new
+    // If the user wasn't found in the first collection, try the other one.
+    // This handles cases where a user's role might be changed.
+    const otherCollection =
+      updatedData.role === "Employee"
+        ? collections.clients
+        : collections.employees;
+    await otherCollection.deleteOne({ _id: new ObjectId(userId) }); // Delete from old collection
+    await collection.insertOne({
+      _id: new ObjectId(userId),
+      ...dataToSet,
+      role: updatedData.role,
+      createdAt: new Date(),
+    }); // Insert into new
   }
-  
+
   return { done: true, message: "User updated successfully." };
 };
 
@@ -2089,15 +2077,17 @@ export const updateUser = async (companyId, userId, updatedData) => {
  */
 export const deleteUser = async (companyId, userId) => {
   const { employees, clients } = getTenantCollections(companyId);
-  
+
   // 1. Attempt to delete from the employees collection.
-  const employeeResult = await employees.deleteOne({ _id: new ObjectId(userId) });
-  
+  const employeeResult = await employees.deleteOne({
+    _id: new ObjectId(userId),
+  });
+
   // 2. If not found in employees, attempt to delete from clients.
   if (employeeResult.deletedCount === 0) {
     await clients.deleteOne({ _id: new ObjectId(userId) });
   }
-  
+
   return { done: true, message: "User deleted successfully." };
 };
 
@@ -2142,11 +2132,11 @@ export const updateTodo = async (companyId, todoId, updateData) => {
 
     const result = await collections.todos.updateOne(
       { _id: new ObjectId(todoId) },
-      { 
+      {
         $set: {
           ...updateData,
           updatedAt: new Date(),
-        }
+        },
       }
     );
 
@@ -2179,12 +2169,12 @@ export const deleteTodo = async (companyId, todoId) => {
 
     const result = await collections.todos.updateOne(
       { _id: new ObjectId(todoId) },
-      { 
+      {
         $set: {
           isDeleted: true,
           deletedAt: new Date(),
           updatedAt: new Date(),
-        }
+        },
       }
     );
 
@@ -2210,7 +2200,36 @@ export const deleteTodo = async (companyId, todoId) => {
   }
 };
 
+// Delete todo permanently
+export const deleteTodoPermanently = async (companyId, todoId) => {
+  try {
+    const collections = getTenantCollections(companyId);
 
+    const result = await collections.todos.deleteOne({
+      _id: new ObjectId(todoId),
+    });
+
+    if (result.deletedCount === 0) {
+      return { done: false, error: "Todo not found" };
+    }
+
+    // Add activity log
+    await collections.activities.insertOne({
+      employeeId: "system",
+      action: "Todo Permanently Deleted",
+      description: `Permanently deleted todo with ID: ${todoId}`,
+      createdAt: new Date(),
+    });
+
+    return {
+      done: true,
+      message: "Todo permanently deleted",
+    };
+  } catch (error) {
+    console.error("Error permanently deleting todo:", error);
+    return { done: false, error: error.message };
+  }
+};
 
 // Get todo statistics
 export const getTodoStatistics = async (companyId, filter = "all") => {
@@ -2219,7 +2238,7 @@ export const getTodoStatistics = async (companyId, filter = "all") => {
 
     // Build the base query
     let query = {
-      isDeleted: { $ne: true }
+      isDeleted: { $ne: true },
     };
 
     // Add date filter if applicable
@@ -2311,7 +2330,10 @@ export const getTodoStatistics = async (companyId, filter = "all") => {
         total: stats.total,
         completed: stats.completed,
         pending: stats.pending,
-        completionRate: stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0,
+        completionRate:
+          stats.total > 0
+            ? Math.round((stats.completed / stats.total) * 100)
+            : 0,
         priorityDistribution,
       },
     };

@@ -1,18 +1,17 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { attendance_admin_details } from '../../../core/data/json/attendanceadmin';
-import { all_routes } from '../../router/all_routes';
-import PredefinedDateRanges from '../../../core/common/datePicker';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { attendance_admin_details } from "../../../core/data/json/attendanceadmin";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
 import Table from "../../../core/common/dataTable/index";
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CommonSelect from '../../../core/common/commonSelect';
-import { DatePicker, TimePicker } from 'antd';
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
+import { DatePicker, TimePicker } from "antd";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { timesheet_details } from '../../../core/data/json/timesheet_details';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import { timesheet_details } from "../../../core/data/json/timesheet_details";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const TimeSheet = () => {
-
   const data = timesheet_details;
   const columns = [
     {
@@ -21,7 +20,11 @@ const TimeSheet = () => {
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
           <Link to="#" className="avatar avatar-md border avatar-rounded">
-            <ImageWithBasePath src={`assets/img/users/${record.Image}`} className="img-fluid" alt="img" />
+            <ImageWithBasePath
+              src={`assets/img/users/${record.Image}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -54,21 +57,24 @@ const TimeSheet = () => {
           >
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="collapse-tooltip">Worked on the Management</Tooltip>}
+              overlay={
+                <Tooltip id="collapse-tooltip">
+                  Worked on the Management
+                </Tooltip>
+              }
             >
               <i className="ti ti-info-circle text-info"></i>
             </OverlayTrigger>
-
           </Link>
         </p>
-
       ),
       sorter: (a: any, b: any) => a.Project.length - b.Project.length,
     },
     {
       title: "Assigned hours",
       dataIndex: "AssignedHours",
-      sorter: (a: any, b: any) => a.AssignedHours.length - b.AssignedHours.length,
+      sorter: (a: any, b: any) =>
+        a.AssignedHours.length - b.AssignedHours.length,
     },
     {
       title: "Worked Hours",
@@ -83,18 +89,24 @@ const TimeSheet = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_timesheet"
           >
             <i className="ti ti-edit" />
           </Link>
-          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal">
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
             <i className="ti ti-trash" />
           </Link>
         </div>
       ),
     },
-  ]
+  ];
   const projectChoose = [
     { value: "Office Management", label: "Office Management" },
     { value: "Project Management", label: "Project Management" },
@@ -102,11 +114,11 @@ const TimeSheet = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -146,19 +158,13 @@ const TimeSheet = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -169,7 +175,8 @@ const TimeSheet = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_timesheet"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -198,26 +205,17 @@ const TimeSheet = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Office Management
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Project Management
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Hospital Administration
                       </Link>
                     </li>
@@ -233,42 +231,27 @@ const TimeSheet = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -283,11 +266,11 @@ const TimeSheet = () => {
           {/* /Performance Indicator list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -317,7 +300,7 @@ const TimeSheet = () => {
                         Project <span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={projectChoose}
                         defaultValue={projectChoose[0]}
                       />
@@ -399,7 +382,11 @@ const TimeSheet = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Changes
                 </button>
               </div>
@@ -432,7 +419,7 @@ const TimeSheet = () => {
                         Project <span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={projectChoose}
                         defaultValue={projectChoose[1]}
                       />
@@ -526,7 +513,11 @@ const TimeSheet = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Changes
                 </button>
               </div>
@@ -536,12 +527,7 @@ const TimeSheet = () => {
       </div>
       {/* /Edit Timesheet */}
     </>
+  );
+};
 
-
-
-
-
-  )
-}
-
-export default TimeSheet
+export default TimeSheet;

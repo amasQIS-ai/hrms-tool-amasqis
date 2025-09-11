@@ -1,17 +1,15 @@
-import React from 'react'
-import { all_routes } from '../../router/all_routes';
-import { Link } from 'react-router-dom';
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
+import React from "react";
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import { DatePicker } from "antd";
-import CommonSelect from '../../../core/common/commonSelect';
-import { joblistdetails } from './joblistdetails';
+import CommonSelect from "../../../core/common/commonSelect";
+import { joblistdetails } from "./joblistdetails";
 import Table from "../../../core/common/dataTable/index";
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
-
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const JobList = () => {
-
   const data = joblistdetails;
   const columns = [
     {
@@ -38,7 +36,6 @@ const JobList = () => {
             <span className="d-block mt-1">{record.Roll}</span>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.Job_Title.length - b.Job_Title.length,
     },
@@ -81,10 +78,10 @@ const JobList = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -203,19 +200,13 @@ const JobList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -262,26 +253,17 @@ const JobList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Senior IOS Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Junior PHP Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Network Engineer
                       </Link>
                     </li>
@@ -297,34 +279,22 @@ const JobList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Accepted
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         sent
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Expired
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Declined
                       </Link>
                     </li>
@@ -340,42 +310,27 @@ const JobList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -389,11 +344,11 @@ const JobList = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -468,7 +423,9 @@ const JobList = () => {
                             <div className="profile-upload">
                               <div className="mb-2">
                                 <h6 className="mb-1">Upload Profile Image</h6>
-                                <p className="fs-12">Image should be below 4 mb</p>
+                                <p className="fs-12">
+                                  Image should be below 4 mb
+                                </p>
                               </div>
                               <div className="profile-uploader d-flex align-items-center">
                                 <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -479,10 +436,7 @@ const JobList = () => {
                                     multiple
                                   />
                                 </div>
-                                <Link
-                                  to="#"
-                                  className="btn btn-light btn-sm"
-                                >
+                                <Link to="#" className="btn btn-light btn-sm">
                                   Cancel
                                 </Link>
                               </div>
@@ -513,10 +467,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Job Category <span className="text-danger"> *</span>
+                              Job Category{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={jobCategory}
                               defaultValue={jobCategory[0]}
                             />
@@ -528,7 +483,7 @@ const JobList = () => {
                               Job Type <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={jobtype}
                               defaultValue={jobtype[0]}
                             />
@@ -540,7 +495,7 @@ const JobList = () => {
                               Job Level <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={joblevel}
                               defaultValue={joblevel[0]}
                             />
@@ -552,7 +507,7 @@ const JobList = () => {
                               Experience <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={experience}
                               defaultValue={experience[0]}
                             />
@@ -561,10 +516,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Qualification <span className="text-danger"> *</span>
+                              Qualification{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={qualification}
                               defaultValue={qualification[0]}
                             />
@@ -576,7 +532,7 @@ const JobList = () => {
                               Gender <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={genderChoose}
                               defaultValue={genderChoose[0]}
                             />
@@ -585,10 +541,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Min. Sallary <span className="text-danger"> *</span>
+                              Min. Sallary{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={sallary}
                               defaultValue={sallary[0]}
                             />
@@ -597,10 +554,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Max. Sallary <span className="text-danger"> *</span>
+                              Max. Sallary{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={maxsallary}
                               defaultValue={maxsallary[0]}
                             />
@@ -630,7 +588,9 @@ const JobList = () => {
                         </div>
                         <div className="col-md-6">
                           <div className="mb-3">
-                            <label className="form-label">Required Skills</label>
+                            <label className="form-label">
+                              Required Skills
+                            </label>
                             <input type="text" className="form-control" />
                           </div>
                         </div>
@@ -675,7 +635,7 @@ const JobList = () => {
                               Country <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={country}
                               defaultValue={country[0]}
                             />
@@ -687,7 +647,7 @@ const JobList = () => {
                               State <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={state}
                               defaultValue={state[0]}
                             />
@@ -699,7 +659,7 @@ const JobList = () => {
                               City <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={city}
                               defaultValue={city[0]}
                             />
@@ -765,7 +725,11 @@ const JobList = () => {
                 <div>
                   <div className="row g-2">
                     <div className="col-12">
-                      <Link to={all_routes.jobgrid} data-bs-dismiss="modal" className="btn btn-dark w-100">
+                      <Link
+                        to={all_routes.jobgrid}
+                        data-bs-dismiss="modal"
+                        className="btn btn-dark w-100"
+                      >
                         Back to List
                       </Link>
                     </div>
@@ -796,7 +760,11 @@ const JobList = () => {
               <div className="modal-body pb-0">
                 <div className="row">
                   <div className="contact-grids-tab pt-0">
-                    <ul className="nav nav-underline" id="myTabs" role="tablist">
+                    <ul
+                      className="nav nav-underline"
+                      id="myTabs"
+                      role="tablist"
+                    >
                       <li className="nav-item" role="presentation">
                         <button
                           className="nav-link active"
@@ -846,7 +814,9 @@ const JobList = () => {
                             <div className="profile-upload">
                               <div className="mb-2">
                                 <h6 className="mb-1">Upload Profile Image</h6>
-                                <p className="fs-12">Image should be below 4 mb</p>
+                                <p className="fs-12">
+                                  Image should be below 4 mb
+                                </p>
                               </div>
                               <div className="profile-uploader d-flex align-items-center">
                                 <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -857,10 +827,7 @@ const JobList = () => {
                                     multiple
                                   />
                                 </div>
-                                <Link
-                                  to="#"
-                                  className="btn btn-light btn-sm"
-                                >
+                                <Link to="#" className="btn btn-light btn-sm">
                                   Cancel
                                 </Link>
                               </div>
@@ -895,10 +862,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Job Category <span className="text-danger"> *</span>
+                              Job Category{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={jobCategory}
                               defaultValue={jobCategory[1]}
                             />
@@ -910,7 +878,7 @@ const JobList = () => {
                               Job Type <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={jobtype}
                               defaultValue={jobtype[1]}
                             />
@@ -922,7 +890,7 @@ const JobList = () => {
                               Job Level <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={joblevel}
                               defaultValue={joblevel[1]}
                             />
@@ -934,7 +902,7 @@ const JobList = () => {
                               Experience <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={experience}
                               defaultValue={experience[1]}
                             />
@@ -943,10 +911,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Qualification <span className="text-danger"> *</span>
+                              Qualification{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={qualification}
                               defaultValue={qualification[1]}
                             />
@@ -958,7 +927,7 @@ const JobList = () => {
                               Gender <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={genderChoose}
                               defaultValue={genderChoose[1]}
                             />
@@ -967,10 +936,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Min. Sallary <span className="text-danger"> *</span>
+                              Min. Sallary{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={sallary}
                               defaultValue={sallary[1]}
                             />
@@ -979,10 +949,11 @@ const JobList = () => {
                         <div className="col-md-6">
                           <div className="mb-3">
                             <label className="form-label">
-                              Max. Sallary <span className="text-danger"> *</span>
+                              Max. Sallary{" "}
+                              <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={maxsallary}
                               defaultValue={maxsallary[1]}
                             />
@@ -1012,7 +983,9 @@ const JobList = () => {
                         </div>
                         <div className="col-md-6">
                           <div className="mb-3">
-                            <label className="form-label">Required Skills</label>
+                            <label className="form-label">
+                              Required Skills
+                            </label>
                             <input type="text" className="form-control" />
                           </div>
                         </div>
@@ -1057,7 +1030,7 @@ const JobList = () => {
                               Country <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={country}
                               defaultValue={country[1]}
                             />
@@ -1069,7 +1042,7 @@ const JobList = () => {
                               State <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={state}
                               defaultValue={state[1]}
                             />
@@ -1081,7 +1054,7 @@ const JobList = () => {
                               City <span className="text-danger"> *</span>
                             </label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={city}
                               defaultValue={city[1]}
                             />
@@ -1135,9 +1108,7 @@ const JobList = () => {
       </div>
       {/* /Post Job */}
     </>
+  );
+};
 
-
-  )
-}
-
-export default JobList
+export default JobList;

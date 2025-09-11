@@ -156,7 +156,7 @@ const Login3 = () => {
                   </div>
                 </div>
                 <div className="mt-5 pb-4 text-center">
-                  <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                  <p className="mb-0 text-gray-9">Copyright © 2025 - Amasqis</p>
                 </div>
               </div>
             </form>

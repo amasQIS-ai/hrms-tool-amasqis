@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const TimeLines = () => {
-
   return (
     <>
       {/* Page Wrapper */}
@@ -64,8 +63,8 @@ const TimeLines = () => {
                     </p>
                     <span>
                       {" "}
-                      Perform unit testing, integration testing, and user acceptance
-                      testing
+                      Perform unit testing, integration testing, and user
+                      acceptance testing
                     </span>
                   </div>
                 </div>
@@ -99,7 +98,10 @@ const TimeLines = () => {
                     <p className="fw-medium text-gray-9 mb-1">
                       Requirements Gathering
                     </p>
-                    <span> Collect requirements from HR, IT, and end-users.</span>
+                    <span>
+                      {" "}
+                      Collect requirements from HR, IT, and end-users.
+                    </span>
                   </div>
                 </div>
               </div>
@@ -128,21 +130,17 @@ const TimeLines = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
-
-
-
-
   );
 };
 

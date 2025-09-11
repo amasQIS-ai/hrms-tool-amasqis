@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes'
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
 import { TableData } from "../../../core/data/interface";
 import Table from "../../../core/common/dataTable/index";
-import { pageDetails } from '../../../core/data/json/pageDetails';
-import AddNewPage from './addNewPage';
-import EditNewPage from './editNewPage';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import { pageDetails } from "../../../core/data/json/pageDetails";
+import AddNewPage from "./addNewPage";
+import EditNewPage from "./editNewPage";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const Page = () => {
   const data = pageDetails;
@@ -15,7 +15,9 @@ const Page = () => {
       title: "Page",
       dataIndex: "page",
       render: (text: string, record: any) => (
-        <h6 className="fw-medium"><Link to="#">{text}</Link></h6>
+        <h6 className="fw-medium">
+          <Link to="#">{text}</Link>
+        </h6>
       ),
       sorter: (a: TableData, b: TableData) => a.page.length - b.page.length,
     },
@@ -28,16 +30,18 @@ const Page = () => {
       title: "Status",
       dataIndex: "status",
       render: (text: String, record: any) => (
-        <span className={`badge d-inline-flex align-items-center badge-xs ${text === 'Active'
-          ? 'badge-success'
-          : text === 'Inavtivte'
-            ? 'badge-danger'
-            : ''
-          }`}>
+        <span
+          className={`badge d-inline-flex align-items-center badge-xs ${
+            text === "Active"
+              ? "badge-success"
+              : text === "Inavtivte"
+              ? "badge-danger"
+              : ""
+          }`}
+        >
           <i className="ti ti-point-filled me-1" />
           Active
         </span>
-
       ),
       sorter: (a: any, b: any) => a.status.length - b.status.length,
     },
@@ -49,24 +53,24 @@ const Page = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_page"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
-
       ),
     },
-  ]
+  ];
   return (
     <>
       {/* Page Wrapper */}
@@ -103,19 +107,13 @@ const Page = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -126,12 +124,13 @@ const Page = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_page"
                   className="btn btn-primary d-flex align-items-center"
                 >
                   <i className="ti ti-circle-plus me-2" />
-                  Add  Page
+                  Add Page
                 </Link>
               </div>
               <div className="head-icons ms-2">
@@ -154,26 +153,17 @@ const Page = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Employee
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Clients
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Projects
                       </Link>
                     </li>
@@ -187,11 +177,11 @@ const Page = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -200,8 +190,7 @@ const Page = () => {
       <AddNewPage />
       <EditNewPage />
     </>
+  );
+};
 
-  )
-}
-
-export default Page
+export default Page;

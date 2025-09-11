@@ -93,7 +93,6 @@ const BanIpAddress = () => {
                         to={routes.cronjob}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Cronjob
                       </Link>
                       <Link
@@ -222,8 +221,8 @@ const BanIpAddress = () => {
                                 <span className="me-2">
                                   <i className="ti ti-info-circle" />
                                 </span>
-                                Unauthorized access attempts, or other signs of a
-                                potential security
+                                Unauthorized access attempts, or other signs of
+                                a potential security
                               </p>
                             </div>
                           </div>
@@ -265,8 +264,8 @@ const BanIpAddress = () => {
                                 <span className="me-2">
                                   <i className="ti ti-info-circle" />
                                 </span>
-                                Attempts to scrape large amounts of HR data from the
-                                system without authorization.
+                                Attempts to scrape large amounts of HR data from
+                                the system without authorization.
                               </p>
                             </div>
                           </div>
@@ -308,7 +307,8 @@ const BanIpAddress = () => {
                                 <span className="me-2">
                                   <i className="ti ti-info-circle" />
                                 </span>
-                                Found downloading or uploading inappropriate content
+                                Found downloading or uploading inappropriate
+                                content
                               </p>
                             </div>
                           </div>
@@ -321,11 +321,11 @@ const BanIpAddress = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -373,7 +373,11 @@ const BanIpAddress = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Link to="#" className="btn btn-light me-2" data-bs-dismiss="modal">
+                  <Link
+                    to="#"
+                    className="btn btn-light me-2"
+                    data-bs-dismiss="modal"
+                  >
                     Cancel
                   </Link>
                   <button type="submit" className="btn btn-primary">
@@ -425,7 +429,11 @@ const BanIpAddress = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Link to="#" className="btn btn-light me-2" data-bs-dismiss="modal">
+                  <Link
+                    to="#"
+                    className="btn btn-light me-2"
+                    data-bs-dismiss="modal"
+                  >
                     Cancel
                   </Link>
                   <button type="submit" className="btn btn-primary">
@@ -447,8 +455,8 @@ const BanIpAddress = () => {
                 </span>
                 <h4 className="mb-1">Confirm Deletion</h4>
                 <p className="mb-3">
-                  You want to delete all the marked items, this cant be undone once
-                  you delete.
+                  You want to delete all the marked items, this cant be undone
+                  once you delete.
                 </p>
                 <div className="d-flex justify-content-center">
                   <Link
@@ -468,7 +476,6 @@ const BanIpAddress = () => {
         </div>
         {/* /Delete Modal */}
       </>
-
     </div>
   );
 };

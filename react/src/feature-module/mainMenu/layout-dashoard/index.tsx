@@ -6,12 +6,18 @@ import { all_routes } from "../../router/all_routes";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Chart } from "primereact/chart";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from "primereact/calendar";
 import ProjectModals from "../../../core/modals/projectModal";
 import RequestModals from "../../../core/modals/requestModal";
 import TodoModal from "../../../core/modals/todoModal";
 import { useDispatch } from "react-redux";
-import { resetAllMode, setDataLayout, setDataTheme, setDataWidth, setRtl } from "../../../core/data/redux/themeSettingSlice";
+import {
+  resetAllMode,
+  setDataLayout,
+  setDataTheme,
+  setDataWidth,
+  setRtl,
+} from "../../../core/data/redux/themeSettingSlice";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const LayoutDemo = () => {
@@ -26,164 +32,190 @@ const LayoutDemo = () => {
   const [empDepartment] = useState<any>({
     chart: {
       height: 235,
-      type: 'bar',
+      type: "bar",
       padding: {
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0
+        bottom: 0,
       },
       toolbar: {
         show: false,
-      }
+      },
     },
     fill: {
-      colors: ['#F26522'], // Fill color for the bars
+      colors: ["#F26522"], // Fill color for the bars
       opacity: 1, // Adjust opacity (1 is fully opaque)
     },
-    colors: ['#F26522'],
+    colors: ["#F26522"],
     grid: {
-      borderColor: '#E5E7EB',
+      borderColor: "#E5E7EB",
       strokeDashArray: 5,
       padding: {
         top: -20,
         left: 0,
         right: 0,
-        bottom: 0
-      }
+        bottom: 0,
+      },
     },
     plotOptions: {
       bar: {
         borderRadius: 5,
         horizontal: true,
-        barHeight: '35%',
-        endingShape: 'rounded'
-      }
+        barHeight: "35%",
+        endingShape: "rounded",
+      },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
-    series: [{
-      data: [80, 110, 80, 20, 60, 100],
-      name: 'Employee'
-    }],
+    series: [
+      {
+        data: [80, 110, 80, 20, 60, 100],
+        name: "Employee",
+      },
+    ],
     xaxis: {
-      categories: ['UI/UX', 'Development', 'Management', 'HR', 'Testing', 'Marketing'],
+      categories: [
+        "UI/UX",
+        "Development",
+        "Management",
+        "HR",
+        "Testing",
+        "Marketing",
+      ],
       labels: {
         style: {
-          colors: '#111827',
-          fontSize: '13px',
-        }
-      }
-    }
-  })
+          colors: "#111827",
+          fontSize: "13px",
+        },
+      },
+    },
+  });
 
   const [salesIncome] = useState<any>({
     chart: {
       height: 290,
-      type: 'bar',
+      type: "bar",
       stacked: true,
       toolbar: {
         show: false,
-      }
+      },
     },
-    colors: ['#FF6F28', '#F8F9FA'],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        legend: {
-          position: 'bottom',
-          offsetX: -10,
-          offsetY: 0
-        }
-      }
-    }],
+    colors: ["#FF6F28", "#F8F9FA"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: "bottom",
+            offsetX: -10,
+            offsetY: 0,
+          },
+        },
+      },
+    ],
     plotOptions: {
       bar: {
         borderRadius: 5,
-        borderRadiusWhenStacked: 'all',
+        borderRadiusWhenStacked: "all",
         horizontal: false,
-        endingShape: 'rounded'
+        endingShape: "rounded",
       },
     },
-    series: [{
-      name: 'Income',
-      data: [40, 30, 45, 80, 85, 90, 80, 80, 80, 85, 20, 80]
-    }, {
-      name: 'Expenses',
-      data: [60, 70, 55, 20, 15, 10, 20, 20, 20, 15, 80, 20]
-    }],
+    series: [
+      {
+        name: "Income",
+        data: [40, 30, 45, 80, 85, 90, 80, 80, 80, 85, 20, 80],
+      },
+      {
+        name: "Expenses",
+        data: [60, 70, 55, 20, 15, 10, 20, 20, 20, 15, 80, 20],
+      },
+    ],
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
       labels: {
         style: {
-          colors: '#6B7280',
-          fontSize: '13px',
-        }
-      }
+          colors: "#6B7280",
+          fontSize: "13px",
+        },
+      },
     },
     yaxis: {
       labels: {
         offsetX: -15,
         style: {
-          colors: '#6B7280',
-          fontSize: '13px',
-        }
-      }
+          colors: "#6B7280",
+          fontSize: "13px",
+        },
+      },
     },
     grid: {
-      borderColor: '#E5E7EB',
+      borderColor: "#E5E7EB",
       strokeDashArray: 5,
       padding: {
         left: -8,
       },
     },
     legend: {
-      show: false
+      show: false,
     },
     dataLabels: {
-      enabled: false // Disable data labels
+      enabled: false, // Disable data labels
     },
     fill: {
-      opacity: 1
+      opacity: 1,
     },
-  })
+  });
 
   //Attendance ChartJs
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
     const data = {
-      labels: ['Late', 'Present', 'Permission', 'Absent'],
+      labels: ["Late", "Present", "Permission", "Absent"],
       datasets: [
-
         {
-          label: 'Semi Donut',
+          label: "Semi Donut",
           data: [40, 20, 30, 10],
-          backgroundColor: ['#0C4B5E', '#03C95A', '#FFC107', '#E70D0D'],
+          backgroundColor: ["#0C4B5E", "#03C95A", "#FFC107", "#E70D0D"],
           borderWidth: 5,
           borderRadius: 10,
-          borderColor: '#fff', // Border between segments
-          hoverBorderWidth: 0,   // Border radius for curved edges
-          cutout: '60%',
-        }
-      ]
+          borderColor: "#fff", // Border between segments
+          hoverBorderWidth: 0, // Border radius for curved edges
+          cutout: "60%",
+        },
+      ],
     };
     const options = {
       rotation: -100,
       circumference: 200,
       layout: {
         padding: {
-          top: -20,    // Set to 0 to remove top padding
+          top: -20, // Set to 0 to remove top padding
           bottom: -20, // Set to 0 to remove bottom padding
-        }
+        },
       },
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          display: false // Hide the legend
-        }
+          display: false, // Hide the legend
+        },
       },
     };
 
@@ -202,18 +234,17 @@ const LayoutDemo = () => {
     });
   };
   useEffect(() => {
-
     const data = {
       labels: ["Ongoing", "Onhold", "Completed", "Overdue"],
       datasets: [
         {
-          label: 'Semi Donut',
+          label: "Semi Donut",
           data: [20, 40, 20, 10],
-          backgroundColor: ['#FFC107', '#1B84FF', '#03C95A', '#E70D0D'],
+          backgroundColor: ["#FFC107", "#1B84FF", "#03C95A", "#E70D0D"],
           borderWidth: -10,
-          borderColor: 'transparent', // Border between segments
-          hoverBorderWidth: 0,   // Border radius for curved edges
-          cutout: '75%',
+          borderColor: "transparent", // Border between segments
+          hoverBorderWidth: 0, // Border radius for curved edges
+          cutout: "75%",
           spacing: -30,
         },
       ],
@@ -224,75 +255,75 @@ const LayoutDemo = () => {
       circumference: 185,
       layout: {
         padding: {
-          top: -20,    // Set to 0 to remove top padding
+          top: -20, // Set to 0 to remove top padding
           bottom: 20, // Set to 0 to remove bottom padding
-        }
+        },
       },
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          display: false // Hide the legend
-        }
-      }, elements: {
+          display: false, // Hide the legend
+        },
+      },
+      elements: {
         arc: {
           borderWidth: -30, // Ensure consistent overlap
           borderRadius: 30, // Add some rounding
-        }
+        },
       },
     };
 
     setSemidonutData(data);
     setSemidonutOptions(options);
-
   }, []);
 
   useEffect(() => {
-    if (Location.pathname === '/layout-horizontal') {
+    if (Location.pathname === "/layout-horizontal") {
       dispatch(setDataLayout("horizontal"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-horizontal-single') {
+    } else if (Location.pathname === "/layout-horizontal-single") {
       dispatch(setDataLayout("horizontal-single"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-detached') {
+    } else if (Location.pathname === "/layout-detached") {
       dispatch(setDataLayout("detached"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-twocolumn') {
+    } else if (Location.pathname === "/layout-twocolumn") {
       dispatch(setDataLayout("twocolumn"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-without-header') {
+    } else if (Location.pathname === "/layout-without-header") {
       dispatch(setDataLayout("without-header"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-horizontal-overlay') {
+    } else if (Location.pathname === "/layout-horizontal-overlay") {
       dispatch(setDataLayout("horizontal-overlay"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-horizontal-sidemenu') {
+    } else if (Location.pathname === "/layout-horizontal-sidemenu") {
       dispatch(setDataLayout("horizontal-sidemenu"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-modern') {
+    } else if (Location.pathname === "/layout-modern") {
       dispatch(setDataLayout("modern"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-transparent') {
+    } else if (Location.pathname === "/layout-transparent") {
       dispatch(setDataLayout("transparent"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-horizontal-box') {
+    } else if (Location.pathname === "/layout-horizontal-box") {
       dispatch(setDataLayout("mini"));
       dispatch(setDataWidth("box"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-hovered') {
+    } else if (Location.pathname === "/layout-hovered") {
       dispatch(setDataLayout("default"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-mini') {
+    } else if (Location.pathname === "/layout-mini") {
       dispatch(setDataLayout("mini"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-dark') {
+    } else if (Location.pathname === "/layout-dark") {
       dispatch(setDataLayout("default"));
       dispatch(setDataTheme("dark"));
       dispatch(setRtl(""));
-    } else if (Location.pathname === '/layout-rtl') {
+    } else if (Location.pathname === "/layout-rtl") {
       dispatch(setDataLayout("rtl"));
       dispatch(setRtl("layout-mode-rtl"));
-    } else if (Location.pathname === '/layout-box') {
+    } else if (Location.pathname === "/layout-box") {
       dispatch(setDataLayout("mini"));
       dispatch(setDataWidth("box"));
       dispatch(setRtl(""));
@@ -301,13 +332,9 @@ const LayoutDemo = () => {
       dispatch(setRtl(""));
     }
     return () => {
-      dispatch(resetAllMode())
-    }
-  }, [dispatch, Location.pathname])
-
-
-
-
+      dispatch(resetAllMode());
+    };
+  }, [dispatch, Location.pathname]);
 
   return (
     <>
@@ -335,7 +362,8 @@ const LayoutDemo = () => {
             <div className="d-flex my-xl-auto right-content align-items-center flex-wrap ">
               <div className="me-2 mb-2">
                 <div className="dropdown">
-                  <Link to="#"
+                  <Link
+                    to="#"
                     className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                     data-bs-toggle="dropdown"
                   >
@@ -344,19 +372,13 @@ const LayoutDemo = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -369,7 +391,13 @@ const LayoutDemo = () => {
                   <span className="input-icon-addon">
                     <i className="ti ti-calendar text-gray-9" />
                   </span>
-                  <Calendar value={date} onChange={(e: any) => setDate(e.value)} view="year" dateFormat="yy" className="Calendar-form" />
+                  <Calendar
+                    value={date}
+                    onChange={(e: any) => setDate(e.value)}
+                    view="year"
+                    dateFormat="yy"
+                    className="Calendar-form"
+                  />
                 </div>
               </div>
               <div className="ms-2 head-icons">
@@ -413,7 +441,8 @@ const LayoutDemo = () => {
                 <Link
                   to="#"
                   className="btn btn-secondary btn-md me-2 mb-2"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_project"
                 >
                   <i className="ti ti-square-rounded-plus me-1" />
@@ -422,7 +451,8 @@ const LayoutDemo = () => {
                 <Link
                   to="#"
                   className="btn btn-primary btn-md mb-2"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_leaves"
                 >
                   <i className="ti ti-square-rounded-plus me-1" />
@@ -452,7 +482,10 @@ const LayoutDemo = () => {
                           +2.1%
                         </span>
                       </h3>
-                      <Link to="attendance-employee.html" className="link-default">
+                      <Link
+                        to="attendance-employee.html"
+                        className="link-default"
+                      >
                         View Details
                       </Link>
                     </div>
@@ -562,7 +595,10 @@ const LayoutDemo = () => {
                           +2.1%
                         </span>
                       </h3>
-                      <Link to="purchase-transaction.html" className="link-default">
+                      <Link
+                        to="purchase-transaction.html"
+                        className="link-default"
+                      >
                         View All
                       </Link>
                     </div>
@@ -621,7 +657,8 @@ const LayoutDemo = () => {
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Employees By Department</h5>
                   <div className="dropdown mb-2">
-                    <Link to="#"
+                    <Link
+                      to="#"
                       className="btn btn-white border btn-sm d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
@@ -630,23 +667,17 @@ const LayoutDemo = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Month
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Week
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last Week
                         </Link>
                       </li>
@@ -679,7 +710,8 @@ const LayoutDemo = () => {
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Employee Status</h5>
                   <div className="dropdown mb-2">
-                    <Link to="#"
+                    <Link
+                      to="#"
                       className="btn btn-white border btn-sm d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
@@ -688,23 +720,17 @@ const LayoutDemo = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Month
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Week
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Today
                         </Link>
                       </li>
@@ -830,7 +856,10 @@ const LayoutDemo = () => {
                       <h5 className="text-primary">99%</h5>
                     </div>
                   </div>
-                  <Link to="employees.html" className="btn btn-light btn-md w-100">
+                  <Link
+                    to="employees.html"
+                    className="btn btn-light btn-md w-100"
+                  >
                     View All Employees
                   </Link>
                 </div>
@@ -843,7 +872,8 @@ const LayoutDemo = () => {
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Attendance Overview</h5>
                   <div className="dropdown mb-2">
-                    <Link to="#"
+                    <Link
+                      to="#"
                       className="btn btn-white border btn-sm d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
@@ -852,23 +882,17 @@ const LayoutDemo = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Month
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           This Week
                         </Link>
                       </li>
                       <li>
-                        <Link to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Today
                         </Link>
                       </li>
@@ -877,7 +901,12 @@ const LayoutDemo = () => {
                 </div>
                 <div className="card-body">
                   <div className="chartjs-wrapper-demo position-relative mb-4">
-                    <Chart type="doughnut" data={chartData} options={chartOptions} className="w-full attendence-chart md:w-30rem" />
+                    <Chart
+                      type="doughnut"
+                      data={chartData}
+                      options={chartOptions}
+                      className="w-full attendence-chart md:w-30rem"
+                    />
                     <div className="position-absolute text-center attendance-canvas">
                       <p className="fs-13 mb-1">Total Attendance</p>
                       <h3>120</h3>
@@ -931,10 +960,16 @@ const LayoutDemo = () => {
                           />
                         </span>
                         <span className="avatar avatar-rounded">
-                          <ImageWithBasePath src="assets/img/profiles/avatar-14.jpg" alt="img" />
+                          <ImageWithBasePath
+                            src="assets/img/profiles/avatar-14.jpg"
+                            alt="img"
+                          />
                         </span>
                         <span className="avatar avatar-rounded">
-                          <ImageWithBasePath src="assets/img/profiles/avatar-29.jpg" alt="img" />
+                          <ImageWithBasePath
+                            src="assets/img/profiles/avatar-29.jpg"
+                            alt="img"
+                          />
                         </span>
                         <Link
                           className="avatar bg-primary avatar-rounded text-fixed-white fs-10"
@@ -944,7 +979,8 @@ const LayoutDemo = () => {
                         </Link>
                       </div>
                     </div>
-                    <Link to="leaves.html"
+                    <Link
+                      to="leaves.html"
                       className="fs-13 link-primary text-decoration-underline mb-2"
                     >
                       View Details
@@ -970,23 +1006,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Finance
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Development
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Marketing
                           </Link>
                         </li>
@@ -1003,23 +1033,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Today
                           </Link>
                         </li>
@@ -1031,9 +1055,7 @@ const LayoutDemo = () => {
                   <div>
                     <div className="d-flex align-items-center justify-content-between mb-3 p-2 border border-dashed br-5">
                       <div className="d-flex align-items-center">
-                        <Link to="#"
-                          className="avatar flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/profiles/avatar-24.jpg"
                             className="rounded-circle border border-2"
@@ -1059,9 +1081,7 @@ const LayoutDemo = () => {
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 p-2 border br-5">
                       <div className="d-flex align-items-center">
-                        <Link to="#"
-                          className="avatar flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/profiles/avatar-23.jpg"
                             className="rounded-circle border border-2"
@@ -1086,9 +1106,7 @@ const LayoutDemo = () => {
                     <div className="mb-3 p-2 border br-5">
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
-                            className="avatar flex-shrink-0"
-                          >
+                          <Link to="#" className="avatar flex-shrink-0">
                             <ImageWithBasePath
                               src="assets/img/profiles/avatar-27.jpg"
                               className="rounded-circle border border-2"
@@ -1103,9 +1121,7 @@ const LayoutDemo = () => {
                           </div>
                         </div>
                         <div className="d-flex align-items-center">
-                          <Link to="#"
-                            className="link-default me-2"
-                          >
+                          <Link to="#" className="link-default me-2">
                             <i className="ti ti-clock-share" />
                           </Link>
                           <span className="fs-10 fw-medium d-inline-flex align-items-center badge badge-success">
@@ -1170,7 +1186,8 @@ const LayoutDemo = () => {
                       </span>
                     </div>
                   </div>
-                  <Link to="attendance-report.html"
+                  <Link
+                    to="attendance-report.html"
                     className="btn btn-light btn-md w-100"
                   >
                     View All Attendance
@@ -1186,7 +1203,10 @@ const LayoutDemo = () => {
               <div className="card flex-fill">
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Jobs Applicants</h5>
-                  <Link to="job-list.html" className="btn btn-light btn-md mb-2">
+                  <Link
+                    to="job-list.html"
+                    className="btn btn-light btn-md mb-2"
+                  >
                     View All
                   </Link>
                 </div>
@@ -1226,7 +1246,8 @@ const LayoutDemo = () => {
                     <div className="tab-pane fade" id="openings">
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0 bg-gray-100"
                           >
                             <ImageWithBasePath
@@ -1242,7 +1263,8 @@ const LayoutDemo = () => {
                             <span className="fs-12">No of Openings : 25 </span>
                           </div>
                         </div>
-                        <Link to="#"
+                        <Link
+                          to="#"
                           className="btn btn-light btn-sm p-0 btn-icon d-flex align-items-center justify-content-center"
                         >
                           <i className="ti ti-edit" />
@@ -1250,7 +1272,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0 bg-gray-100"
                           >
                             <ImageWithBasePath
@@ -1266,7 +1289,8 @@ const LayoutDemo = () => {
                             <span className="fs-12">No of Openings : 20 </span>
                           </div>
                         </div>
-                        <Link to="#"
+                        <Link
+                          to="#"
                           className="btn btn-light btn-sm p-0 btn-icon d-flex align-items-center justify-content-center"
                         >
                           <i className="ti ti-edit" />
@@ -1274,7 +1298,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0 bg-gray-100"
                           >
                             <ImageWithBasePath
@@ -1285,14 +1310,13 @@ const LayoutDemo = () => {
                           </Link>
                           <div className="ms-2 overflow-hidden">
                             <p className="text-dark fw-medium text-truncate mb-0">
-                              <Link to="#">
-                                Junior React Developer{" "}
-                              </Link>
+                              <Link to="#">Junior React Developer </Link>
                             </p>
                             <span className="fs-12">No of Openings : 30 </span>
                           </div>
                         </div>
-                        <Link to="#"
+                        <Link
+                          to="#"
                           className="btn btn-light btn-sm p-0 btn-icon d-flex align-items-center justify-content-center"
                         >
                           <i className="ti ti-edit" />
@@ -1300,7 +1324,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-0">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0 bg-gray-100"
                           >
                             <ImageWithBasePath
@@ -1311,14 +1336,13 @@ const LayoutDemo = () => {
                           </Link>
                           <div className="ms-2 overflow-hidden">
                             <p className="text-dark fw-medium text-truncate mb-0">
-                              <Link to="#">
-                                Senior Laravel Developer
-                              </Link>
+                              <Link to="#">Senior Laravel Developer</Link>
                             </p>
                             <span className="fs-12">No of Openings : 40 </span>
                           </div>
                         </div>
-                        <Link to="#"
+                        <Link
+                          to="#"
                           className="btn btn-light btn-sm p-0 btn-icon d-flex align-items-center justify-content-center"
                         >
                           <i className="ti ti-edit" />
@@ -1328,7 +1352,8 @@ const LayoutDemo = () => {
                     <div className="tab-pane fade show active" id="applicants">
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0"
                           >
                             <ImageWithBasePath
@@ -1354,7 +1379,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0"
                           >
                             <ImageWithBasePath
@@ -1380,7 +1406,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-4">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0"
                           >
                             <ImageWithBasePath
@@ -1406,7 +1433,8 @@ const LayoutDemo = () => {
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-0">
                         <div className="d-flex align-items-center">
-                          <Link to="#"
+                          <Link
+                            to="#"
                             className="avatar overflow-hidden flex-shrink-0"
                           >
                             <ImageWithBasePath
@@ -1441,7 +1469,10 @@ const LayoutDemo = () => {
               <div className="card flex-fill">
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Employees</h5>
-                  <Link to="employees.html" className="btn btn-light btn-md mb-2">
+                  <Link
+                    to="employees.html"
+                    className="btn btn-light btn-md mb-2"
+                  >
                     View All
                   </Link>
                 </div>
@@ -1599,31 +1630,27 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Today
                           </Link>
                         </li>
                       </ul>
                     </div>
-                    <Link to="#"
+                    <Link
+                      to="#"
                       className="btn btn-primary btn-icon btn-xs rounded-circle d-flex align-items-center justify-content-center p-0 mb-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_todo"
                     >
                       <i className="ti ti-plus fs-16" />
@@ -1631,7 +1658,11 @@ const LayoutDemo = () => {
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[0] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[0] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1640,12 +1671,19 @@ const LayoutDemo = () => {
                         id="todo1"
                         onChange={() => toggleTodo(0)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo1">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo1"
+                      >
                         Add Holidays
                       </label>
                     </div>
                   </div>
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[1] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[1] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1654,12 +1692,19 @@ const LayoutDemo = () => {
                         id="todo2"
                         onChange={() => toggleTodo(1)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo2">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo2"
+                      >
                         Add Meeting to Client
                       </label>
                     </div>
                   </div>
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[2] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[2] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1668,12 +1713,19 @@ const LayoutDemo = () => {
                         id="todo3"
                         onChange={() => toggleTodo(2)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo3">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo3"
+                      >
                         Chat with Adrian
                       </label>
                     </div>
                   </div>
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[3] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[3] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1682,12 +1734,19 @@ const LayoutDemo = () => {
                         id="todo4"
                         onChange={() => toggleTodo(3)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo4">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo4"
+                      >
                         Management Call
                       </label>
                     </div>
                   </div>
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[4] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[4] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1696,12 +1755,19 @@ const LayoutDemo = () => {
                         id="todo5"
                         onChange={() => toggleTodo(4)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo5">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo5"
+                      >
                         Add Payroll
                       </label>
                     </div>
                   </div>
-                  <div className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${isTodo[5] ? 'todo-strike' : ''}`}>
+                  <div
+                    className={`d-flex align-items-center todo-item border p-2 br-5 mb-2 ${
+                      isTodo[5] ? "todo-strike" : ""
+                    }`}
+                  >
                     <i className="ti ti-grid-dots me-2" />
                     <div className="form-check">
                       <input
@@ -1710,7 +1776,10 @@ const LayoutDemo = () => {
                         id="todo6"
                         onChange={() => toggleTodo(5)}
                       />
-                      <label className="form-check-label fw-medium" htmlFor="todo6">
+                      <label
+                        className="form-check-label fw-medium"
+                        htmlFor="todo6"
+                      >
                         Add Policy for Increment{" "}
                       </label>
                     </div>
@@ -1737,23 +1806,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             UI/UX Designer
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             HR Manager
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Junior Tester
                           </Link>
                         </li>
@@ -1802,23 +1865,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Invoices
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Paid
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Unpaid
                           </Link>
                         </li>
@@ -1835,23 +1892,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Today
                           </Link>
                         </li>
@@ -1866,7 +1917,10 @@ const LayoutDemo = () => {
                         <tr>
                           <td className="px-0">
                             <div className="d-flex align-items-center">
-                              <Link to="invoice-details.html" className="avatar">
+                              <Link
+                                to="invoice-details.html"
+                                className="avatar"
+                              >
                                 <ImageWithBasePath
                                   src="assets/img/users/user-39.jpg"
                                   className="img-fluid rounded-circle"
@@ -1901,7 +1955,10 @@ const LayoutDemo = () => {
                         <tr>
                           <td className="px-0">
                             <div className="d-flex align-items-center">
-                              <Link to="invoice-details.html" className="avatar">
+                              <Link
+                                to="invoice-details.html"
+                                className="avatar"
+                              >
                                 <ImageWithBasePath
                                   src="assets/img/users/user-40.jpg"
                                   className="img-fluid rounded-circle"
@@ -1936,7 +1993,10 @@ const LayoutDemo = () => {
                         <tr>
                           <td className="px-0">
                             <div className="d-flex align-items-center">
-                              <Link to="invoice-details.html" className="avatar">
+                              <Link
+                                to="invoice-details.html"
+                                className="avatar"
+                              >
                                 <ImageWithBasePath
                                   src="assets/img/users/user-55.jpg"
                                   className="img-fluid rounded-circle"
@@ -1971,7 +2031,10 @@ const LayoutDemo = () => {
                         <tr>
                           <td className="px-0">
                             <div className="d-flex align-items-center">
-                              <Link to="invoice-details.html" className="avatar">
+                              <Link
+                                to="invoice-details.html"
+                                className="avatar"
+                              >
                                 <ImageWithBasePath
                                   src="assets/img/users/user-42.jpg"
                                   className="img-fluid rounded-circle"
@@ -2006,7 +2069,10 @@ const LayoutDemo = () => {
                         <tr>
                           <td className="px-0">
                             <div className="d-flex align-items-center">
-                              <Link to="invoice-details.html" className="avatar">
+                              <Link
+                                to="invoice-details.html"
+                                className="avatar"
+                              >
                                 <ImageWithBasePath
                                   src="assets/img/users/user-44.jpg"
                                   className="img-fluid rounded-circle"
@@ -2041,7 +2107,8 @@ const LayoutDemo = () => {
                       </tbody>
                     </table>
                   </div>
-                  <Link to="invoice.html"
+                  <Link
+                    to="invoice.html"
                     className="btn btn-light btn-md w-100 mt-2"
                   >
                     View All
@@ -2069,23 +2136,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Today
                           </Link>
                         </li>
@@ -2109,7 +2170,10 @@ const LayoutDemo = () => {
                       <tbody>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-001
                             </Link>
                           </td>
@@ -2170,13 +2234,18 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-002
                             </Link>
                           </td>
                           <td>
                             <h6 className="fw-medium">
-                              <Link to="project-details.html">Clinic Management </Link>
+                              <Link to="project-details.html">
+                                Clinic Management{" "}
+                              </Link>
                             </h6>
                           </td>
                           <td>
@@ -2235,7 +2304,10 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-003
                             </Link>
                           </td>
@@ -2296,7 +2368,10 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-004
                             </Link>
                           </td>
@@ -2357,7 +2432,10 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-005
                             </Link>
                           </td>
@@ -2418,7 +2496,10 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td>
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-006
                             </Link>
                           </td>
@@ -2479,7 +2560,10 @@ const LayoutDemo = () => {
                         </tr>
                         <tr>
                           <td className="border-0">
-                            <Link to="project-details.html" className="link-default">
+                            <Link
+                              to="project-details.html"
+                              className="link-default"
+                            >
                               PRO-008
                             </Link>
                           </td>
@@ -2568,23 +2652,17 @@ const LayoutDemo = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Month
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             This Week
                           </Link>
                         </li>
                         <li>
-                          <Link to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Today
                           </Link>
                         </li>
@@ -2594,7 +2672,12 @@ const LayoutDemo = () => {
                 </div>
                 <div className="card-body">
                   <div className="chartjs-wrapper-demo position-relative mb-4">
-                    <Chart type="doughnut" data={semidonutData} options={semidonutOptions} className="w-full md:w-30rem semi-donut-chart" />
+                    <Chart
+                      type="doughnut"
+                      data={semidonutData}
+                      options={semidonutOptions}
+                      className="w-full md:w-30rem semi-donut-chart"
+                    />
                     <div className="position-absolute text-center attendance-canvas">
                       <p className="fs-13 mb-1">Total Tasks</p>
                       <h3>124/165</h3>
@@ -2633,9 +2716,12 @@ const LayoutDemo = () => {
                   <div className="bg-dark br-5 p-3 pb-0 d-flex align-items-center justify-content-between">
                     <div className="mb-2">
                       <h4 className="text-success">389/689 hrs</h4>
-                      <p className="fs-13 mb-0">Spent on Overall Tasks This Week</p>
+                      <p className="fs-13 mb-0">
+                        Spent on Overall Tasks This Week
+                      </p>
                     </div>
-                    <Link to="tasks.html"
+                    <Link
+                      to="tasks.html"
                       className="btn btn-sm btn-light mb-2 text-nowrap"
                     >
                       View All
@@ -2652,7 +2738,10 @@ const LayoutDemo = () => {
               <div className="card flex-fill">
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Schedules</h5>
-                  <Link to="candidates.html" className="btn btn-light btn-md mb-2">
+                  <Link
+                    to="candidates.html"
+                    className="btn btn-light btn-md mb-2"
+                  >
                     View All
                   </Link>
                 </div>
@@ -2798,7 +2887,10 @@ const LayoutDemo = () => {
               <div className="card flex-fill">
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Recent Activities</h5>
-                  <Link to="activity.html" className="btn btn-light btn-md mb-2">
+                  <Link
+                    to="activity.html"
+                    className="btn btn-light btn-md mb-2"
+                  >
                     View All
                   </Link>
                 </div>
@@ -2806,9 +2898,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-38.jpg"
                             className="rounded-circle"
@@ -2833,9 +2923,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-01.jpg"
                             className="rounded-circle"
@@ -2849,7 +2937,9 @@ const LayoutDemo = () => {
                             </h6>
                             <p className="fs-13">05:00 PM</p>
                           </div>
-                          <p className="fs-13">Commented on Uploaded Document</p>
+                          <p className="fs-13">
+                            Commented on Uploaded Document
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -2857,9 +2947,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-19.jpg"
                             className="rounded-circle"
@@ -2881,9 +2969,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-11.jpg"
                             className="rounded-circle"
@@ -2907,9 +2993,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-20.jpg"
                             className="rounded-circle"
@@ -2931,9 +3015,7 @@ const LayoutDemo = () => {
                   <div className="recent-item">
                     <div className="d-flex justify-content-between">
                       <div className="d-flex align-items-center w-100">
-                        <Link to="#"
-                          className="avatar  flex-shrink-0"
-                        >
+                        <Link to="#" className="avatar  flex-shrink-0">
                           <ImageWithBasePath
                             src="assets/img/users/user-08.jpg"
                             className="rounded-circle"
@@ -2963,9 +3045,7 @@ const LayoutDemo = () => {
               <div className="card flex-fill">
                 <div className="card-header pb-2 d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="mb-2">Birthdays</h5>
-                  <Link to="#"
-                    className="btn btn-light btn-md mb-2"
-                  >
+                  <Link to="#" className="btn btn-light btn-md mb-2">
                     View All
                   </Link>
                 </div>
@@ -2986,10 +3066,7 @@ const LayoutDemo = () => {
                           <p className="fs-13">IOS Developer</p>
                         </div>
                       </div>
-                      <Link
-                        to="#"
-                        className="btn btn-secondary btn-xs"
-                      >
+                      <Link to="#" className="btn btn-secondary btn-xs">
                         <i className="ti ti-cake me-1" />
                         Send
                       </Link>
@@ -3013,10 +3090,7 @@ const LayoutDemo = () => {
                           <p className="fs-13">UI/UX Designer</p>
                         </div>
                       </div>
-                      <Link
-                        to="#"
-                        className="btn btn-secondary btn-xs"
-                      >
+                      <Link to="#" className="btn btn-secondary btn-xs">
                         <i className="ti ti-cake me-1" />
                         Send
                       </Link>
@@ -3039,10 +3113,7 @@ const LayoutDemo = () => {
                           <p className="fs-13">Android Developer</p>
                         </div>
                       </div>
-                      <Link
-                        to="#"
-                        className="btn btn-secondary btn-xs"
-                      >
+                      <Link to="#" className="btn btn-secondary btn-xs">
                         <i className="ti ti-cake me-1" />
                         Send
                       </Link>
@@ -3064,10 +3135,7 @@ const LayoutDemo = () => {
                           <p className="fs-13">.Net Developer</p>
                         </div>
                       </div>
-                      <Link
-                        to="#"
-                        className="btn btn-secondary btn-xs"
-                      >
+                      <Link to="#" className="btn btn-secondary btn-xs">
                         <i className="ti ti-cake me-1" />
                         Send
                       </Link>
@@ -3080,11 +3148,11 @@ const LayoutDemo = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -3094,9 +3162,7 @@ const LayoutDemo = () => {
       <RequestModals />
       <TodoModal />
     </>
-
   );
 };
 
 export default LayoutDemo;
-

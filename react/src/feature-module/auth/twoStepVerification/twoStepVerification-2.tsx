@@ -21,7 +21,10 @@ const TwoStepVerification2 = () => {
           <div className="col-lg-5">
             <div className="d-lg-flex align-items-center justify-content-center d-none flex-wrap vh-100 bg-primary-transparent">
               <div>
-                <ImageWithBasePath src="assets/img/bg/authentication-bg-08.svg" alt="Img" />
+                <ImageWithBasePath
+                  src="assets/img/bg/authentication-bg-08.svg"
+                  alt="Img"
+                />
               </div>
             </div>
           </div>
@@ -42,7 +45,8 @@ const TwoStepVerification2 = () => {
                         <h2 className="mb-2">2 Step Verification</h2>
                         <p className="mb-0">
                           Please enter the OTP received to confirm your account
-                          ownership. A code has been send to ******doe@example.com
+                          ownership. A code has been send to
+                          ******doe@example.com
                         </p>
                       </div>
                       <div className="text-center otp-input">
@@ -82,7 +86,11 @@ const TwoStepVerification2 = () => {
                             data-previous="digit-3"
                             maxLength={1}
                           /> */}
-                           <InputOtp value={token} onChange={(e) => setTokens(e.value)} integerOnly />
+                          <InputOtp
+                            value={token}
+                            onChange={(e) => setTokens(e.value)}
+                            integerOnly
+                          />
                         </div>
                         <div>
                           <div className="badge bg-danger-transparent mb-3">
@@ -94,10 +102,7 @@ const TwoStepVerification2 = () => {
                           <div className="mb-3 d-flex justify-content-center">
                             <p className="text-gray-9">
                               Didn't get the OTP?{" "}
-                              <Link
-                                to="#"
-                                className="text-primary"
-                              >
+                              <Link to="#" className="text-primary">
                                 Resend OTP
                               </Link>
                             </p>
@@ -105,13 +110,19 @@ const TwoStepVerification2 = () => {
                         </div>
                       </div>
                       <div className="mb-3">
-                        <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                        <button
+                          type="submit"
+                          onClick={navigationPath}
+                          className="btn btn-primary w-100"
+                        >
                           Verify &amp; Proceed
                         </button>
                       </div>
                     </div>
                     <div className="mt-5 text-center">
-                      <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                      <p className="mb-0 text-gray-9">
+                        Copyright © 2025 - Amasqis
+                      </p>
                     </div>
                   </div>
                 </form>
@@ -121,7 +132,6 @@ const TwoStepVerification2 = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

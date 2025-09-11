@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const SmsSettings = () => {
@@ -35,7 +33,7 @@ const SmsSettings = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -86,14 +84,13 @@ const SmsSettings = () => {
                         to={routes.emailSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Email Settings
                       </Link>
                       <Link
                         to={routes.emailTemplates}
                         className="d-inline-flex align-items-center rounded   py-2 px-3"
                       >
-                        Email Templates
+                        Email Dashboards
                       </Link>
                       <Link
                         to={routes.smsSettings}
@@ -106,10 +103,10 @@ const SmsSettings = () => {
                         to={routes.smsTemplate}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        SMS Templates
+                        SMS Dashboards
                       </Link>
                       <Link
-                         to={routes.otpSettings}
+                        to={routes.otpSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
                         OTP
@@ -261,11 +258,11 @@ const SmsSettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -313,10 +310,7 @@ const SmsSettings = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -329,7 +323,11 @@ const SmsSettings = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save
                   </button>
                 </div>
@@ -377,10 +375,7 @@ const SmsSettings = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -393,7 +388,11 @@ const SmsSettings = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save
                   </button>
                 </div>
@@ -441,10 +440,7 @@ const SmsSettings = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -457,7 +453,11 @@ const SmsSettings = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save
                   </button>
                 </div>
@@ -467,7 +467,6 @@ const SmsSettings = () => {
         </div>
         {/* /Add Nexmo */}
       </>
-
     </div>
   );
 };

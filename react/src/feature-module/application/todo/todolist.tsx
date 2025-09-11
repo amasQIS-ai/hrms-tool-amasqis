@@ -25,8 +25,6 @@ interface Todo {
   assignedTo?: string;
 }
 
-
-
 const TodoList = () => {
   const socket = useSocket() as Socket | null;
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -40,37 +38,46 @@ const TodoList = () => {
   const [availableAssignees, setAvailableAssignees] = useState<string[]>([]);
   const [dateRangeFilter, setDateRangeFilter] = useState("all");
   const [dueDateFilter, setDueDateFilter] = useState<string | null>(null);
-  const [customDateRange, setCustomDateRange] = useState<{start: string, end: string} | null>(null);
+  const [customDateRange, setCustomDateRange] = useState<{
+    start: string;
+    end: string;
+  } | null>(null);
   const [showCustomRange, setShowCustomRange] = useState(false);
-  const [selectedTodoToDelete, setSelectedTodoToDelete] = useState<string | null>(null);
-  const [selectedTodoToEdit, setSelectedTodoToEdit] = useState<Todo | null>(null);
-  const [selectedTodoToView, setSelectedTodoToView] = useState<Todo | null>(null);
+  const [selectedTodoToDelete, setSelectedTodoToDelete] = useState<
+    string | null
+  >(null);
+  const [selectedTodoToEdit, setSelectedTodoToEdit] = useState<Todo | null>(
+    null
+  );
+  const [selectedTodoToView, setSelectedTodoToView] = useState<Todo | null>(
+    null
+  );
 
   const toggleTodo = async (todoId: string, currentCompleted: boolean) => {
     if (!socket) {
-      console.error('Socket not available');
+      console.error("Socket not available");
       return;
     }
 
     try {
       const updateData = {
         id: todoId,
-        completed: !currentCompleted
+        completed: !currentCompleted,
       };
 
-      console.log('Updating todo completion status:', updateData);
+      console.log("Updating todo completion status:", updateData);
 
       const handleResponse = (response: any) => {
-        console.log('Update todo response received:', response);
+        console.log("Update todo response received:", response);
         if (response.done) {
-          console.log('Todo completion status updated successfully');
+          console.log("Todo completion status updated successfully");
           // The todos will be updated via the broadcast from the backend
         } else {
-          console.error('Failed to update todo:', response.error);
+          console.error("Failed to update todo:", response.error);
           // Revert the change in UI if update failed
-          setTodos(prevTodos => 
-            prevTodos.map(todo => 
-              todo._id === todoId 
+          setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+              todo._id === todoId
                 ? { ...todo, completed: currentCompleted } // Revert to original state
                 : todo
             )
@@ -83,11 +90,9 @@ const TodoList = () => {
       };
 
       // Optimistically update the UI
-      setTodos(prevTodos => 
-        prevTodos.map(todo => 
-          todo._id === todoId 
-            ? { ...todo, completed: !currentCompleted }
-            : todo
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === todoId ? { ...todo, completed: !currentCompleted } : todo
         )
       );
 
@@ -103,23 +108,20 @@ const TodoList = () => {
           socket.off("admin/dashboard/update-todo-response", handleResponse);
         }
         // Revert the change if timeout
-        setTodos(prevTodos => 
-          prevTodos.map(todo => 
-            todo._id === todoId 
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo._id === todoId
               ? { ...todo, completed: currentCompleted }
               : todo
           )
         );
       }, 10000); // 10 second timeout
-
     } catch (error) {
-      console.error('Error updating todo completion status:', error);
+      console.error("Error updating todo completion status:", error);
       // Revert the change in UI if error occurred
-      setTodos(prevTodos => 
-        prevTodos.map(todo => 
-          todo._id === todoId 
-            ? { ...todo, completed: currentCompleted }
-            : todo
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === todoId ? { ...todo, completed: currentCompleted } : todo
         )
       );
     }
@@ -158,8 +160,8 @@ const TodoList = () => {
   // Handle custom date range change
   const handleCustomDateRangeChange = (dates: any) => {
     if (dates && dates.length === 2) {
-      const startDate = dates[0].format('YYYY-MM-DD');
-      const endDate = dates[1].format('YYYY-MM-DD');
+      const startDate = dates[0].format("YYYY-MM-DD");
+      const endDate = dates[1].format("YYYY-MM-DD");
       console.log("Custom range changed:", { startDate, endDate });
       setCustomDateRange({ start: startDate, end: endDate });
       setDateRangeFilter("custom");
@@ -180,7 +182,9 @@ const TodoList = () => {
     // This function can be called when a new todo is successfully created
     // to refresh the todo list
     if (socket) {
-      (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
+      (socket as any).emit("admin/dashboard/get-todos", {
+        filter: activeFilter,
+      });
     }
   };
 
@@ -198,7 +202,9 @@ const TodoList = () => {
   // Handle delete button click
   const handleDeleteClick = (todoId: string) => {
     console.log("Delete button clicked for todo:", todoId);
-    const confirmed = window.confirm("Are you sure you want to delete this todo? This action cannot be undone.");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this todo? This action cannot be undone."
+    );
     if (confirmed) {
       handleDeleteTodo(todoId);
     }
@@ -207,13 +213,13 @@ const TodoList = () => {
   // Handle edit button click
   const handleEditClick = (todo: Todo) => {
     setSelectedTodoToEdit(todo);
-    console.log('Edit todo clicked:', todo);
+    console.log("Edit todo clicked:", todo);
   };
 
   // Handle view button click
   const handleViewClick = (todo: Todo) => {
     setSelectedTodoToView(todo);
-    console.log('View todo clicked:', todo);
+    console.log("View todo clicked:", todo);
   };
 
   // Handle todo refresh
@@ -227,47 +233,47 @@ const TodoList = () => {
   const getDateRange = (range: string) => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    
+
     switch (range) {
       case "today":
         return {
           start: today,
-          end: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          end: new Date(today.getTime() + 24 * 60 * 60 * 1000),
         };
       case "yesterday":
         const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
         return {
           start: yesterday,
-          end: today
+          end: today,
         };
       case "last7days":
         return {
           start: new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000),
-          end: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          end: new Date(today.getTime() + 24 * 60 * 60 * 1000),
         };
       case "last30days":
         // Last 30 days from today (rolling 30 days)
         return {
           start: new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000),
-          end: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          end: new Date(today.getTime() + 24 * 60 * 60 * 1000),
         };
       case "thismonth":
         // Current calendar month (1st to last day of current month)
         return {
           start: new Date(now.getFullYear(), now.getMonth(), 1),
-          end: new Date(now.getFullYear(), now.getMonth() + 1, 1)
+          end: new Date(now.getFullYear(), now.getMonth() + 1, 1),
         };
       case "lastmonth":
         // Previous calendar month
         return {
           start: new Date(now.getFullYear(), now.getMonth() - 1, 1),
-          end: new Date(now.getFullYear(), now.getMonth(), 1)
+          end: new Date(now.getFullYear(), now.getMonth(), 1),
         };
       case "thisyear":
         // Current year
         return {
           start: new Date(now.getFullYear(), 0, 1),
-          end: new Date(now.getFullYear() + 1, 0, 1)
+          end: new Date(now.getFullYear() + 1, 0, 1),
         };
       case "custom":
         // Custom date range
@@ -276,10 +282,13 @@ const TodoList = () => {
           const endDate = new Date(customDateRange.end);
           // Add 1 day to end date to include the full end day
           endDate.setDate(endDate.getDate() + 1);
-          console.log("Custom range applied:", { start: startDate, end: endDate });
+          console.log("Custom range applied:", {
+            start: startDate,
+            end: endDate,
+          });
           return {
             start: startDate,
-            end: endDate
+            end: endDate,
           };
         }
         return null;
@@ -290,10 +299,14 @@ const TodoList = () => {
 
   // Get filtered and sorted todos
   const getFilteredTodos = () => {
-    let filteredTodos = todos.filter(todo => {
-      const tagMatch = selectedTag === "all" || todo.tag?.toLowerCase() === selectedTag.toLowerCase();
-      const assigneeMatch = selectedAssignee === "all" || (todo.assignedTo || todo.userId) === selectedAssignee;
-      
+    let filteredTodos = todos.filter((todo) => {
+      const tagMatch =
+        selectedTag === "all" ||
+        todo.tag?.toLowerCase() === selectedTag.toLowerCase();
+      const assigneeMatch =
+        selectedAssignee === "all" ||
+        (todo.assignedTo || todo.userId) === selectedAssignee;
+
       let statusMatch = true;
       if (selectedStatus !== "all") {
         switch (selectedStatus.toLowerCase()) {
@@ -320,13 +333,15 @@ const TodoList = () => {
         const dateRange = getDateRange(dateRangeFilter);
         if (dateRange) {
           const todoCreatedDate = new Date(todo.createdAt);
-          dateRangeMatch = todoCreatedDate >= dateRange.start && todoCreatedDate < dateRange.end;
+          dateRangeMatch =
+            todoCreatedDate >= dateRange.start &&
+            todoCreatedDate < dateRange.end;
           if (dateRangeFilter === "custom") {
             console.log("Custom filter check:", {
               todoCreatedDate,
               dateRange,
               dateRangeMatch,
-              todoTitle: todo.title
+              todoTitle: todo.title,
             });
           }
         }
@@ -338,26 +353,41 @@ const TodoList = () => {
         if (todo.dueDate) {
           const todoDueDate = new Date(todo.dueDate);
           const filterDate = new Date(dueDateFilter);
-          dueDateMatch = todoDueDate.toDateString() === filterDate.toDateString();
+          dueDateMatch =
+            todoDueDate.toDateString() === filterDate.toDateString();
         } else {
           dueDateMatch = false; // If filtering by due date but todo has no due date
         }
       }
-      
-      return tagMatch && assigneeMatch && statusMatch && dateRangeMatch && dueDateMatch;
+
+      return (
+        tagMatch &&
+        assigneeMatch &&
+        statusMatch &&
+        dateRangeMatch &&
+        dueDateMatch
+      );
     });
 
     // Sort todos based on sortBy
     filteredTodos.sort((a, b) => {
       switch (sortBy) {
         case "last7days":
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         case "last1month":
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         case "last1year":
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
         default:
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
       }
     });
 
@@ -367,49 +397,77 @@ const TodoList = () => {
   // Fetch todos
   useEffect(() => {
     if (socket) {
-      (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
-      (socket as any).on("admin/dashboard/get-todos-response", (response: any) => {
-        if (response.done) {
-          const todosData = response.data || [];
-          setTodos(todosData);
-          
-          // Extract unique tags
-          const tags = Array.from(new Set(todosData.map((todo: Todo) => todo.tag).filter(Boolean))) as string[];
-          setAvailableTags(tags);
-          
-          // Extract unique assignees (using userId for now, can be enhanced with actual user names)
-          const assignees = Array.from(new Set(todosData.map((todo: Todo) => todo.assignedTo || todo.userId).filter(Boolean))) as string[];
-          setAvailableAssignees(assignees);
-        }
-        setLoading(false);
+      (socket as any).emit("admin/dashboard/get-todos", {
+        filter: activeFilter,
       });
+      (socket as any).on(
+        "admin/dashboard/get-todos-response",
+        (response: any) => {
+          if (response.done) {
+            const todosData = response.data || [];
+            setTodos(todosData);
+
+            // Extract unique tags
+            const tags = Array.from(
+              new Set(todosData.map((todo: Todo) => todo.tag).filter(Boolean))
+            ) as string[];
+            setAvailableTags(tags);
+
+            // Extract unique assignees (using userId for now, can be enhanced with actual user names)
+            const assignees = Array.from(
+              new Set(
+                todosData
+                  .map((todo: Todo) => todo.assignedTo || todo.userId)
+                  .filter(Boolean)
+              )
+            ) as string[];
+            setAvailableAssignees(assignees);
+          }
+          setLoading(false);
+        }
+      );
 
       // Listen for todo creation success
-      (socket as any).on("admin/dashboard/add-todo-response", (response: any) => {
-        if (response.done) {
-          // Refresh the todo list after successful creation
-          (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
+      (socket as any).on(
+        "admin/dashboard/add-todo-response",
+        (response: any) => {
+          if (response.done) {
+            // Refresh the todo list after successful creation
+            (socket as any).emit("admin/dashboard/get-todos", {
+              filter: activeFilter,
+            });
+          }
         }
-      });
+      );
 
       // Listen for todo update success
-      (socket as any).on("admin/dashboard/update-todo-response", (response: any) => {
-        if (response.done) {
-          // Refresh the todo list after successful update
-          (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
+      (socket as any).on(
+        "admin/dashboard/update-todo-response",
+        (response: any) => {
+          if (response.done) {
+            // Refresh the todo list after successful update
+            (socket as any).emit("admin/dashboard/get-todos", {
+              filter: activeFilter,
+            });
+          }
         }
-      });
+      );
 
       // Listen for todo deletion success
-      (socket as any).on("admin/dashboard/delete-todo-response", (response: any) => {
-        if (response.done) {
-          console.log("Todo deleted successfully");
-          // Refresh the todo list after successful deletion
-          (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
-        } else {
-          console.error("Delete failed:", response.error);
+      (socket as any).on(
+        "admin/dashboard/delete-todo-response",
+        (response: any) => {
+          if (response.done) {
+            console.log("Todo deleted successfully");
+            // Refresh the todo list after successful deletion
+            (socket as any).emit("admin/dashboard/get-todos", {
+              filter: activeFilter,
+            });
+          } else {
+            console.error("Delete failed:", response.error);
+          }
         }
-      });
+      );
 
       return () => {
         (socket as any).off("admin/dashboard/get-todos-response");
@@ -424,26 +482,30 @@ const TodoList = () => {
   const formatDate = (dateString: string) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
   };
 
   // Get priority color
   const getPriorityColor = (priority: string) => {
     switch (priority?.toLowerCase()) {
-      case 'high': return 'text-purple';
-      case 'medium': return 'text-warning';
-      case 'low': return 'text-success';
-      default: return 'text-secondary';
+      case "high":
+        return "text-purple";
+      case "medium":
+        return "text-warning";
+      case "low":
+        return "text-success";
+      default:
+        return "text-secondary";
     }
   };
 
   // Get status badge class
   const getStatusBadgeClass = (completed: boolean) => {
-    return completed 
+    return completed
       ? "badge badge-soft-success d-inline-flex align-items-center"
       : "badge badge-soft-secondary d-inline-flex align-items-center";
   };
@@ -451,18 +513,18 @@ const TodoList = () => {
   // Get tag badge class
   const getTagBadgeClass = (tag: string) => {
     const tagColors: { [key: string]: string } = {
-      'projects': 'badge-success',
-      'internal': 'badge-danger',
-      'reminder': 'badge-secondary',
-      'research': 'bg-pink',
-      'meetings': 'badge-purple',
-      'social': 'badge-info',
-      'bugs': 'badge-danger',
-      'animation': 'badge-warning',
-      'security': 'badge-danger',
-      'reports': 'badge-info'
+      projects: "badge-success",
+      internal: "badge-danger",
+      reminder: "badge-secondary",
+      research: "bg-pink",
+      meetings: "badge-purple",
+      social: "badge-info",
+      bugs: "badge-danger",
+      animation: "badge-warning",
+      security: "badge-danger",
+      reports: "badge-info",
     };
-    return tagColors[tag?.toLowerCase()] || 'badge-secondary';
+    return tagColors[tag?.toLowerCase()] || "badge-secondary";
   };
 
   // Get progress percentage (mock calculation)
@@ -472,10 +534,10 @@ const TodoList = () => {
 
   // Get progress bar color
   const getProgressBarColor = (percentage: number) => {
-    if (percentage >= 100) return 'bg-success';
-    if (percentage >= 70) return 'bg-purple';
-    if (percentage >= 40) return 'bg-warning';
-    return 'bg-danger';
+    if (percentage >= 100) return "bg-success";
+    if (percentage >= 70) return "bg-purple";
+    if (percentage >= 40) return "bg-warning";
+    return "bg-danger";
   };
 
   const options = [
@@ -541,7 +603,9 @@ const TodoList = () => {
               <div className="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
                 <h5 className="d-flex align-items-center">
                   Todo Lists{" "}
-                  <span className="badge bg-soft-pink ms-2">{getFilteredTodos().length} Todos</span>
+                  <span className="badge bg-soft-pink ms-2">
+                    {getFilteredTodos().length} Todos
+                  </span>
                 </h5>
                 <div className="d-flex align-items-center flex-wrap row-gap-3">
                   <div className="dropdown me-3">
@@ -550,25 +614,37 @@ const TodoList = () => {
                       className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
-                       {dateRangeFilter === "all" ? "All Time" : 
-                        dateRangeFilter === "today" ? "Today" :
-                        dateRangeFilter === "yesterday" ? "Yesterday" :
-                        dateRangeFilter === "last7days" ? "Last 7 Days" :
-                        dateRangeFilter === "last30days" ? "Last 30 Days" :
-                        dateRangeFilter === "thismonth" ? "This Month" :
-                        dateRangeFilter === "lastmonth" ? "Last Month" :
-                        dateRangeFilter === "thisyear" ? "This Year" :
-                        dateRangeFilter === "custom" ? 
-                          (customDateRange && customDateRange.start && customDateRange.end ? 
-                            `${customDateRange.start} to ${customDateRange.end}` : 
-                            "Custom Range") : 
-                          "All Time"}
+                      {dateRangeFilter === "all"
+                        ? "All Time"
+                        : dateRangeFilter === "today"
+                        ? "Today"
+                        : dateRangeFilter === "yesterday"
+                        ? "Yesterday"
+                        : dateRangeFilter === "last7days"
+                        ? "Last 7 Days"
+                        : dateRangeFilter === "last30days"
+                        ? "Last 30 Days"
+                        : dateRangeFilter === "thismonth"
+                        ? "This Month"
+                        : dateRangeFilter === "lastmonth"
+                        ? "Last Month"
+                        : dateRangeFilter === "thisyear"
+                        ? "This Year"
+                        : dateRangeFilter === "custom"
+                        ? customDateRange &&
+                          customDateRange.start &&
+                          customDateRange.end
+                          ? `${customDateRange.start} to ${customDateRange.end}`
+                          : "Custom Range"
+                        : "All Time"}
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end p-3">
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "all" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "all" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("all");
@@ -580,7 +656,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "today" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "today" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("today");
@@ -592,7 +670,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "yesterday" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "yesterday" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("yesterday");
@@ -604,7 +684,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "last7days" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "last7days" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("last7days");
@@ -616,7 +698,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "last30days" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "last30days" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("last30days");
@@ -628,7 +712,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "thismonth" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "thismonth" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("thismonth");
@@ -640,7 +726,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "lastmonth" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "lastmonth" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("lastmonth");
@@ -652,7 +740,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${dateRangeFilter === "thisyear" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "thisyear" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleDateRangeChange("thisyear");
@@ -661,49 +751,57 @@ const TodoList = () => {
                           This Year
                         </Link>
                       </li>
-                       <li><hr className="dropdown-divider" /></li>
-                       <li>
-                         <Link
-                           to="#"
-                           className={`dropdown-item rounded-1 ${dateRangeFilter === "custom" ? "active" : ""}`}
-                           onClick={(e) => {
-                             e.preventDefault();
-                             handleCustomRangeClick();
-                           }}
-                         >
-                           Custom Range
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <Link
+                          to="#"
+                          className={`dropdown-item rounded-1 ${
+                            dateRangeFilter === "custom" ? "active" : ""
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleCustomRangeClick();
+                          }}
+                        >
+                          Custom Range
                         </Link>
                       </li>
                     </ul>
-                   </div>
-                   {showCustomRange && (
-                     <div className="custom-range-picker p-2 border rounded bg-light me-3 d-inline-block">
-                       <div className="d-flex align-items-center gap-2">
-                         <span className="small text-muted">Select Range:</span>
-                         <RangePicker
-                           size="small"
-                           format="DD-MM-YYYY"
-                           placeholder={['Start Date', 'End Date']}
-                           style={{ width: 200 }}
-                           value={customDateRange ? [
-                             dayjs(customDateRange.start), 
-                             dayjs(customDateRange.end)
-                           ] : null}
-                           onChange={handleCustomDateRangeChange}
-                         />
-                         <button 
-                           className="btn btn-sm btn-outline-secondary"
-                           onClick={() => {
-                             setShowCustomRange(false);
-                             setCustomDateRange(null);
-                             setDateRangeFilter("all");
-                           }}
-                         >
-                           ×
-                         </button>
-                       </div>
-                     </div>
-                   )}
+                  </div>
+                  {showCustomRange && (
+                    <div className="custom-range-picker p-2 border rounded bg-light me-3 d-inline-block">
+                      <div className="d-flex align-items-center gap-2">
+                        <span className="small text-muted">Select Range:</span>
+                        <RangePicker
+                          size="small"
+                          format="DD-MM-YYYY"
+                          placeholder={["Start Date", "End Date"]}
+                          style={{ width: 200 }}
+                          value={
+                            customDateRange
+                              ? [
+                                  dayjs(customDateRange.start),
+                                  dayjs(customDateRange.end),
+                                ]
+                              : null
+                          }
+                          onChange={handleCustomDateRangeChange}
+                        />
+                        <button
+                          className="btn btn-sm btn-outline-secondary"
+                          onClick={() => {
+                            setShowCustomRange(false);
+                            setCustomDateRange(null);
+                            setDateRangeFilter("all");
+                          }}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <div className="input-icon position-relative w-120 me-2 d-flex align-items-center">
                     <span className="input-icon-addon">
                       <i className="ti ti-calendar" />
@@ -716,7 +814,7 @@ const TodoList = () => {
                       onChange={(date: any) => {
                         if (date) {
                           // Convert to YYYY-MM-DD format for filtering
-                          const formattedDate = date.format('YYYY-MM-DD');
+                          const formattedDate = date.format("YYYY-MM-DD");
                           handleDueDateChange(formattedDate);
                         } else {
                           handleDueDateChange(null);
@@ -729,33 +827,33 @@ const TodoList = () => {
                         className="btn btn-sm btn-light border-0 ms-2 d-flex align-items-center justify-content-center"
                         onClick={() => handleDueDateChange(null)}
                         title="Clear due date filter"
-                        style={{ 
-                          fontSize: '14px', 
-                          width: '28px', 
-                          height: '28px', 
-                          padding: '0', 
-                          lineHeight: '1',
-                          borderRadius: '50%',
-                          backgroundColor: '#f8f9fa',
-                          border: '1px solid #dee2e6',
-                          color: '#6c757d',
-                          transition: 'all 0.2s ease',
-                          boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                        style={{
+                          fontSize: "14px",
+                          width: "28px",
+                          height: "28px",
+                          padding: "0",
+                          lineHeight: "1",
+                          borderRadius: "50%",
+                          backgroundColor: "#f8f9fa",
+                          border: "1px solid #dee2e6",
+                          color: "#6c757d",
+                          transition: "all 0.2s ease",
+                          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
                         }}
                         onMouseEnter={(e) => {
                           const target = e.target as HTMLButtonElement;
-                          target.style.backgroundColor = '#e9ecef';
-                          target.style.color = '#495057';
-                          target.style.transform = 'scale(1.05)';
+                          target.style.backgroundColor = "#e9ecef";
+                          target.style.color = "#495057";
+                          target.style.transform = "scale(1.05)";
                         }}
                         onMouseLeave={(e) => {
                           const target = e.target as HTMLButtonElement;
-                          target.style.backgroundColor = '#f8f9fa';
-                          target.style.color = '#6c757d';
-                          target.style.transform = 'scale(1)';
+                          target.style.backgroundColor = "#f8f9fa";
+                          target.style.color = "#6c757d";
+                          target.style.transform = "scale(1)";
                         }}
                       >
-                        <i className="ti ti-x" style={{ fontSize: '12px' }}></i>
+                        <i className="ti ti-x" style={{ fontSize: "12px" }}></i>
                       </button>
                     )}
                   </div>
@@ -771,7 +869,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedTag === "all" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedTag === "all" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleTagChange("all");
@@ -782,17 +882,19 @@ const TodoList = () => {
                       </li>
                       {availableTags.map((tag) => (
                         <li key={tag}>
-                        <Link
-                          to="#"
-                            className={`dropdown-item rounded-1 ${selectedTag === tag ? "active" : ""}`}
+                          <Link
+                            to="#"
+                            className={`dropdown-item rounded-1 ${
+                              selectedTag === tag ? "active" : ""
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               handleTagChange(tag);
                             }}
                           >
                             {tag}
-                        </Link>
-                      </li>
+                          </Link>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -802,13 +904,17 @@ const TodoList = () => {
                       className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
-                      {selectedAssignee === "all" ? "Assignee" : selectedAssignee}
+                      {selectedAssignee === "all"
+                        ? "Assignee"
+                        : selectedAssignee}
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end p-3">
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedAssignee === "all" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedAssignee === "all" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleAssigneeChange("all");
@@ -819,17 +925,19 @@ const TodoList = () => {
                       </li>
                       {availableAssignees.map((assignee) => (
                         <li key={assignee}>
-                        <Link
-                          to="#"
-                            className={`dropdown-item rounded-1 ${selectedAssignee === assignee ? "active" : ""}`}
+                          <Link
+                            to="#"
+                            className={`dropdown-item rounded-1 ${
+                              selectedAssignee === assignee ? "active" : ""
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               handleAssigneeChange(assignee);
                             }}
                           >
                             {assignee}
-                        </Link>
-                      </li>
+                          </Link>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -839,13 +947,17 @@ const TodoList = () => {
                       className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                       data-bs-toggle="dropdown"
                     >
-                      {selectedStatus === "all" ? "Select Status" : selectedStatus}
+                      {selectedStatus === "all"
+                        ? "Select Status"
+                        : selectedStatus}
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end p-3">
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedStatus === "all" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedStatus === "all" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleStatusChange("all");
@@ -857,7 +969,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedStatus === "completed" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedStatus === "completed" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleStatusChange("completed");
@@ -869,7 +983,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedStatus === "pending" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedStatus === "pending" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleStatusChange("pending");
@@ -881,7 +997,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedStatus === "inprogress" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedStatus === "inprogress" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleStatusChange("inprogress");
@@ -893,7 +1011,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${selectedStatus === "onhold" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            selectedStatus === "onhold" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleStatusChange("onhold");
@@ -910,16 +1030,24 @@ const TodoList = () => {
                       className="dropdown-toggle btn btn-white d-inline-flex align-items-center fs-12"
                       data-bs-toggle="dropdown"
                     >
-                      <span className="fs-12 d-inline-flex me-1">Sort By : </span>
-                      {sortBy === "last7days" ? "Last 7 Days" : 
-                       sortBy === "last1month" ? "Last 1 month" : 
-                       sortBy === "last1year" ? "Last 1 year" : "Last 7 Days"}
+                      <span className="fs-12 d-inline-flex me-1">
+                        Sort By :{" "}
+                      </span>
+                      {sortBy === "last7days"
+                        ? "Last 7 Days"
+                        : sortBy === "last1month"
+                        ? "Last 1 month"
+                        : sortBy === "last1year"
+                        ? "Last 1 year"
+                        : "Last 7 Days"}
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end p-3">
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${sortBy === "last7days" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            sortBy === "last7days" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleSortChange("last7days");
@@ -931,7 +1059,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${sortBy === "last1month" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            sortBy === "last1month" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleSortChange("last1month");
@@ -943,7 +1073,9 @@ const TodoList = () => {
                       <li>
                         <Link
                           to="#"
-                          className={`dropdown-item rounded-1 ${sortBy === "last1year" ? "active" : ""}`}
+                          className={`dropdown-item rounded-1 ${
+                            sortBy === "last1year" ? "active" : ""
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             handleSortChange("last1year");
@@ -986,119 +1118,149 @@ const TodoList = () => {
                         <tr>
                           <td colSpan={9} className="text-center py-4">
                             <div className="spinner-border" role="status">
-                              <span className="visually-hidden">Loading...</span>
-                          </div>
-                        </td>
-                      </tr>
+                              <span className="visually-hidden">
+                                Loading...
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
                       ) : getFilteredTodos().length === 0 ? (
                         <tr>
-                          <td colSpan={9} className="text-center py-4 text-muted">
+                          <td
+                            colSpan={9}
+                            className="text-center py-4 text-muted"
+                          >
                             No todos found.
-                        </td>
-                      </tr>
+                          </td>
+                        </tr>
                       ) : (
                         getFilteredTodos().map((todo: Todo, index: number) => {
-                          const progressPercentage = getProgressPercentage(todo);
+                          const progressPercentage =
+                            getProgressPercentage(todo);
                           return (
                             <tr key={todo._id}>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="form-check form-check-md">
-                                    <input 
-                                      className="form-check-input" 
-                                      type="checkbox" 
+                              <td>
+                                <div className="d-flex align-items-center">
+                                  <div className="form-check form-check-md">
+                                    <input
+                                      className="form-check-input"
+                                      type="checkbox"
                                       checked={todo.completed}
-                                      onChange={() => toggleTodo(todo._id, todo.completed)}
+                                      onChange={() =>
+                                        toggleTodo(todo._id, todo.completed)
+                                      }
                                     />
-                            </div>
-                            <span className="mx-2 d-flex align-items-center rating-select">
-                                    <i className={`ti ti-star${todo.completed ? '-filled filled' : ''}`} />
-                            </span>
-                            <span className="d-flex align-items-center">
-                                    <i className={`ti ti-square-rounded ${getPriorityColor(todo.priority)} me-2`} />
-                            </span>
-                          </div>
-                        </td>
-                        <td>
-                          <p className="fw-medium text-dark">
+                                  </div>
+                                  <span className="mx-2 d-flex align-items-center rating-select">
+                                    <i
+                                      className={`ti ti-star${
+                                        todo.completed ? "-filled filled" : ""
+                                      }`}
+                                    />
+                                  </span>
+                                  <span className="d-flex align-items-center">
+                                    <i
+                                      className={`ti ti-square-rounded ${getPriorityColor(
+                                        todo.priority
+                                      )} me-2`}
+                                    />
+                                  </span>
+                                </div>
+                              </td>
+                              <td>
+                                <p className="fw-medium text-dark">
                                   {todo.title}
-                          </p>
-                        </td>
-                        <td>
+                                </p>
+                              </td>
+                              <td>
                                 {todo.tag && (
-                                  <span className={`badge ${getTagBadgeClass(todo.tag)}`}>
+                                  <span
+                                    className={`badge ${getTagBadgeClass(
+                                      todo.tag
+                                    )}`}
+                                  >
                                     {todo.tag}
-                            </span>
+                                  </span>
                                 )}
-                        </td>
-                        <td>
-                          <div className="avatar-list-stacked avatar-group-sm">
-                            <span className="avatar avatar-rounded">
-                              <ImageWithBasePath
-                                className="border border-white"
-                                src="assets/img/profiles/avatar-19.jpg"
-                                alt="img"
-                              />
-                            </span>
-                          </div>
-                        </td>
+                              </td>
+                              <td>
+                                <div className="avatar-list-stacked avatar-group-sm">
+                                  <span className="avatar avatar-rounded">
+                                    <ImageWithBasePath
+                                      className="border border-white"
+                                      src="assets/img/profiles/avatar-19.jpg"
+                                      alt="img"
+                                    />
+                                  </span>
+                                </div>
+                              </td>
                               <td>{formatDate(todo.createdAt)}</td>
-                        <td>
-                                <span className="d-block mb-1">Progress : {progressPercentage}%</span>
-                          <div
-                            className="progress progress-xs flex-grow-1 mb-2"
-                            style={{ width: 190 }}
-                          >
-                            <div
-                                    className={`progress-bar ${getProgressBarColor(progressPercentage)} rounded`}
-                              role="progressbar"
+                              <td>
+                                <span className="d-block mb-1">
+                                  Progress : {progressPercentage}%
+                                </span>
+                                <div
+                                  className="progress progress-xs flex-grow-1 mb-2"
+                                  style={{ width: 190 }}
+                                >
+                                  <div
+                                    className={`progress-bar ${getProgressBarColor(
+                                      progressPercentage
+                                    )} rounded`}
+                                    role="progressbar"
                                     style={{ width: `${progressPercentage}%` }}
                                     aria-valuenow={progressPercentage}
-                              aria-valuemin={0}
-                              aria-valuemax={100}
-                            />
-                          </div>
-                        </td>
-                              <td>{todo.dueDate ? formatDate(todo.dueDate) : '-'}</td>
-                        <td>
-                                <span className={`${getStatusBadgeClass(todo.completed)}`}>
-                            <i className="ti ti-circle-filled fs-5 me-1" />
-                                  {todo.completed ? 'Completed' : 'Pending'}
-                          </span>
-                        </td>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <Link
-                              to="#"
-                              className="btn btn-sm btn-icon"
-                              data-bs-toggle="modal"
-                              data-bs-target="#view-note-units"
-                              onClick={() => handleViewClick(todo)}
-                              title="View todo"
-                            >
-                              <i className="ti ti-eye" />
-                            </Link>
-                            <Link
-                              to="#"
-                              className="btn btn-sm btn-icon"
-                              data-bs-toggle="modal"
-                              data-bs-target="#edit-note-units"
-                              onClick={() => handleEditClick(todo)}
-                              title="Edit todo"
-                            >
-                              <i className="ti ti-edit" />
-                            </Link>
-                            <button
-                              type="button"
-                              className="btn btn-sm btn-icon"
-                              onClick={() => handleDeleteClick(todo._id)}
-                              title="Delete todo"
-                            >
-                              <i className="ti ti-trash" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                {todo.dueDate ? formatDate(todo.dueDate) : "-"}
+                              </td>
+                              <td>
+                                <span
+                                  className={`${getStatusBadgeClass(
+                                    todo.completed
+                                  )}`}
+                                >
+                                  <i className="ti ti-circle-filled fs-5 me-1" />
+                                  {todo.completed ? "Completed" : "Pending"}
+                                </span>
+                              </td>
+                              <td>
+                                <div className="d-flex align-items-center">
+                                  <Link
+                                    to="#"
+                                    className="btn btn-sm btn-icon"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#view-note-units"
+                                    onClick={() => handleViewClick(todo)}
+                                    title="View todo"
+                                  >
+                                    <i className="ti ti-eye" />
+                                  </Link>
+                                  <Link
+                                    to="#"
+                                    className="btn btn-sm btn-icon"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#edit-note-units"
+                                    onClick={() => handleEditClick(todo)}
+                                    title="Edit todo"
+                                  >
+                                    <i className="ti ti-edit" />
+                                  </Link>
+                                  <button
+                                    type="button"
+                                    className="btn btn-sm btn-icon"
+                                    onClick={() => handleDeleteClick(todo._id)}
+                                    title="Delete todo"
+                                  >
+                                    <i className="ti ti-trash" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
                           );
                         })
                       )}
@@ -1110,11 +1272,11 @@ const TodoList = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -1122,7 +1284,7 @@ const TodoList = () => {
         {/* /Page Wrapper */}
       </>
 
-      <TodoModal 
+      <TodoModal
         onTodoAdded={handleTodoRefresh}
         selectedTodoToDelete={selectedTodoToDelete}
         onDeleteTodo={handleDeleteTodo}

@@ -4,9 +4,7 @@ import { all_routes } from "../router/all_routes";
 import ImageWithBasePath from "../../core/common/imageWithBasePath";
 type PasswordField = "password" | "confirmPassword";
 
-
 const LockScreen = () => {
-
   const routes = all_routes;
   const navigation = useNavigate();
 
@@ -31,7 +29,11 @@ const LockScreen = () => {
           <form>
             <div className="d-flex flex-column justify-content-between vh-100">
               <div className=" mx-auto p-4 text-center">
-                <ImageWithBasePath src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                <ImageWithBasePath
+                  src="assets/img/logo.svg"
+                  className="img-fluid"
+                  alt="Logo"
+                />
               </div>
               <div className="card border-primary">
                 <div className="card-body bg-primary bg-opacity-10  rounded p-4">
@@ -48,25 +50,22 @@ const LockScreen = () => {
                     <label className="form-label">Password</label>
                     <div className="pass-group">
                       <input
-                        type={
-                          passwordVisibility.password
-                            ? "text"
-                            : "password"
-                        }
+                        type={passwordVisibility.password ? "text" : "password"}
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.password
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
-                        onClick={() =>
-                          togglePasswordVisibility("password")
-                        }
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.password ? "ti-eye" : "ti-eye-off"
+                        }`}
+                        onClick={() => togglePasswordVisibility("password")}
                       ></span>
                     </div>
                   </div>
-                  <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                  <button
+                    type="submit"
+                    onClick={navigationPath}
+                    className="btn btn-primary w-100"
+                  >
                     Sign In
                   </button>
                 </div>
@@ -84,7 +83,7 @@ const LockScreen = () => {
                   </Link>
                 </div>
                 <div className="p-2 text-center">
-                  <p className="mb-0 text-gray-9">Copyright © 2024 - SmartHR</p>
+                  <p className="mb-0 text-gray-9">Copyright © 2025 - Amasqis</p>
                 </div>
               </div>
             </div>
@@ -92,8 +91,6 @@ const LockScreen = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 

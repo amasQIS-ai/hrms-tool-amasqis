@@ -23,7 +23,11 @@ const Faq = () => {
       dataIndex: "questions",
       key: "questions",
       render: (text: String) => (
-        <><h6 className="fw-medium"><Link to="#">{text}</Link></h6></>
+        <>
+          <h6 className="fw-medium">
+            <Link to="#">{text}</Link>
+          </h6>
+        </>
       ),
       sorter: (a: TableData, b: TableData) =>
         a.questions.length - b.questions.length,
@@ -44,7 +48,8 @@ const Faq = () => {
         <div className="action-icon d-inline-flex">
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_faq"
             className="me-2"
           >
@@ -52,13 +57,13 @@ const Faq = () => {
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
   ];
@@ -99,19 +104,13 @@ const Faq = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -122,7 +121,8 @@ const Faq = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_faq"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -158,26 +158,17 @@ const Faq = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         General
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Feature
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Employee
                       </Link>
                     </li>
@@ -191,11 +182,11 @@ const Faq = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -255,7 +246,11 @@ const Faq = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Faq
                 </button>
               </div>
@@ -324,7 +319,11 @@ const Faq = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Faq
                 </button>
               </div>
@@ -334,7 +333,6 @@ const Faq = () => {
       </div>
       {/* /Edit Faq */}
     </>
-
   );
 };
 

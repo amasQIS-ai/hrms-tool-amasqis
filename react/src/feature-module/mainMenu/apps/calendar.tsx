@@ -9,7 +9,7 @@ import { all_routes } from "../../router/all_routes";
 import { DatePicker, TimePicker } from "antd";
 import { Nullable } from "primereact/ts-helpers";
 import PredefinedDateRanges from "../../../core/common/datePicker";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 
@@ -17,16 +17,14 @@ const Calendars = () => {
   const routes = all_routes;
   const [showAddEventModal, setShowAddEventModal] = useState(false);
   const [showEventDetailsModal, setShowEventDetailsModal] = useState(false);
-  const [eventDetails, setEventDetails] = useState<string>(
-    ""
-  );
+  const [eventDetails, setEventDetails] = useState<string>("");
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const calendarRef = useRef(null);
@@ -46,40 +44,40 @@ const Calendars = () => {
 
   const events = [
     {
-      title: 'Meeting with Team Dev',
-      className: 'badge badge-pink-transparent',
-      backgroundColor: '#FFEDF6',
-      textColor: "#FD3995",		
+      title: "Meeting with Team Dev",
+      className: "badge badge-pink-transparent",
+      backgroundColor: "#FFEDF6",
+      textColor: "#FD3995",
       start: new Date(Date.now() - 168000000).toJSON().slice(0, 10),
       end: new Date(Date.now() - 168000000).toJSON().slice(0, 10),
     },
     {
-        title: 'UI/UX Team...',	
-        className: 'badge badge-secondary-transparent',
-        backgroundColor: '#EDF2F4' ,
-        textColor: "#0C4B5E",				  
-        start: new Date(Date.now() + 338000000).toJSON().slice(0, 10)
+      title: "UI/UX Team...",
+      className: "badge badge-secondary-transparent",
+      backgroundColor: "#EDF2F4",
+      textColor: "#0C4B5E",
+      start: new Date(Date.now() + 338000000).toJSON().slice(0, 10),
     },
     {
-        title: 'Data Update...',
-        className: 'badge badge-purple-transparent',
-        backgroundColor: '#F7EEF9',		
-        textColor: "#AB47BC",		  
-        start: new Date(Date.now() - 338000000).toJSON().slice(0, 10) 
+      title: "Data Update...",
+      className: "badge badge-purple-transparent",
+      backgroundColor: "#F7EEF9",
+      textColor: "#AB47BC",
+      start: new Date(Date.now() - 338000000).toJSON().slice(0, 10),
     },
     {
-        title: 'Meeting with Team Dev',
-        className: 'badge badge-dark-transparent',
-        backgroundColor: '#E8E9EA',		
-        textColor: "#212529",				  
-        start: new Date(Date.now() + 68000000).toJSON().slice(0, 10) 
+      title: "Meeting with Team Dev",
+      className: "badge badge-dark-transparent",
+      backgroundColor: "#E8E9EA",
+      textColor: "#212529",
+      start: new Date(Date.now() + 68000000).toJSON().slice(0, 10),
     },
     {
-        title: 'Design System',
-        className: 'badge badge-danger-transparent',
-        backgroundColor: '#FAE7E7',	
-        textColor: "#E70D0D",				  
-        start: new Date(Date.now() + 88000000).toJSON().slice(0, 10) 
+      title: "Design System",
+      className: "badge badge-danger-transparent",
+      backgroundColor: "#FAE7E7",
+      textColor: "#E70D0D",
+      start: new Date(Date.now() + 88000000).toJSON().slice(0, 10),
     },
   ];
 
@@ -127,19 +125,13 @@ const Calendars = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -150,7 +142,8 @@ const Calendars = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_event"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -159,7 +152,7 @@ const Calendars = () => {
                 </Link>
               </div>
               <div className="ms-2 head-icons">
-                <CollapseHeader/>
+                <CollapseHeader />
               </div>
             </div>
           </div>
@@ -184,7 +177,8 @@ const Calendars = () => {
                         <Link
                           to="#"
                           className="link-primary"
-                          data-bs-toggle="modal" data-inert={true}
+                          data-bs-toggle="modal"
+                          data-inert={true}
                           data-bs-target="#add_event"
                         >
                           <i className="ti ti-square-rounded-plus-filled fs-16" />
@@ -255,7 +249,9 @@ const Calendars = () => {
                       </h5>
                       <div className="border-start border-purple border-3 mb-3">
                         <div className="ps-3">
-                          <h6 className="fw-medium mb-1">Meeting with Team Dev</h6>
+                          <h6 className="fw-medium mb-1">
+                            Meeting with Team Dev
+                          </h6>
                           <p className="fs-12">
                             <i className="ti ti-calendar-check text-info me-2" />
                             15 Mar 2025
@@ -297,10 +293,16 @@ const Calendars = () => {
                       </Link>
                       <div className="box-bg">
                         <span className="bg-right">
-                          <ImageWithBasePath src="assets/img/bg/email-bg-01.png" alt="Img" />
+                          <ImageWithBasePath
+                            src="assets/img/bg/email-bg-01.png"
+                            alt="Img"
+                          />
                         </span>
                         <span className="bg-left">
-                          <ImageWithBasePath src="assets/img/bg/email-bg-02.png" alt="Img" />
+                          <ImageWithBasePath
+                            src="assets/img/bg/email-bg-02.png"
+                            alt="Img"
+                          />
                         </span>
                       </div>
                     </div>
@@ -308,7 +310,6 @@ const Calendars = () => {
                   </div>
                 </div>
               </div>
-
             </div>
             {/* /Calendar Sidebar */}
             <div className="col-xxl-9 col-xl-8 theiaStickySidebar">
@@ -334,28 +335,26 @@ const Calendars = () => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
 
-
       {/* Event */}
       <Modal show={showEventDetailsModal} onHide={handleEventDetailsClose}>
         <div className="modal-header bg-dark modal-bg">
           <div className="modal-title text-white">
-            <span id="eventTitle" >{eventDetails}</span>
+            <span id="eventTitle">{eventDetails}</span>
           </div>
           <button
             type="button"
@@ -437,7 +436,13 @@ const Calendars = () => {
                       <div className="mb-3">
                         <label className="form-label">Start Time</label>
                         <div className="input-icon-end position-relative">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                          <TimePicker
+                            getPopupContainer={getModalContainer2}
+                            use12Hours
+                            placeholder="Choose"
+                            format="h:mm A"
+                            className="form-control timepicker"
+                          />
                           <span className="input-icon-addon">
                             <i className="ti ti-clock text-gray-7" />
                           </span>
@@ -448,7 +453,13 @@ const Calendars = () => {
                       <div className="mb-3">
                         <label className="form-label">End Time</label>
                         <div className="input-icon-end position-relative">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                          <TimePicker
+                            getPopupContainer={getModalContainer2}
+                            use12Hours
+                            placeholder="Choose"
+                            format="h:mm A"
+                            className="form-control timepicker"
+                          />
                           <span className="input-icon-addon">
                             <i className="ti ti-clock text-gray-7" />
                           </span>
@@ -489,13 +500,7 @@ const Calendars = () => {
         </div>
         {/* /Add New Event */}
       </>
-
-
-
-
-
     </>
-
   );
 };
 

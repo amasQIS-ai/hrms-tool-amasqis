@@ -74,8 +74,7 @@ const authorizedParties = [
   "http://byte.localhost:3000",
   "http://test.localhost:3000",
   "http://dummy.localhost:3000",
-  "https://hrms-tool-amasqis.onrender.com",
-  "https://hrms-tool-amasqis.onrender.com/",
+  "https://devhrms-pm.amasqis.ai",
 ];
 
 export const socketHandler = (httpServer) => {
@@ -113,9 +112,11 @@ export const socketHandler = (httpServer) => {
           console.error(`Failed to fetch user from Clerk:`, clerkError.message);
           console.error(`Clerk error details:`, {
             userId: verifiedToken.sub,
-            error: clerkError
+            error: clerkError,
           });
-          return next(new Error("Authentication error: Failed to fetch user data"));
+          return next(
+            new Error("Authentication error: Failed to fetch user data")
+          );
         }
 
         // Store user metadata on socket for security checks
@@ -124,11 +125,13 @@ export const socketHandler = (httpServer) => {
         // Check if role exists, else assign default role based on metadata
         let role = user.publicMetadata?.role;
         let companyId = user.publicMetadata?.companyId || null;
-        
+
         // TEMPORARY FIX: Auto-assign companyId for admin users in development
         if (isDevelopment && role === "admin" && !companyId) {
           companyId = "68443081dcdfe43152aebf80";
-          console.log(`🔧 Development fix: Auto-assigning companyId ${companyId} to admin user`);
+          console.log(
+            `🔧 Development fix: Auto-assigning companyId ${companyId} to admin user`
+          );
         }
 
         console.log(`User ${user.id} metadata:`, {
@@ -136,7 +139,7 @@ export const socketHandler = (httpServer) => {
           companyId: companyId,
           hasVerification: !!user.publicMetadata?.isAdminVerified,
           environment: isDevelopment ? "development" : "production",
-          publicMetadata: user.publicMetadata
+          publicMetadata: user.publicMetadata,
         });
 
         if (!role) {
@@ -200,7 +203,9 @@ export const socketHandler = (httpServer) => {
         socket.companyId = companyId;
         socket.authenticated = true;
 
-        console.log(`Socket authentication complete for user: ${verifiedToken.sub}, role: ${role}, company: ${companyId}`);
+        console.log(
+          `Socket authentication complete for user: ${verifiedToken.sub}, role: ${role}, company: ${companyId}`
+        );
 
         // SECURITY: Add rate limiting function to socket
         socket.checkRateLimit = () => checkRateLimit(socket.userId);
@@ -258,15 +263,17 @@ export const socketHandler = (httpServer) => {
 
   io.on("connection", (socket) => {
     console.log(
-      `Client connected: ${socket.id}, Role: ${socket.role}, Company: ${socket.companyId || "None"}, UserId: ${socket.userId || "None"}`
+      `Client connected: ${socket.id}, Role: ${socket.role}, Company: ${
+        socket.companyId || "None"
+      }, UserId: ${socket.userId || "None"}`
     );
     console.log(`Socket user metadata:`, socket.userMetadata);
     console.log(`Socket user object:`, socket.user);
     const role = socket.role || "guest";
-  router(socket, io, role);
+    router(socket, io, role);
 
-  socket.on("disconnect", () => {
-    console.log(`Client disconnected: ${socket.id}`);
+    socket.on("disconnect", () => {
+      console.log(`Client disconnected: ${socket.id}`);
+    });
   });
-});
 };

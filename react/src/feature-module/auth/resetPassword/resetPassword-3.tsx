@@ -16,7 +16,8 @@ const ResetPassword3 = () => {
   });
   const [password, setPassword] = useState("");
   const [passwordResponce, setPasswordResponce] = useState({
-    passwordResponceText: "Use 8 or more characters with a mix of letters, numbers, and symbols.",
+    passwordResponceText:
+      "Use 8 or more characters with a mix of letters, numbers, and symbols.",
     passwordResponceKey: "",
   });
 
@@ -31,7 +32,8 @@ const ResetPassword3 = () => {
     setPassword(password);
     if (password.match(/^$|\s+/)) {
       setPasswordResponce({
-        passwordResponceText: "Use 8 or more characters with a mix of letters, numbers & symbols",
+        passwordResponceText:
+          "Use 8 or more characters with a mix of letters, numbers & symbols",
         passwordResponceKey: "",
       });
     } else if (password.length === 0) {
@@ -50,7 +52,8 @@ const ResetPassword3 = () => {
       password.search(/[0-9]/) < 0
     ) {
       setPasswordResponce({
-        passwordResponceText: "Average. Must contain at least 1 upper case and number",
+        passwordResponceText:
+          "Average. Must contain at least 1 upper case and number",
         passwordResponceKey: "1",
       });
     } else if (password.search(/(?=.*?[#?!@$%^&*-])/) < 0) {
@@ -73,7 +76,11 @@ const ResetPassword3 = () => {
             <form action="success-3.html" className="vh-100">
               <div className="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                 <div className=" mx-auto mb-5 text-center">
-                  <ImageWithBasePath src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                  <ImageWithBasePath
+                    src="assets/img/logo.svg"
+                    className="img-fluid"
+                    alt="Logo"
+                  />
                 </div>
                 <div className="">
                   <div className="text-center mb-3">
@@ -89,31 +96,37 @@ const ResetPassword3 = () => {
                         <label className="form-label">Password</label>
                         <div className="pass-group" id="passwordInput">
                           <input
-                            type={passwordVisibility.password ? "text" : "password"}
+                            type={
+                              passwordVisibility.password ? "text" : "password"
+                            }
                             value={password}
                             onChange={(e) => onChangePassword(e.target.value)}
                             className="form-control pass-input"
                             placeholder="Enter your password"
                           />
                           <span
-                            className={`ti toggle-passwords ${passwordVisibility.password ? "ti-eye" : "ti-eye-off"
-                              }`}
+                            className={`ti toggle-passwords ${
+                              passwordVisibility.password
+                                ? "ti-eye"
+                                : "ti-eye-off"
+                            }`}
                             onClick={() => togglePasswordVisibility("password")}
                             style={{ cursor: "pointer" }}
                           ></span>
                         </div>
                       </div>
                       <div
-                        className={`password-strength d-flex ${passwordResponce.passwordResponceKey === "0"
-                          ? "poor-active"
-                          : passwordResponce.passwordResponceKey === "1"
+                        className={`password-strength d-flex ${
+                          passwordResponce.passwordResponceKey === "0"
+                            ? "poor-active"
+                            : passwordResponce.passwordResponceKey === "1"
                             ? "avg-active"
                             : passwordResponce.passwordResponceKey === "2"
-                              ? "strong-active"
-                              : passwordResponce.passwordResponceKey === "3"
-                                ? "heavy-active"
-                                : ""
-                          }`}
+                            ? "strong-active"
+                            : passwordResponce.passwordResponceKey === "3"
+                            ? "heavy-active"
+                            : ""
+                        }`}
                         id="passwordStrength"
                       >
                         <span id="poor" className="active" />
@@ -122,7 +135,9 @@ const ResetPassword3 = () => {
                         <span id="heavy" className="active" />
                       </div>
                     </div>
-                    <p className="fs-12">{passwordResponce.passwordResponceText}</p>
+                    <p className="fs-12">
+                      {passwordResponce.passwordResponceText}
+                    </p>
                     <div className="mb-3">
                       <label className="form-label">Confirm Password</label>
                       <div className="pass-group">
@@ -135,10 +150,11 @@ const ResetPassword3 = () => {
                           className="pass-input form-control"
                         />
                         <span
-                          className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                            ? "ti-eye"
-                            : "ti-eye-off"
-                            }`}
+                          className={`ti toggle-passwords ${
+                            passwordVisibility.confirmPassword
+                              ? "ti-eye"
+                              : "ti-eye-off"
+                          }`}
                           onClick={() =>
                             togglePasswordVisibility("confirmPassword")
                           }
@@ -146,14 +162,18 @@ const ResetPassword3 = () => {
                       </div>
                     </div>
                     <div className="mb-3">
-                      <button type="submit" onClick={navigationPath}  className="btn btn-primary w-100">
+                      <button
+                        type="submit"
+                        onClick={navigationPath}
+                        className="btn btn-primary w-100"
+                      >
                         Submit
                       </button>
                     </div>
                   </div>
                 </div>
                 <div className="mt-5 pb-4 text-center">
-                  <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                  <p className="mb-0 text-gray-9">Copyright © 2025 - Amasqis</p>
                 </div>
               </div>
             </form>

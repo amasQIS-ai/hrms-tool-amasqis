@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../../router/all_routes';
-import CommonSelect from '../../../../core/common/commonSelect';
-import ImageWithBasePath from '../../../../core/common/imageWithBasePath';
-import { PickList } from 'primereact/picklist';
-import { SelectWithImage } from '../../../../core/common/selectWithImage';
-import CollapseHeader from '../../../../core/common/collapse-header/collapse-header';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../../router/all_routes";
+import CommonSelect from "../../../../core/common/commonSelect";
+import ImageWithBasePath from "../../../../core/common/imageWithBasePath";
+import { PickList } from "primereact/picklist";
+import { SelectWithImage } from "../../../../core/common/selectWithImage";
+import CollapseHeader from "../../../../core/common/collapse-header/collapse-header";
 
 const LeaveSettings = () => {
-
   const leavetype = [
     { value: "Select", label: "Select" },
     { value: "Medical Leave", label: "Medical Leave" },
@@ -25,26 +24,28 @@ const LeaveSettings = () => {
     key: string;
     Name: String;
   }[];
-  const [source, setSource] = useState<any>([{
-    key: "1",
-    Name: "Bernardo Galaviz",
-  },
-  {
-    key: "2",
-    Name: "Bernardo Galaviz",
-  },
-  {
-    key: "3",
-    Name: "John Doe",
-  },
-  {
-    key: "4",
-    Name: "John Smith",
-  },
-  {
-    key: "5",
-    Name: 'Mike Litorus',
-  }]);
+  const [source, setSource] = useState<any>([
+    {
+      key: "1",
+      Name: "Bernardo Galaviz",
+    },
+    {
+      key: "2",
+      Name: "Bernardo Galaviz",
+    },
+    {
+      key: "3",
+      Name: "John Doe",
+    },
+    {
+      key: "4",
+      Name: "John Smith",
+    },
+    {
+      key: "5",
+      Name: "Mike Litorus",
+    },
+  ]);
   const [target, setTarget] = useState<any>([]);
 
   const onChange = (event: any) => {
@@ -52,9 +53,7 @@ const LeaveSettings = () => {
     setTarget(event.target);
   };
   const itemTemplate = (item: any) => {
-    return (
-      <span className="font-bold">{item.Name}</span>
-    );
+    return <span className="font-bold">{item.Name}</span>;
   };
 
   return (
@@ -84,7 +83,8 @@ const LeaveSettings = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#new_custom_policy"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -120,14 +120,16 @@ const LeaveSettings = () => {
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#annual_leave_settings"
                     >
                       {" "}
@@ -156,14 +158,16 @@ const LeaveSettings = () => {
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#sick_leave_settings"
                     >
                       {" "}
@@ -187,20 +191,24 @@ const LeaveSettings = () => {
                         />
                       </label>
                     </div>
-                    <h6 className="d-flex align-items-center">Hospitalisation</h6>
+                    <h6 className="d-flex align-items-center">
+                      Hospitalisation
+                    </h6>
                   </div>
                   <div className="d-flex align-items-center">
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#hospitalisation_settings"
                     >
                       <i className="ti ti-settings" />{" "}
@@ -229,14 +237,16 @@ const LeaveSettings = () => {
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#maternity_settings"
                     >
                       {" "}
@@ -265,14 +275,16 @@ const LeaveSettings = () => {
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#paternity_settings"
                     >
                       {" "}
@@ -301,14 +313,16 @@ const LeaveSettings = () => {
                     <Link
                       to="#"
                       className="text-decoration-underline me-2"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#add_custom_policy"
                     >
                       Custom Policy
                     </Link>
                     <Link
                       to="#"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#lop_settings"
                     >
                       {" "}
@@ -322,11 +336,11 @@ const LeaveSettings = () => {
           {/* /Leaves Info */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -354,7 +368,7 @@ const LeaveSettings = () => {
                     <div className="mb-3">
                       <label className="form-label">Leave Type</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={leavetype}
                         defaultValue={leavetype[0]}
                       />
@@ -388,7 +402,11 @@ const LeaveSettings = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Leaves
                 </button>
               </div>
@@ -482,7 +500,10 @@ const LeaveSettings = () => {
                                 name="flexRadio"
                                 id="flexRadioOne"
                               />
-                              <label className="form-label" htmlFor="flexRadioOne">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadioOne"
+                              >
                                 No
                               </label>
                             </div>
@@ -491,7 +512,9 @@ const LeaveSettings = () => {
                       </div>
                       <div className="col-md-12">
                         <div className="mb-3">
-                          <label className="form-label">Maximum No of Days</label>
+                          <label className="form-label">
+                            Maximum No of Days
+                          </label>
                           <input type="text" className="form-control" />
                         </div>
                       </div>
@@ -507,7 +530,10 @@ const LeaveSettings = () => {
                                 id="flexRadioTwo"
                                 defaultChecked
                               />
-                              <label className="form-label" htmlFor="flexRadioTwo">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadioTwo"
+                              >
                                 Yes
                               </label>
                             </div>
@@ -538,7 +564,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -564,7 +594,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -612,7 +644,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -631,7 +664,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -640,7 +676,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -648,7 +687,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -671,7 +710,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -717,7 +758,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -726,7 +770,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -734,7 +781,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -757,7 +804,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -781,7 +830,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -800,7 +850,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -809,7 +862,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -817,7 +873,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -840,7 +896,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -864,7 +922,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -883,7 +942,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -892,7 +954,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -900,7 +965,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -921,7 +986,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1004,7 +1073,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1030,7 +1103,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1078,7 +1153,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1097,7 +1173,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1106,7 +1185,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1114,7 +1196,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1137,7 +1219,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1183,7 +1267,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1192,7 +1279,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1200,7 +1290,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1223,7 +1313,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1247,7 +1339,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1266,7 +1359,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1275,7 +1371,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1283,7 +1382,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1306,7 +1405,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1330,7 +1431,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1349,7 +1451,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1358,7 +1463,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1366,7 +1474,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1387,7 +1495,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1470,7 +1582,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1496,7 +1612,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1544,7 +1662,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1563,7 +1682,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1572,7 +1694,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1580,7 +1705,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1603,7 +1728,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1649,7 +1776,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1658,7 +1788,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1666,7 +1799,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1689,7 +1822,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1713,7 +1848,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1732,7 +1868,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1741,7 +1880,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1749,7 +1891,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1772,7 +1914,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -1796,7 +1940,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -1815,7 +1960,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -1824,7 +1972,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -1832,7 +1983,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -1853,7 +2004,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1879,7 +2034,7 @@ const LeaveSettings = () => {
                 <i className="ti ti-x" />
               </button>
             </div>
-            <form >
+            <form>
               <div className="contact-grids-tab">
                 <ul className="nav nav-underline" id="myTab3" role="tablist">
                   <li className="nav-item" role="presentation">
@@ -1941,7 +2096,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -1967,7 +2126,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2015,7 +2176,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2034,7 +2196,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2043,7 +2208,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2051,7 +2219,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2074,7 +2242,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2120,7 +2290,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2129,7 +2302,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2137,7 +2313,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2160,7 +2336,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2184,7 +2362,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2203,7 +2382,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2212,7 +2394,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2220,7 +2405,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2243,7 +2428,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2267,7 +2454,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2286,7 +2474,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2295,7 +2486,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2303,7 +2497,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2324,7 +2518,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -2412,7 +2610,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -2438,7 +2640,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2486,7 +2690,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2505,7 +2710,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2514,7 +2722,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2522,7 +2733,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2545,7 +2756,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2591,7 +2804,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2600,7 +2816,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2608,7 +2827,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2631,7 +2850,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2655,7 +2876,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2674,7 +2896,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2683,7 +2908,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2691,7 +2919,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2714,7 +2942,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -2738,7 +2968,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -2757,7 +2988,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -2766,7 +3000,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -2774,7 +3011,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -2795,7 +3032,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -2880,7 +3121,10 @@ const LeaveSettings = () => {
                                 id="flexRadio4"
                                 defaultChecked
                               />
-                              <label className="form-label" htmlFor="flexRadio4">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadio4"
+                              >
                                 Yes
                               </label>
                             </div>
@@ -2891,7 +3135,10 @@ const LeaveSettings = () => {
                                 name="flexRadio"
                                 id="flexRadio5"
                               />
-                              <label className="form-label" htmlFor="flexRadio5">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadio5"
+                              >
                                 No
                               </label>
                             </div>
@@ -2900,7 +3147,9 @@ const LeaveSettings = () => {
                       </div>
                       <div className="col-md-12">
                         <div className="mb-3">
-                          <label className="form-label">Maximum No of Days</label>
+                          <label className="form-label">
+                            Maximum No of Days
+                          </label>
                           <input type="text" className="form-control" />
                         </div>
                       </div>
@@ -2916,7 +3165,10 @@ const LeaveSettings = () => {
                                 id="flexRadio6"
                                 defaultChecked
                               />
-                              <label className="form-label" htmlFor="flexRadio6">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadio6"
+                              >
                                 Yes
                               </label>
                             </div>
@@ -2927,7 +3179,10 @@ const LeaveSettings = () => {
                                 name="flexRadioOne"
                                 id="flexRadio7"
                               />
-                              <label className="form-label" htmlFor="flexRadio7">
+                              <label
+                                className="form-label"
+                                htmlFor="flexRadio7"
+                              >
                                 No
                               </label>
                             </div>
@@ -2944,7 +3199,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -2970,7 +3229,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -3018,7 +3279,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -3037,7 +3299,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -3046,7 +3311,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -3054,7 +3322,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -3077,7 +3345,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -3123,7 +3393,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -3132,7 +3405,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -3140,7 +3416,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -3163,7 +3439,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -3187,7 +3465,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -3206,7 +3485,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -3215,7 +3497,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -3223,7 +3508,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -3246,7 +3531,9 @@ const LeaveSettings = () => {
                               </div>
                               <div>
                                 <p className="mb-1">No Of Days</p>
-                                <span className="text-dark fw-normal mb-0">2</span>
+                                <span className="text-dark fw-normal mb-0">
+                                  2
+                                </span>
                               </div>
                               <div className="avatar-list-stacked avatar-group-sm">
                                 <span className="avatar border-0">
@@ -3270,7 +3557,8 @@ const LeaveSettings = () => {
                                 </Link>
                                 <Link
                                   to="#"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash" />
@@ -3289,7 +3577,10 @@ const LeaveSettings = () => {
                                         Policy Name{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-md-6">
@@ -3298,7 +3589,10 @@ const LeaveSettings = () => {
                                         No of Days{" "}
                                         <span className="text-danger"> *</span>
                                       </label>
-                                      <input type="text" className="form-control" />
+                                      <input
+                                        type="text"
+                                        className="form-control"
+                                      />
                                     </div>
                                   </div>
                                   <div className="col-me-12">
@@ -3306,7 +3600,7 @@ const LeaveSettings = () => {
                                       Add Employee
                                     </label>
                                     <CommonSelect
-                                      className='select'
+                                      className="select"
                                       options={addemployee}
                                       defaultValue={addemployee[0]}
                                     />
@@ -3327,7 +3621,11 @@ const LeaveSettings = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save Changes{" "}
                     </button>
                   </div>
@@ -3339,7 +3637,11 @@ const LeaveSettings = () => {
       </div>
       {/* /LOP Leave */}
       {/* Add Custom Policy Modal */}
-      <div id="add_custom_policy" className="modal custom-modal fade" role="dialog">
+      <div
+        id="add_custom_policy"
+        className="modal custom-modal fade"
+        role="dialog"
+      >
         <div
           className="modal-dialog modal-dialog-centered modal-lg"
           role="document"
@@ -3373,8 +3675,18 @@ const LeaveSettings = () => {
                 <div className="input-block mb-3 leave-duallist">
                   <label className="col-form-label">Add employee</label>
                   <div className="card">
-                    <PickList dataKey="id" source={source} target={target} onChange={onChange} itemTemplate={itemTemplate} breakpoint="1280px"
-                      sourceHeader="Available" targetHeader="Selected" sourceStyle={{ height: '24rem' }} targetStyle={{ height: '24rem' }} />
+                    <PickList
+                      dataKey="id"
+                      source={source}
+                      target={target}
+                      onChange={onChange}
+                      itemTemplate={itemTemplate}
+                      breakpoint="1280px"
+                      sourceHeader="Available"
+                      targetHeader="Selected"
+                      sourceStyle={{ height: "24rem" }}
+                      targetStyle={{ height: "24rem" }}
+                    />
                   </div>
                 </div>
                 <div className="submit-section">
@@ -3414,13 +3726,21 @@ const LeaveSettings = () => {
                   <label className="col-form-label">
                     Policy Name <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control" defaultValue="LOP" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue="LOP"
+                  />
                 </div>
                 <div className="input-block mb-3">
                   <label className="col-form-label">
                     Days <span className="text-danger">*</span>
                   </label>
-                  <input type="text" className="form-control" defaultValue={4} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    defaultValue={4}
+                  />
                 </div>
                 <div className="input-block mb-3 leave-duallist">
                   <label className="col-form-label">Add employee</label>
@@ -3491,11 +3811,7 @@ const LeaveSettings = () => {
       </div>
       {/* /Edit Custom Policy Modal */}
     </>
+  );
+};
 
-
-
-
-  )
-}
-
-export default LeaveSettings
+export default LeaveSettings;

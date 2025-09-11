@@ -1,16 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes';
-import PredefinedDateRanges from '../../../core/common/datePicker';
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
 import Table from "../../../core/common/dataTable/index";
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CommonSelect from '../../../core/common/commonSelect';
-import { DatePicker, TimePicker } from 'antd';
-import { schedule_timing } from '../../../core/data/json/schedule_timing';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
+import { DatePicker, TimePicker } from "antd";
+import { schedule_timing } from "../../../core/data/json/schedule_timing";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const ScheduleTiming = () => {
-
   const data = schedule_timing;
   const columns = [
     {
@@ -19,7 +18,11 @@ const ScheduleTiming = () => {
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
           <Link to="#" className="avatar avatar-md border avatar-rounded">
-            <ImageWithBasePath src={`assets/img/users/${record.Image}`} className="img-fluid" alt="img" />
+            <ImageWithBasePath
+              src={`assets/img/users/${record.Image}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -27,7 +30,6 @@ const ScheduleTiming = () => {
             </h6>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.Name.length - b.Name.length,
     },
@@ -46,7 +48,8 @@ const ScheduleTiming = () => {
           <p className="mb-0">01-01-1970 - 10:00 AM-11:00 AM</p>
         </div>
       ),
-      sorter: (a: any, b: any) => a.UserAvailableTimings.length - b.UserAvailableTimings.length,
+      sorter: (a: any, b: any) =>
+        a.UserAvailableTimings.length - b.UserAvailableTimings.length,
     },
 
     {
@@ -56,17 +59,17 @@ const ScheduleTiming = () => {
         <div>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#schedule_timing"
             className="btn btn-dark"
           >
             Schedule Timing
           </Link>
         </div>
-
       ),
     },
-  ]
+  ];
 
   const departmentChoose = [
     { value: "Development", label: "Development" },
@@ -89,11 +92,11 @@ const ScheduleTiming = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -133,19 +136,13 @@ const ScheduleTiming = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -181,42 +178,27 @@ const ScheduleTiming = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -232,18 +214,22 @@ const ScheduleTiming = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
       {/* Add Schedule Modal */}
-      <div id="schedule_timing" className="modal custom-modal fade" role="dialog">
+      <div
+        id="schedule_timing"
+        className="modal custom-modal fade"
+        role="dialog"
+      >
         <div
           className="modal-dialog modal-dialog-centered modal-lg"
           role="document"
@@ -269,7 +255,7 @@ const ScheduleTiming = () => {
                         Department <span className="text-danger">*</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={departmentChoose}
                         defaultValue={departmentChoose[0]}
                       />
@@ -281,7 +267,7 @@ const ScheduleTiming = () => {
                         Employee Name <span className="text-danger">*</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={employeeName}
                         defaultValue={employeeName[0]}
                       />
@@ -309,7 +295,7 @@ const ScheduleTiming = () => {
                         Shifts <span className="text-danger">*</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={shiftsChoose}
                         defaultValue={shiftsChoose[0]}
                       />
@@ -321,7 +307,12 @@ const ScheduleTiming = () => {
                         Min Start Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -334,7 +325,12 @@ const ScheduleTiming = () => {
                         Start Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -347,7 +343,12 @@ const ScheduleTiming = () => {
                         Max Start Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -360,7 +361,12 @@ const ScheduleTiming = () => {
                         Min End Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -373,7 +379,12 @@ const ScheduleTiming = () => {
                         End Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -386,7 +397,12 @@ const ScheduleTiming = () => {
                         Max End Time <span className="text-danger">*</span>
                       </label>
                       <div className="input-group time">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-group-text">
                           <i className="fa-regular fa-clock" />
                         </span>
@@ -398,12 +414,19 @@ const ScheduleTiming = () => {
                       <label className="col-form-label">
                         Break Time <span className="text-danger">*</span>
                       </label>
-                      <TimePicker getPopupContainer={getModalContainer2} use12Hours format="h:mm A" className="form-control timepicker" />
+                      <TimePicker
+                        getPopupContainer={getModalContainer2}
+                        use12Hours
+                        format="h:mm A"
+                        className="form-control timepicker"
+                      />
                     </div>
                   </div>
                   <div className="col-sm-12">
                     <div className="input-block mb-3">
-                      <label className="col-form-label">Accept Extra Hours </label>
+                      <label className="col-form-label">
+                        Accept Extra Hours{" "}
+                      </label>
                       <div className="form-check form-switch">
                         <input
                           type="checkbox"
@@ -446,8 +469,7 @@ const ScheduleTiming = () => {
       </div>
       {/* /Add Schedule Modal */}
     </>
+  );
+};
 
-  )
-}
-
-export default ScheduleTiming
+export default ScheduleTiming;

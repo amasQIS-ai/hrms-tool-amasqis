@@ -9,9 +9,7 @@ import AddKeyModal from "./addKeyModal";
 import EditKeyModal from "./editKeyModal copy";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
-
 const ApiKeys = () => {
-
   const data = apiKeyDetails;
   const columns = [
     {
@@ -24,11 +22,30 @@ const ApiKeys = () => {
       dataIndex: "created_by",
       render: (text: string, record: any) => (
         <div className="d-flex align-items-center">
-          <Link to="#" className="avatar avatar-md" data-bs-toggle="modal" data-inert={true} data-bs-target="#view_details">
-            <ImageWithBasePath src={record.image_url} className="img-fluid rounded-circle" alt="img" />
+          <Link
+            to="#"
+            className="avatar avatar-md"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#view_details"
+          >
+            <ImageWithBasePath
+              src={record.image_url}
+              className="img-fluid rounded-circle"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
-            <p className="text-dark fw-medium mb-0"><Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#view_details">{text}</Link></p>
+            <p className="text-dark fw-medium mb-0">
+              <Link
+                to="#"
+                data-bs-toggle="modal"
+                data-inert={true}
+                data-bs-target="#view_details"
+              >
+                {text}
+              </Link>
+            </p>
             <span className="fs-12">{record.text}</span>
           </div>
         </div>
@@ -42,8 +59,11 @@ const ApiKeys = () => {
         <>
           <div className="d-flex align-items-center">
             <p className="me-2 mb-0">{text}</p>
-            <span><i className="ti ti-clipboard"></i></span>
-          </div></>
+            <span>
+              <i className="ti ti-clipboard"></i>
+            </span>
+          </div>
+        </>
       ),
       sorter: (a: any, b: any) => a.api_key.length - b.api_key.length,
     },
@@ -53,12 +73,13 @@ const ApiKeys = () => {
       render: (text: string, record: any) => (
         <>
           <span
-            className={`badge d-inline-flex align-items-center badge-xs ${text === 'Success'
-              ? 'badge-success'
-              : text === 'Warning'
-                ? 'badge-warning'
-                : 'badge-danger'
-              }`}
+            className={`badge d-inline-flex align-items-center badge-xs ${
+              text === "Success"
+                ? "badge-success"
+                : text === "Warning"
+                ? "badge-warning"
+                : "badge-danger"
+            }`}
           >
             <i className="ti ti-point-filled me-1"></i>
             {text}
@@ -80,25 +101,24 @@ const ApiKeys = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_key"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
-
       ),
     },
-  ]
-
+  ];
 
   return (
     <>
@@ -136,19 +156,13 @@ const ApiKeys = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -159,7 +173,8 @@ const ApiKeys = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_key"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -195,26 +210,17 @@ const ApiKeys = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Anthony Lewis
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Brian Villalobos
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Harvey Smith
                       </Link>
                     </li>
@@ -230,26 +236,17 @@ const ApiKeys = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Success
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Rejected
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Warning
                       </Link>
                     </li>
@@ -265,42 +262,27 @@ const ApiKeys = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -314,11 +296,11 @@ const ApiKeys = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -327,11 +309,6 @@ const ApiKeys = () => {
       <AddKeyModal />
       <EditKeyModal />
     </>
-
-
-
-
-
   );
 };
 

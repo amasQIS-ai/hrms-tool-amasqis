@@ -4,7 +4,6 @@ import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
-
 const Localizationsettings = () => {
   const routes = all_routes;
   const languageOptions = [
@@ -207,7 +206,9 @@ const Localizationsettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-5">
-                                <label className="form-label mb-md-0">Language</label>
+                                <label className="form-label mb-md-0">
+                                  Language
+                                </label>
                               </div>
                               <div className="col-md-7">
                                 <CommonSelect
@@ -228,7 +229,9 @@ const Localizationsettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-5">
-                                <label className="form-label mb-md-0">Timezone</label>
+                                <label className="form-label mb-md-0">
+                                  Timezone
+                                </label>
                               </div>
                               <div className="col-md-7">
                                 <CommonSelect
@@ -306,7 +309,9 @@ const Localizationsettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-5">
-                                <label className="form-label mb-md-0">Currency</label>
+                                <label className="form-label mb-md-0">
+                                  Currency
+                                </label>
                               </div>
                               <div className="col-md-7">
                                 <CommonSelect
@@ -452,18 +457,17 @@ const Localizationsettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

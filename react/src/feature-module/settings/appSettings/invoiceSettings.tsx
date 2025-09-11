@@ -40,7 +40,7 @@ const InvoiceSettings = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -179,7 +179,10 @@ const InvoiceSettings = () => {
                                 </div>
                                 <div className=" col-md-5">
                                   <div className="mb-3">
-                                    <input type="text" className="form-control" />
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -253,7 +256,7 @@ const InvoiceSettings = () => {
                                 </div>
                                 <div className="col-md-9">
                                   <div className="mb-3">
-                                  <CommonTextEditor />
+                                    <CommonTextEditor />
                                   </div>
                                 </div>
                               </div>
@@ -279,18 +282,17 @@ const InvoiceSettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

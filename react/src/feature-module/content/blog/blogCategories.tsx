@@ -20,7 +20,8 @@ const BlogCategories = () => {
           <span className="text-dark">{record}</span>
         </>
       ),
-      sorter: (a: TableData, b: TableData) => a.category.length - b.category.length,
+      sorter: (a: TableData, b: TableData) =>
+        a.category.length - b.category.length,
     },
     {
       title: "Created Date",
@@ -33,8 +34,9 @@ const BlogCategories = () => {
       sorter: (a: TableData, b: TableData) => a.status.length - b.status.length,
       render: (status: any) => (
         <span
-          className={`badge ${status === "Active" ? "badge-success" : "badge-danger"
-            }`}
+          className={`badge ${
+            status === "Active" ? "badge-success" : "badge-danger"
+          }`}
         >
           <i className="ti ti-point-filled"></i>
           {status}
@@ -50,30 +52,29 @@ const BlogCategories = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_blog-category"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
   ];
-
 
   const status = [
     { value: "Select", label: "Select" },
     { value: "Active", label: "Active" },
     { value: "Inactive", label: "Inactive" },
-
   ];
   const [tags, setTags] = useState<string[]>(["HRMS", "Recruitment", "HRTech"]);
 
@@ -113,19 +114,13 @@ const BlogCategories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -136,7 +131,8 @@ const BlogCategories = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_blog-category"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -164,26 +160,17 @@ const BlogCategories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Guide
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Security
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Payroll
                       </Link>
                     </li>
@@ -199,26 +186,17 @@ const BlogCategories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Active
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Inactive
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Pending
                       </Link>
                     </li>
@@ -234,42 +212,27 @@ const BlogCategories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -283,11 +246,11 @@ const BlogCategories = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -343,7 +306,11 @@ const BlogCategories = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add Tag
                   </button>
                 </div>
@@ -403,7 +370,11 @@ const BlogCategories = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -413,11 +384,7 @@ const BlogCategories = () => {
         </div>
         {/* /Edit Tag */}
       </>
-
-
     </>
-
-
   );
 };
 

@@ -27,6 +27,8 @@ export const SocketProvider = ({ children }) => {
           return;
         }
 
+        console.log("Backend ->", process.env.REACT_APP_BACKEND_URL);
+
         const backend_url =
           process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
         const newSocket = io(backend_url, {

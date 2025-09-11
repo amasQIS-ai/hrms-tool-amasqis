@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const routes = all_routes;
@@ -286,11 +284,11 @@ const TaxRates = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -336,19 +334,24 @@ const TaxRates = () => {
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Link to="#" className="btn btn-light me-2" data-bs-dismiss="modal">
+                  <Link
+                    to="#"
+                    className="btn btn-light me-2"
+                    data-bs-dismiss="modal"
+                  >
                     Cancel
                   </Link>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add Tax Rate
                   </button>
                 </div>
@@ -406,10 +409,18 @@ const TaxRates = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Link to="#" className="btn btn-light me-2" data-bs-dismiss="modal">
+                  <Link
+                    to="#"
+                    className="btn btn-light me-2"
+                    data-bs-dismiss="modal"
+                  >
                     Cancel
                   </Link>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -428,8 +439,8 @@ const TaxRates = () => {
                 </span>
                 <h4 className="mb-1">Confirm Delete</h4>
                 <p className="mb-3">
-                  You want to delete all the marked items, this cant be undone once
-                  you delete.
+                  You want to delete all the marked items, this cant be undone
+                  once you delete.
                 </p>
                 <div className="d-flex justify-content-center">
                   <Link
@@ -449,7 +460,6 @@ const TaxRates = () => {
         </div>
         {/* /Delete Modal */}
       </>
-
     </div>
   );
 };

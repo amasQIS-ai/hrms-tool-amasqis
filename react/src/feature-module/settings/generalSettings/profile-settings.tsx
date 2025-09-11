@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
-import { profilecity, profilesel, profilestate } from "../../../core/common/selectoption/selectoption";
+import {
+  profilecity,
+  profilesel,
+  profilestate,
+} from "../../../core/common/selectoption/selectoption";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
-
 
 const Profilesettings = () => {
   const routes = all_routes;
@@ -181,7 +184,9 @@ const Profilesettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-4">
-                                <label className="form-label mb-md-0">Email</label>
+                                <label className="form-label mb-md-0">
+                                  Email
+                                </label>
                               </div>
                               <div className="col-md-8">
                                 <input type="text" className="form-control" />
@@ -191,7 +196,9 @@ const Profilesettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-4">
-                                <label className="form-label mb-md-0">Phone</label>
+                                <label className="form-label mb-md-0">
+                                  Phone
+                                </label>
                               </div>
                               <div className="col-md-8">
                                 <input type="text" className="form-control" />
@@ -206,7 +213,9 @@ const Profilesettings = () => {
                           <div className="col-md-12">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-2">
-                                <label className="form-label mb-md-0">Address</label>
+                                <label className="form-label mb-md-0">
+                                  Address
+                                </label>
                               </div>
                               <div className="col-md-10">
                                 <input type="text" className="form-control" />
@@ -216,7 +225,9 @@ const Profilesettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-4">
-                                <label className="form-label mb-md-0">Country</label>
+                                <label className="form-label mb-md-0">
+                                  Country
+                                </label>
                               </div>
                               <div className="col-md-8">
                                 <div>
@@ -231,7 +242,9 @@ const Profilesettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-4">
-                                <label className="form-label mb-md-0">State</label>
+                                <label className="form-label mb-md-0">
+                                  State
+                                </label>
                               </div>
                               <div className="col-md-8">
                                 <div>
@@ -246,7 +259,9 @@ const Profilesettings = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-4">
-                                <label className="form-label mb-md-0">City</label>
+                                <label className="form-label mb-md-0">
+                                  City
+                                </label>
                               </div>
                               <div className="col-md-8">
                                 <CommonSelect
@@ -288,21 +303,19 @@ const Profilesettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
-  )
-}
-
+  );
+};
 
 export default Profilesettings;

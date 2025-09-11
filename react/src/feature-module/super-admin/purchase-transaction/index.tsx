@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes'
-import PredefinedDateRanges from '../../../core/common/datePicker'
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
 import Table from "../../../core/common/dataTable/index";
-import { purchase_transaction } from '../../../core/data/json/purchaseTransactionDetails'
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import { purchase_transaction } from "../../../core/data/json/purchaseTransactionDetails";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const PurchaseTransaction = () => {
   const data = purchase_transaction;
@@ -14,7 +14,9 @@ const PurchaseTransaction = () => {
       title: "Invoice ID",
       dataIndex: "InvoiceID",
       render: (text: String, record: any) => (
-        <Link to="#" className="link-default">{text}</Link>
+        <Link to="#" className="link-default">
+          {text}
+        </Link>
       ),
       sorter: (a: any, b: any) => a.InvoiceID.length - b.InvoiceID.length,
     },
@@ -57,7 +59,8 @@ const PurchaseTransaction = () => {
     {
       title: "Payment Methode",
       dataIndex: "PaymentMethod",
-      sorter: (a: any, b: any) => a.PaymentMethod.length - b.PaymentMethod.length,
+      sorter: (a: any, b: any) =>
+        a.PaymentMethod.length - b.PaymentMethod.length,
     },
     {
       title: "Status",
@@ -65,7 +68,9 @@ const PurchaseTransaction = () => {
       render: (text: string, record: any) => (
         <Link
           to="#"
-          className={`badge ${text === 'Paid' ? 'badge-success' : 'badge-danger'} d-inline-flex align-items-center badge-xs`}
+          className={`badge ${
+            text === "Paid" ? "badge-success" : "badge-danger"
+          } d-inline-flex align-items-center badge-xs`}
         >
           <i className="ti ti-point-filled me-1"></i>
           {text}
@@ -95,7 +100,7 @@ const PurchaseTransaction = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <>
@@ -133,19 +138,13 @@ const PurchaseTransaction = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -181,26 +180,17 @@ const PurchaseTransaction = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Credit Card
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Paypal
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Debit Card
                       </Link>
                     </li>
@@ -216,18 +206,12 @@ const PurchaseTransaction = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Paid
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Unpaid
                       </Link>
                     </li>
@@ -243,42 +227,27 @@ const PurchaseTransaction = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -292,11 +261,11 @@ const PurchaseTransaction = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -337,13 +306,15 @@ const PurchaseTransaction = () => {
               </div>
               <div className="row mb-3 d-flex justify-content-between">
                 <div className="col-md-7">
-                  <p className="text-dark mb-2 fw-medium fs-16">Invoice From :</p>
+                  <p className="text-dark mb-2 fw-medium fs-16">
+                    Invoice From :
+                  </p>
                   <div>
-                    <p className="mb-1">SmartHR</p>
+                    <p className="mb-1">Amasqis</p>
                     <p className="mb-1">
                       367 Hillcrest Lane, Irvine, California, United States
                     </p>
-                    <p className="mb-1">smarthr@example.com</p>
+                    <p className="mb-1">Amasqis@example.com</p>
                   </div>
                 </div>
                 <div className="col-md-5">
@@ -416,13 +387,14 @@ const PurchaseTransaction = () => {
                   </p>
                   <p className="fs-12 fw-normal d-flex align-items-baseline mb-2">
                     <i className="ti ti-point-filled text-primary me-1" />
-                    All payments must be made according to the agreed schedule. Late
-                    payments may incur additional fees.
+                    All payments must be made according to the agreed schedule.
+                    Late payments may incur additional fees.
                   </p>
                   <p className="fs-12 fw-normal d-flex align-items-baseline">
                     <i className="ti ti-point-filled text-primary me-1" />
-                    We are not liable for any indirect, incidental, or consequential
-                    damages, including loss of profits, revenue, or data.
+                    We are not liable for any indirect, incidental, or
+                    consequential damages, including loss of profits, revenue,
+                    or data.
                   </p>
                 </div>
               </div>
@@ -432,8 +404,7 @@ const PurchaseTransaction = () => {
       </div>
       {/* /Invoices */}
     </>
+  );
+};
 
-  )
-}
-
-export default PurchaseTransaction
+export default PurchaseTransaction;

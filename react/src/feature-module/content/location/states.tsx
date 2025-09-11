@@ -1,24 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import Table from "../../../core/common/dataTable/index";
 import { states_data } from "../../../core/data/json/states_data";
 import { TableData } from "../../../core/data/interface";
 import { all_routes } from "../../router/all_routes";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
-
 const States = () => {
-
   const countryName = [
     { value: "Select", label: "Select" },
     { value: "United States", label: "United States" },
     { value: "Germany", label: "Germany" },
     { value: "Canada", label: "Canada" },
-
   ];
 
   const data = states_data;
@@ -70,7 +65,8 @@ const States = () => {
                 <Link
                   className="dropdown-item rounded-1"
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#edit_state"
                 >
                   <i className="ti ti-edit-circle me-2" />
@@ -81,7 +77,8 @@ const States = () => {
                 <Link
                   className="dropdown-item rounded-1"
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#delete-modal"
                 >
                   <i className="ti ti-trash-x me-2" />
@@ -123,7 +120,8 @@ const States = () => {
                 <div className="mb-2">
                   <Link
                     to="#"
-                    data-bs-toggle="modal" data-inert={true}
+                    data-bs-toggle="modal"
+                    data-inert={true}
                     data-bs-target="#add_state"
                     className="btn btn-primary d-flex align-items-center"
                   >
@@ -151,42 +149,27 @@ const States = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Recently Added
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Ascending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Desending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last Month
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 7 Days
                         </Link>
                       </li>
@@ -200,18 +183,17 @@ const States = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
       <>
         {/* Add City */}
         <div className="modal fade" id="add_state">
@@ -267,7 +249,11 @@ const States = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add State
                   </button>
                 </div>
@@ -336,7 +322,11 @@ const States = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -346,7 +336,6 @@ const States = () => {
         </div>
         {/* /Edit City */}
       </>
-
     </div>
   );
 };

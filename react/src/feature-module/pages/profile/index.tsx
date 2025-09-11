@@ -105,10 +105,7 @@ const Profile = () => {
                                   multiple
                                 />
                               </div>
-                              <Link
-                                to="#"
-                                className="btn btn-light btn-sm"
-                              >
+                              <Link to="#" className="btn btn-light btn-sm">
                                 Cancel
                               </Link>
                             </div>
@@ -121,7 +118,9 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="row align-items-center mb-3">
                         <div className="col-md-4">
-                          <label className="form-label mb-md-0">First Name</label>
+                          <label className="form-label mb-md-0">
+                            First Name
+                          </label>
                         </div>
                         <div className="col-md-8">
                           <input type="text" className="form-control" />
@@ -131,7 +130,9 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="row align-items-center mb-3">
                         <div className="col-md-4">
-                          <label className="form-label mb-md-0">Last Name</label>
+                          <label className="form-label mb-md-0">
+                            Last Name
+                          </label>
                         </div>
                         <div className="col-md-8">
                           <input type="text" className="form-control" />
@@ -222,7 +223,9 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="row align-items-center mb-3">
                         <div className="col-md-4">
-                          <label className="form-label mb-md-0">Postal Code</label>
+                          <label className="form-label mb-md-0">
+                            Postal Code
+                          </label>
                         </div>
                         <div className="col-md-8">
                           <input type="text" className="form-control" />
@@ -252,10 +255,11 @@ const Profile = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.currentPassword
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.currentPassword
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("currentPassword")
                               }
@@ -267,7 +271,9 @@ const Profile = () => {
                     <div className="col-md-4">
                       <div className="row align-items-center mb-3">
                         <div className="col-md-5">
-                          <label className="form-label mb-md-0">New Password</label>
+                          <label className="form-label mb-md-0">
+                            New Password
+                          </label>
                         </div>
                         <div className="col-md-7">
                           <div className="pass-group">
@@ -280,10 +286,11 @@ const Profile = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.newPassword
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.newPassword
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("newPassword")
                               }
@@ -310,10 +317,11 @@ const Profile = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.confirmPassword
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("confirmPassword")
                               }
@@ -340,18 +348,17 @@ const Profile = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
-
   );
 };
 

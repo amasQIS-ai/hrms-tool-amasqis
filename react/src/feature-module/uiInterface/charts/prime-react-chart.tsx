@@ -4,119 +4,119 @@ import { Link } from "react-router-dom";
 
 const PrimeReactChart = () => {
   const lineData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     datasets: [
       {
-        label: 'Sales',
+        label: "Sales",
         data: [65, 59, 80, 81, 56, 55, 40, 60, 75],
         fill: false,
-        borderColor: '#42A5F5',
-        tension: 0.1
-      }
-    ]
+        borderColor: "#42A5F5",
+        tension: 0.1,
+      },
+    ],
   };
 
   const areaData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
       {
-        label: 'Product A',
+        label: "Product A",
         data: [30, 40, 45, 50, 55, 70, 80],
         fill: true,
-        borderColor: '#66BB6A',
-        backgroundColor: 'rgba(102, 187, 106, 0.2)',
-        tension: 0.4
+        borderColor: "#66BB6A",
+        backgroundColor: "rgba(102, 187, 106, 0.2)",
+        tension: 0.4,
       },
       {
-        label: 'Product B',
+        label: "Product B",
         data: [40, 50, 55, 60, 65, 80, 95],
         fill: true,
-        borderColor: '#FF7043',
-        backgroundColor: 'rgba(255, 112, 67, 0.2)',
-        tension: 0.4
-      }
-    ]
+        borderColor: "#FF7043",
+        backgroundColor: "rgba(255, 112, 67, 0.2)",
+        tension: 0.4,
+      },
+    ],
   };
 
   const barData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
       {
-        label: 'Revenue',
+        label: "Revenue",
         data: [40, 60, 90, 100, 110, 130, 150],
-        backgroundColor: '#42A5F5'
-      }
-    ]
+        backgroundColor: "#42A5F5",
+      },
+    ],
   };
 
   const stackedBarData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
     datasets: [
       {
-        label: 'Product A',
+        label: "Product A",
         data: [65, 59, 80, 81, 56],
-        backgroundColor: '#66BB6A'
+        backgroundColor: "#66BB6A",
       },
       {
-        label: 'Product B',
+        label: "Product B",
         data: [28, 48, 40, 19, 96],
-        backgroundColor: '#FF7043'
+        backgroundColor: "#FF7043",
       },
       {
-        label: 'Product C',
+        label: "Product C",
         data: [40, 20, 50, 40, 30],
-        backgroundColor: '#FFEB3B'
-      }
-    ]
+        backgroundColor: "#FFEB3B",
+      },
+    ],
   };
 
   const mixedData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
     datasets: [
       {
-        type: 'bar',
-        label: 'Website Visits',
+        type: "bar",
+        label: "Website Visits",
         data: [40, 80, 60, 90, 100],
-        backgroundColor: '#42A5F5'
+        backgroundColor: "#42A5F5",
       },
       {
-        type: 'line',
-        label: 'Bounce Rate',
+        type: "line",
+        label: "Bounce Rate",
         data: [10, 20, 30, 20, 10],
         fill: false,
-        borderColor: '#FF7043'
-      }
-    ]
+        borderColor: "#FF7043",
+      },
+    ],
   };
 
   const donutData = {
-    labels: ['Apple', 'Orange', 'Banana', 'Grapes'],
+    labels: ["Apple", "Orange", "Banana", "Grapes"],
     datasets: [
       {
         data: [300, 50, 100, 200],
-        backgroundColor: ['#FF7043', '#66BB6A', '#42A5F5', '#FFEB3B']
-      }
-    ]
+        backgroundColor: ["#FF7043", "#66BB6A", "#42A5F5", "#FFEB3B"],
+      },
+    ],
   };
 
   const radialData = {
-    labels: ['Red', 'Green', 'Blue', 'Yellow'],
+    labels: ["Red", "Green", "Blue", "Yellow"],
     datasets: [
       {
         data: [40, 25, 20, 15],
-        backgroundColor: ['#FF7043', '#66BB6A', '#42A5F5', '#FFEB3B']
-      }
-    ]
+        backgroundColor: ["#FF7043", "#66BB6A", "#42A5F5", "#FFEB3B"],
+      },
+    ],
   };
 
   const polarData = {
-    labels: ['Red', 'Green', 'Blue', 'Yellow'],
+    labels: ["Red", "Green", "Blue", "Yellow"],
     datasets: [
       {
         data: [40, 20, 30, 10],
-        backgroundColor: ['#FF7043', '#66BB6A', '#42A5F5', '#FFEB3B']
-      }
-    ]
+        backgroundColor: ["#FF7043", "#66BB6A", "#42A5F5", "#FFEB3B"],
+      },
+    ],
   };
 
   return (
@@ -140,7 +140,11 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Line Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="line" data={lineData} style={{ width: '400px', height: '300px' }} />
+                  <Chart
+                    type="line"
+                    data={lineData}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -173,7 +177,14 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Stacked Bar Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="bar" data={stackedBarData} options={{ scales: { x: { stacked: true }, y: { stacked: true } } }} style={{ width: '400px', height: '300px' }} />
+                  <Chart
+                    type="bar"
+                    data={stackedBarData}
+                    options={{
+                      scales: { x: { stacked: true }, y: { stacked: true } },
+                    }}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -184,7 +195,11 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Mixed Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="line" data={mixedData} style={{ width: '400px', height: '300px' }} />
+                  <Chart
+                    type="line"
+                    data={mixedData}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -195,7 +210,11 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Donut Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="doughnut" data={donutData} style={{ width: '400px', height: '300px' }}/>
+                  <Chart
+                    type="doughnut"
+                    data={donutData}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -206,7 +225,11 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Radial Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="radar" data={radialData}style={{ width: '400px', height: '300px' }} />
+                  <Chart
+                    type="radar"
+                    data={radialData}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -217,18 +240,22 @@ const PrimeReactChart = () => {
                   <h5 className="card-title">Polar Area Chart</h5>
                 </div>
                 <div className="card-body">
-                  <Chart type="polarArea" data={polarData} style={{ width: '400px', height: '300px' }}/>
+                  <Chart
+                    type="polarArea"
+                    data={polarData}
+                    style={{ width: "400px", height: "300px" }}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>

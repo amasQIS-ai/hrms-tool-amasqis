@@ -17,11 +17,30 @@ const CallHistory = () => {
       dataIndex: "name",
       render: (text: string, record: any) => (
         <div className="d-flex align-items-center">
-          <Link to="#" className="avatar avatar-md" data-bs-toggle="modal" data-inert={true} data-bs-target="#view_details">
-            <ImageWithBasePath src={record.image_url} className="img-fluid rounded-circle" alt="img" />
+          <Link
+            to="#"
+            className="avatar avatar-md"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#view_details"
+          >
+            <ImageWithBasePath
+              src={record.image_url}
+              className="img-fluid rounded-circle"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
-            <p className="text-dark fw-medium mb-0"><Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#view_details">{text}</Link></p>
+            <p className="text-dark fw-medium mb-0">
+              <Link
+                to="#"
+                data-bs-toggle="modal"
+                data-inert={true}
+                data-bs-target="#view_details"
+              >
+                {text}
+              </Link>
+            </p>
             <span className="fs-12">{record.text}</span>
           </div>
         </div>
@@ -37,12 +56,20 @@ const CallHistory = () => {
     {
       title: "Call Type",
       dataIndex: "call_type",
-      render: (text: string,record:any) => (
+      render: (text: string, record: any) => (
         <>
           <div className="d-inline-flex align-items-center">
-            <i className={`ti ti-${record?.icon}  ${text === "Incoming" ?'text-success': text === "Outgoing" ?'text-success': 'text-danger'} me-2`}></i>{text}
+            <i
+              className={`ti ti-${record?.icon}  ${
+                text === "Incoming"
+                  ? "text-success"
+                  : text === "Outgoing"
+                  ? "text-success"
+                  : "text-danger"
+              } me-2`}
+            ></i>
+            {text}
           </div>
-
         </>
       ),
       sorter: (a: any, b: any) => a.call_type.length - b.call_type.length,
@@ -66,7 +93,9 @@ const CallHistory = () => {
             <Link
               to="#"
               className="me-2"
-              data-bs-toggle="modal" data-inert={true} data-bs-target="#call_history"
+              data-bs-toggle="modal"
+              data-inert={true}
+              data-bs-target="#call_history"
             >
               <i className="ti ti-eye"></i>
             </Link>
@@ -75,13 +104,14 @@ const CallHistory = () => {
             <Link
               to="#"
               className="me-2"
-              data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal"
+              data-bs-toggle="modal"
+              data-inert={true}
+              data-bs-target="#delete_modal"
             >
               <i className="ti ti-trash"></i>
             </Link>
           </div>
         </div>
-
       ),
     },
   ];
@@ -110,7 +140,7 @@ const CallHistory = () => {
               </nav>
             </div>
             <div className="head-icons">
-              <CollapseHeader/>
+              <CollapseHeader />
             </div>
           </div>
           {/* /Breadcrumb */}
@@ -136,26 +166,17 @@ const CallHistory = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Incoming
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Outgoing
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Missed Call
                       </Link>
                     </li>
@@ -171,42 +192,27 @@ const CallHistory = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -215,16 +221,16 @@ const CallHistory = () => {
               </div>
             </div>
             <div className="card-body p-0">
-                <Table dataSource={data} columns={columns} Selection={true} />
+              <Table dataSource={data} columns={columns} Selection={true} />
             </div>
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -233,9 +239,6 @@ const CallHistory = () => {
 
       {/* /Page Wrapper */}
     </>
-
   );
 };
 export default CallHistory;
-
-

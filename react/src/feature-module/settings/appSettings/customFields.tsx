@@ -35,7 +35,7 @@ const CustomFields = () => {
               </nav>
             </div>
             <div className="head-icons ms-2">
-            <CollapseHeader />
+              <CollapseHeader />
             </div>
           </div>
           {/* /Breadcrumb */}
@@ -160,7 +160,10 @@ const CustomFields = () => {
                         <tr>
                           <th className="no-sort">
                             <div className="form-check form-check-md">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                           </th>
                           <th>Employee</th>
@@ -195,10 +198,7 @@ const CustomFields = () => {
                                   <i className="ti ti-edit me-2" />
                                   Edit
                                 </Link>
-                                <Link
-                                  to="#"
-                                  className="dropdown-item"
-                                >
+                                <Link to="#" className="dropdown-item">
                                   <i className="ti ti-trash me-2" />
                                   Delete
                                 </Link>
@@ -209,7 +209,10 @@ const CustomFields = () => {
                         <tr>
                           <th className="no-sort">
                             <div className="form-check form-check-md">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                           </th>
                           <th>Projects</th>
@@ -242,10 +245,7 @@ const CustomFields = () => {
                                   <i className="ti ti-edit me-2" />
                                   Edit
                                 </Link>
-                                <Link
-                                  to="#"
-                                  className="dropdown-item"
-                                >
+                                <Link to="#" className="dropdown-item">
                                   <i className="ti ti-trash me-2" />
                                   Delete
                                 </Link>
@@ -256,7 +256,10 @@ const CustomFields = () => {
                         <tr>
                           <th className="no-sort">
                             <div className="form-check form-check-md">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                           </th>
                           <th>Tasks</th>
@@ -289,10 +292,7 @@ const CustomFields = () => {
                                   <i className="ti ti-edit me-2" />
                                   Edit
                                 </Link>
-                                <Link
-                                  to="#"
-                                  className="dropdown-item"
-                                >
+                                <Link to="#" className="dropdown-item">
                                   <i className="ti ti-trash me-2" />
                                   Delete
                                 </Link>
@@ -309,11 +309,11 @@ const CustomFields = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -379,7 +379,10 @@ const CustomFields = () => {
                             id="required1"
                             defaultChecked
                           />
-                          <label className="form-check-label" htmlFor="required1">
+                          <label
+                            className="form-check-label"
+                            htmlFor="required1"
+                          >
                             Yes
                           </label>
                         </div>
@@ -390,7 +393,10 @@ const CustomFields = () => {
                             type="radio"
                             id="required2"
                           />
-                          <label className="form-check-label" htmlFor="required2">
+                          <label
+                            className="form-check-label"
+                            htmlFor="required2"
+                          >
                             No
                           </label>
                         </div>
@@ -399,10 +405,7 @@ const CustomFields = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -418,7 +421,11 @@ const CustomFields = () => {
                       </Link>
                     </div>
                     <div className="col-6">
-                      <button type="submit" data-bs-dismiss="modal" className="btn btn-primary w-100">
+                      <button
+                        type="submit"
+                        data-bs-dismiss="modal"
+                        className="btn btn-primary w-100"
+                      >
                         Save Changes
                       </button>
                     </div>
@@ -493,7 +500,10 @@ const CustomFields = () => {
                             id="required3"
                             defaultChecked
                           />
-                          <label className="form-check-label" htmlFor="required3">
+                          <label
+                            className="form-check-label"
+                            htmlFor="required3"
+                          >
                             Yes
                           </label>
                         </div>
@@ -504,7 +514,10 @@ const CustomFields = () => {
                             type="radio"
                             id="required4"
                           />
-                          <label className="form-check-label" htmlFor="required4">
+                          <label
+                            className="form-check-label"
+                            htmlFor="required4"
+                          >
                             No
                           </label>
                         </div>
@@ -513,10 +526,7 @@ const CustomFields = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -532,7 +542,11 @@ const CustomFields = () => {
                       </Link>
                     </div>
                     <div className="col-6">
-                      <button type="button" className="btn btn-primary w-100" data-bs-dismiss="modal">
+                      <button
+                        type="button"
+                        className="btn btn-primary w-100"
+                        data-bs-dismiss="modal"
+                      >
                         Save Changes
                       </button>
                     </div>
@@ -544,9 +558,7 @@ const CustomFields = () => {
         </div>
         {/* /Edit New Fields */}
       </>
-
     </>
-
   );
 };
 

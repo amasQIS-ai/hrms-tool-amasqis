@@ -82,14 +82,12 @@ const Storage = () => {
                         to={routes.customCss}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Custom CSS
                       </Link>
                       <Link
                         to={routes.customJs}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Custom JS
                       </Link>
                       <Link
@@ -149,7 +147,10 @@ const Storage = () => {
                                 <h5>Local Storage</h5>
                               </div>
                               <div className="d-flex align-items-center">
-                                <Link to="#" className="btn btn-icon btn-sm me-2">
+                                <Link
+                                  to="#"
+                                  className="btn btn-icon btn-sm me-2"
+                                >
                                   <i className="ti ti-settings fs-20" />
                                 </Link>
                                 <div className="form-check form-check-md form-switch">
@@ -206,11 +207,11 @@ const Storage = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -277,7 +278,11 @@ const Storage = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save
                   </button>
                 </div>
@@ -287,7 +292,6 @@ const Storage = () => {
         </div>
         {/* /Add Cronjob */}
       </>
-
     </div>
   );
 };

@@ -126,7 +126,10 @@ const PaymentGateways = () => {
                                     className="check"
                                     defaultChecked
                                   />
-                                  <label htmlFor="user1" className="checktoggle">
+                                  <label
+                                    htmlFor="user1"
+                                    className="checktoggle"
+                                  >
                                     {" "}
                                   </label>
                                 </div>
@@ -134,8 +137,8 @@ const PaymentGateways = () => {
                             </div>
                             <div className="card-body pt-0">
                               <p>
-                                PayPal is the faster, safer way to send and receive
-                                money or make an online payment.
+                                PayPal is the faster, safer way to send and
+                                receive money or make an online payment.
                               </p>
                             </div>
                             <div className="card-footer d-flex align-items-center justify-content-between">
@@ -172,7 +175,10 @@ const PaymentGateways = () => {
                                     id="user2"
                                     className="check"
                                   />
-                                  <label htmlFor="user2" className="checktoggle">
+                                  <label
+                                    htmlFor="user2"
+                                    className="checktoggle"
+                                  >
                                     {" "}
                                   </label>
                                 </div>
@@ -180,8 +186,8 @@ const PaymentGateways = () => {
                             </div>
                             <div className="card-body pt-0">
                               <p>
-                                APIs to accept credit cards, manage subscriptions,
-                                send money.
+                                APIs to accept credit cards, manage
+                                subscriptions, send money.
                               </p>
                             </div>
                             <div className="card-footer d-flex align-items-center justify-content-between">
@@ -218,7 +224,10 @@ const PaymentGateways = () => {
                                     id="user6"
                                     className="check"
                                   />
-                                  <label htmlFor="user6" className="checktoggle">
+                                  <label
+                                    htmlFor="user6"
+                                    className="checktoggle"
+                                  >
                                     {" "}
                                   </label>
                                 </div>
@@ -226,8 +235,8 @@ const PaymentGateways = () => {
                             </div>
                             <div className="card-body pt-0">
                               <p>
-                                Allows send international money transfers and payments
-                                quickly with low fees.
+                                Allows send international money transfers and
+                                payments quickly with low fees.
                               </p>
                             </div>
                             <div className="card-footer d-flex align-items-center justify-content-between">
@@ -264,7 +273,10 @@ const PaymentGateways = () => {
                                     id="user10"
                                     className="check"
                                   />
-                                  <label htmlFor="user10" className="checktoggle">
+                                  <label
+                                    htmlFor="user10"
+                                    className="checktoggle"
+                                  >
                                     {" "}
                                   </label>
                                 </div>
@@ -272,8 +284,8 @@ const PaymentGateways = () => {
                             </div>
                             <div className="card-body pt-0">
                               <p>
-                                Paytm stands for Pay through mobile and it is India's
-                                largest mobile payments.
+                                Paytm stands for Pay through mobile and it is
+                                India's largest mobile payments.
                               </p>
                             </div>
                             <div className="card-footer d-flex align-items-center justify-content-between">
@@ -302,11 +314,11 @@ const PaymentGateways = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -354,10 +366,18 @@ const PaymentGateways = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <Link to="#" className="btn btn-light me-2" data-bs-dismiss="modal">
+                  <Link
+                    to="#"
+                    className="btn btn-light me-2"
+                    data-bs-dismiss="modal"
+                  >
                     Cancel
                   </Link>
-                  <button type="button" className="btn btn-primary" data-bs-dismiss="modal">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
                     Submit
                   </button>
                 </div>
@@ -367,7 +387,6 @@ const PaymentGateways = () => {
         </div>
         {/* /Add Payment Gateway */}
       </>
-
     </div>
   );
 };

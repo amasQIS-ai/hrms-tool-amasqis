@@ -56,59 +56,59 @@ const FileManager = () => {
   const [Storage] = useState<any>({
     chart: {
       height: 200,
-      type: 'donut',
+      type: "donut",
       toolbar: {
         show: false,
       },
       offsetY: -10,
-      events: {
-
-      },
+      events: {},
     },
     plotOptions: {
       pie: {
         startAngle: -100,
         endAngle: 100,
         donut: {
-          size: '80%',
+          size: "80%",
           labels: {
             show: true,
             name: {
               show: true,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     legend: {
-      show: false
+      show: false,
     },
     stroke: {
-      show: false
+      show: false,
     },
-    colors: ['#0C4B5E', '#FFC107', '#1B84FF', '#AB47BC', '#FD3995'],
+    colors: ["#0C4B5E", "#FFC107", "#1B84FF", "#AB47BC", "#FD3995"],
     series: [20, 20, 20, 20, 20],
-    labels: ['Documents', 'Video', 'Music', 'Photos', 'Other'],
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 200
+    labels: ["Documents", "Video", "Music", "Photos", "Other"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
         },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }],
+      },
+    ],
     grid: {
       padding: {
-        bottom: -60  // Reduce padding from the bottom
-      }
-    }
-  })
+        bottom: -60, // Reduce padding from the bottom
+      },
+    },
+  });
   return (
     <>
       {/* Page Wrapper */}
@@ -156,42 +156,27 @@ const FileManager = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         All Files
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Music
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Video
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Documents
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Photos
                       </Link>
                     </li>
@@ -201,7 +186,8 @@ const FileManager = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_folder"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -221,7 +207,10 @@ const FileManager = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center">
-                      <ImageWithBasePath src="assets/img/icons/dropbox.svg" alt="img" />
+                      <ImageWithBasePath
+                        src="assets/img/icons/dropbox.svg"
+                        alt="img"
+                      />
                       <h5 className="ms-2">Dropbox</h5>
                     </div>
                     <div className="dropdown">
@@ -234,28 +223,19 @@ const FileManager = () => {
                       </Link>
                       <ul className="dropdown-menu dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-folder-open me-2" />
                             Open
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-trash me-1" />
                             Delete All
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-status-change me-1" />
                             Reset
                           </Link>
@@ -287,7 +267,10 @@ const FileManager = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center">
-                      <ImageWithBasePath src="assets/img/icons/drive.svg" alt="img" />
+                      <ImageWithBasePath
+                        src="assets/img/icons/drive.svg"
+                        alt="img"
+                      />
                       <h5 className="ms-2">Google Drive</h5>
                     </div>
                     <div className="dropdown">
@@ -300,28 +283,19 @@ const FileManager = () => {
                       </Link>
                       <ul className="dropdown-menu dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-folder-open me-2" />
                             Open
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-trash me-1" />
                             Delete All
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-status-change me-1" />
                             Reset
                           </Link>
@@ -353,7 +327,10 @@ const FileManager = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center">
-                      <ImageWithBasePath src="assets/img/icons/cloud.svg" alt="img" />
+                      <ImageWithBasePath
+                        src="assets/img/icons/cloud.svg"
+                        alt="img"
+                      />
                       <h5 className="ms-2">Cloud Storage</h5>
                     </div>
                     <div className="dropdown">
@@ -366,28 +343,19 @@ const FileManager = () => {
                       </Link>
                       <ul className="dropdown-menu dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-folder-open me-2" />
                             Open
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-trash me-1" />
                             Delete All
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-status-change me-1" />
                             Reset
                           </Link>
@@ -419,7 +387,10 @@ const FileManager = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center">
-                      <ImageWithBasePath src="assets/img/icons/storage.svg" alt="img" />
+                      <ImageWithBasePath
+                        src="assets/img/icons/storage.svg"
+                        alt="img"
+                      />
                       <h5 className="ms-2">Internal Storage</h5>
                     </div>
                     <div className="dropdown">
@@ -432,28 +403,19 @@ const FileManager = () => {
                       </Link>
                       <ul className="dropdown-menu dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-folder-open me-2" />
                             Open
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-trash me-1" />
                             Delete All
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             <i className="ti ti-status-change me-1" />
                             Reset
                           </Link>
@@ -498,7 +460,9 @@ const FileManager = () => {
                           </span>
                           <div className="overflow-hidden ms-2">
                             <h5 className="text-truncate">James Hong</h5>
-                            <p className="fs-12 text-truncate">Jnh343@example.com</p>
+                            <p className="fs-12 text-truncate">
+                              Jnh343@example.com
+                            </p>
                           </div>
                         </div>
                         <div className="dropdown ms-2">
@@ -511,10 +475,7 @@ const FileManager = () => {
                           </Link>
                           <ul className="dropdown-menu  dropdown-menu-end p-3">
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-edit me-1" />
                                 Edit
                               </Link>
@@ -690,7 +651,6 @@ const FileManager = () => {
                 </div>
                 {/* /Upgrade Details */}
               </div>
-
             </div>
             {/* /Sidebar */}
             <div className="col-xl-9">
@@ -699,16 +659,10 @@ const FileManager = () => {
                 <div className="d-flex align-items-center justify-content-between mb-2">
                   <h4 className="mb-2">Quick Access</h4>
                   <div>
-                    <Link
-                      to="#"
-                      className="mb-2 me-3 fw-medium link-default"
-                    >
+                    <Link to="#" className="mb-2 me-3 fw-medium link-default">
                       Close
                     </Link>
-                    <Link
-                      to="#"
-                      className="mb-2 fw-medium link-default"
-                    >
+                    <Link to="#" className="mb-2 fw-medium link-default">
                       View All
                     </Link>
                   </div>
@@ -731,7 +685,9 @@ const FileManager = () => {
                             Final Change.doc
                           </Link>
                         </h6>
-                        <span className="badge badge-dark-transparent">2.4 GB</span>
+                        <span className="badge badge-dark-transparent">
+                          2.4 GB
+                        </span>
                       </div>
                       <span className="access-rate rating-select">
                         <i className="ti ti-star-filled filled" />
@@ -755,7 +711,9 @@ const FileManager = () => {
                             Marklist.pdf
                           </Link>
                         </h6>
-                        <span className="badge badge-dark-transparent">2.4 GB</span>
+                        <span className="badge badge-dark-transparent">
+                          2.4 GB
+                        </span>
                       </div>
                       <span className="access-rate rating-select">
                         <i className="ti ti-star" />
@@ -779,7 +737,9 @@ const FileManager = () => {
                             Nature.png
                           </Link>
                         </h6>
-                        <span className="badge badge-dark-transparent">2.4 GB</span>
+                        <span className="badge badge-dark-transparent">
+                          2.4 GB
+                        </span>
                       </div>
                       <span className="access-rate rating-select">
                         <i className="ti ti-star-filled filled" />
@@ -803,7 +763,9 @@ const FileManager = () => {
                             List.xlsx
                           </Link>
                         </h6>
-                        <span className="badge badge-dark-transparent">2.4 GB</span>
+                        <span className="badge badge-dark-transparent">
+                          2.4 GB
+                        </span>
                       </div>
                       <span className="access-rate rating-select">
                         <i className="ti ti-star" />
@@ -827,7 +789,9 @@ const FileManager = () => {
                             Group Photos
                           </Link>
                         </h6>
-                        <span className="badge badge-dark-transparent">2.4 GB</span>
+                        <span className="badge badge-dark-transparent">
+                          2.4 GB
+                        </span>
                       </div>
                       <span className="access-rate rating-select">
                         <i className="ti ti-star" />
@@ -851,26 +815,17 @@ const FileManager = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 7 Days
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 1 month
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 1 year
                         </Link>
                       </li>
@@ -928,37 +883,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -967,28 +910,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1048,37 +982,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -1087,28 +1009,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1169,37 +1082,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -1208,28 +1109,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1289,37 +1181,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -1328,28 +1208,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1409,37 +1280,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -1448,28 +1307,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1530,37 +1380,25 @@ const FileManager = () => {
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-copy me-2" />
                                 Duplicate
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-arrow-left-right me-2" />
                                 Move
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-user-plus me-2" />
                                 Invite
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-share-3 me-2" />
                                 Share Link
                               </Link>
@@ -1569,28 +1407,19 @@ const FileManager = () => {
                               <hr className="dropdown-divider my-2" />
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-eye me-2" />
                                 View Details
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-download me-2" />
                                 Download
                               </Link>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="dropdown-item rounded-1"
-                              >
+                              <Link to="#" className="dropdown-item rounded-1">
                                 <i className="ti ti-trash-x me-2" />
                                 Delete
                               </Link>
@@ -1617,26 +1446,17 @@ const FileManager = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 7 Days
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 1 month
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 1 year
                         </Link>
                       </li>
@@ -1706,37 +1526,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -1745,28 +1553,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -1837,37 +1636,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -1876,28 +1663,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -1952,37 +1730,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -1991,28 +1757,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -2046,26 +1803,17 @@ const FileManager = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Newest to Oldest
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last Modified
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Oldest to Newest
                         </Link>
                       </li>
@@ -2100,37 +1848,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -2139,28 +1875,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -2204,37 +1931,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -2243,28 +1958,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -2308,37 +2014,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -2347,28 +2041,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -2412,37 +2097,25 @@ const FileManager = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-copy me-2" />
                               Duplicate
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-arrow-left-right me-2" />
                               Move
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-user-plus me-2" />
                               Invite
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-share-3 me-2" />
                               Share Link
                             </Link>
@@ -2451,28 +2124,19 @@ const FileManager = () => {
                             <hr className="dropdown-divider my-2" />
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-eye me-2" />
                               View Details
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-download me-2" />
                               Download
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               <i className="ti ti-trash-x me-2" />
                               Delete
                             </Link>
@@ -2498,60 +2162,48 @@ const FileManager = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Docs
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Pdf
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Image
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Folder
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Xml
                         </Link>
                       </li>
                     </ul>
                   </div>
-                  <Link
-                    to="#"
-                    className="link-primary fw-medium mb-2"
-                  >
+                  <Link to="#" className="link-primary fw-medium mb-2">
                     View All
                   </Link>
                 </div>
               </div>
               <div className="custom-datatable-filter table-responsive mb-4">
-                <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper dt-bootstrap5 no-footer">
+                <div
+                  id="DataTables_Table_0_wrapper"
+                  className="dataTables_wrapper dt-bootstrap5 no-footer"
+                >
                   <div className="row">
                     <div className="col-sm-12 col-md-6">
-                      <div className="dataTables_length px-3" id="DataTables_Table_0_length">
+                      <div
+                        className="dataTables_length px-3"
+                        id="DataTables_Table_0_length"
+                      >
                         <label>
                           Row Per Page{" "}
                           <select
@@ -2569,7 +2221,10 @@ const FileManager = () => {
                       </div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div id="DataTables_Table_0_filter  px-3" className="dataTables_filter text-end">
+                      <div
+                        id="DataTables_Table_0_filter  px-3"
+                        className="dataTables_filter text-end"
+                      >
                         <label>
                           {" "}
                           <input
@@ -2607,7 +2262,10 @@ const FileManager = () => {
                       <tr>
                         <td>
                           <div className="form-check form-check-md">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                           </div>
                         </td>
                         <td>
@@ -2686,13 +2344,19 @@ const FileManager = () => {
                               </Link>
                               <ul className="dropdown-menu dropdown-menu-right p-3">
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-trash me-2" />
                                     Permanent Delete
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-edit-circle me-2" />
                                     Restore File
                                   </Link>
@@ -2705,7 +2369,10 @@ const FileManager = () => {
                       <tr>
                         <td>
                           <div className="form-check form-check-md">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                           </div>
                         </td>
                         <td>
@@ -2777,13 +2444,19 @@ const FileManager = () => {
                               </Link>
                               <ul className="dropdown-menu dropdown-menu-right p-3">
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-trash me-2" />
                                     Permanent Delete
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-edit-circle me-2" />
                                     Restore File
                                   </Link>
@@ -2796,7 +2469,10 @@ const FileManager = () => {
                       <tr>
                         <td>
                           <div className="form-check form-check-md">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                           </div>
                         </td>
                         <td>
@@ -2888,13 +2564,19 @@ const FileManager = () => {
                               </Link>
                               <ul className="dropdown-menu dropdown-menu-right p-3">
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-trash me-2" />
                                     Permanent Delete
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-edit-circle me-2" />
                                     Restore File
                                   </Link>
@@ -2907,7 +2589,10 @@ const FileManager = () => {
                       <tr>
                         <td>
                           <div className="form-check form-check-md">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                           </div>
                         </td>
                         <td>
@@ -2986,13 +2671,19 @@ const FileManager = () => {
                               </Link>
                               <ul className="dropdown-menu dropdown-menu-right p-3">
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-trash me-2" />
                                     Permanent Delete
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-edit-circle me-2" />
                                     Restore File
                                   </Link>
@@ -3005,7 +2696,10 @@ const FileManager = () => {
                       <tr>
                         <td>
                           <div className="form-check form-check-md">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                           </div>
                         </td>
                         <td>
@@ -3091,13 +2785,19 @@ const FileManager = () => {
                               </Link>
                               <ul className="dropdown-menu dropdown-menu-right p-3">
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-trash me-2" />
                                     Permanent Delete
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link className="dropdown-item rounded-1" to="#">
+                                  <Link
+                                    className="dropdown-item rounded-1"
+                                    to="#"
+                                  >
                                     <i className="ti ti-edit-circle me-2" />
                                     Restore File
                                   </Link>
@@ -3175,7 +2875,6 @@ const FileManager = () => {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
               {/* /Student List */}
@@ -3183,24 +2882,19 @@ const FileManager = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
 
-
       <FileModal />
-
-
-
     </>
-
   );
 };
 

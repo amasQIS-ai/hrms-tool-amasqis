@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import { all_routes } from '../../router/all_routes'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
 import Table from "../../../core/common/dataTable/index";
-import CommonSelect from '../../../core/common/commonSelect';
-import { department_details } from '../../../core/data/json/department_details';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import CommonSelect from "../../../core/common/commonSelect";
+import { department_details } from "../../../core/data/json/department_details";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 type PasswordField = "password" | "confirmPassword";
 
 const Department = () => {
-
   const data = department_details;
   const columns = [
     {
@@ -18,24 +17,27 @@ const Department = () => {
         <h6 className="fw-medium">
           <Link to="#">{text}</Link>
         </h6>
-
       ),
       sorter: (a: any, b: any) => a.Department.length - b.Department.length,
     },
     {
       title: "No of Employees",
       dataIndex: "NoOfEmployees",
-      sorter: (a: any, b: any) => a.NoOfEmployees.length - b.NoOfEmployees.length,
+      sorter: (a: any, b: any) =>
+        a.NoOfEmployees.length - b.NoOfEmployees.length,
     },
     {
       title: "Status",
       dataIndex: "Status",
       render: (text: string, record: any) => (
-        <span className={`badge ${text === 'Active' ? 'badge-success' : 'badge-danger'} d-inline-flex align-items-center badge-xs`}>
+        <span
+          className={`badge ${
+            text === "Active" ? "badge-success" : "badge-danger"
+          } d-inline-flex align-items-center badge-xs`}
+        >
           <i className="ti ti-point-filled me-1" />
           {text}
         </span>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -47,23 +49,24 @@ const Department = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_department"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
-  ]
+  ];
   const statusChoose = [
     { value: "Select", label: "Select" },
     { value: "All Department", label: "All Department" },
@@ -107,19 +110,13 @@ const Department = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -130,7 +127,8 @@ const Department = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_department"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -159,18 +157,12 @@ const Department = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Active
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Inactive
                       </Link>
                     </li>
@@ -186,42 +178,27 @@ const Department = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -236,11 +213,11 @@ const Department = () => {
           {/* /Performance Indicator list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -274,7 +251,7 @@ const Department = () => {
                     <div className="mb-3">
                       <label className="form-label">Status</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[0]}
                       />
@@ -290,7 +267,11 @@ const Department = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Department
                 </button>
               </div>
@@ -331,7 +312,7 @@ const Department = () => {
                     <div className="mb-3">
                       <label className="form-label">Status</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[1]}
                       />
@@ -347,7 +328,11 @@ const Department = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Department
                 </button>
               </div>
@@ -357,9 +342,7 @@ const Department = () => {
       </div>
       {/* /Edit Department */}
     </>
+  );
+};
 
-
-  )
-}
-
-export default Department
+export default Department;

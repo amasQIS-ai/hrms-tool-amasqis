@@ -22,7 +22,11 @@ const TwoStepVerification3 = () => {
             <form className="digit-group vh-100">
               <div className="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                 <div className=" mx-auto mb-5 text-center">
-                  <ImageWithBasePath src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                  <ImageWithBasePath
+                    src="assets/img/logo.svg"
+                    className="img-fluid"
+                    alt="Logo"
+                  />
                 </div>
                 <div className="">
                   <div className="text-center mb-3">
@@ -69,7 +73,11 @@ const TwoStepVerification3 = () => {
                     data-previous="digit-3"
                     maxLength={1}
                   /> */}
-                      <InputOtp value={token} onChange={(e) => setTokens(e.value)} integerOnly />
+                      <InputOtp
+                        value={token}
+                        onChange={(e) => setTokens(e.value)}
+                        integerOnly
+                      />
                     </div>
                     <div>
                       <div className="badge bg-danger-transparent mb-3">
@@ -89,13 +97,17 @@ const TwoStepVerification3 = () => {
                     </div>
                   </div>
                   <div className="mb-3">
-                    <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                    <button
+                      type="submit"
+                      onClick={navigationPath}
+                      className="btn btn-primary w-100"
+                    >
                       Verify &amp; Proceed
                     </button>
                   </div>
                 </div>
                 <div className="mt-5 pb-4 text-center">
-                  <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                  <p className="mb-0 text-gray-9">Copyright © 2025 - Amasqis</p>
                 </div>
               </div>
             </form>
@@ -103,7 +115,6 @@ const TwoStepVerification3 = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

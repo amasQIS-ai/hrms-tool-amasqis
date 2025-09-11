@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
 import Table from "../../../core/common/dataTable/index";
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CommonSelect from '../../../core/common/commonSelect';
-import { DatePicker } from 'antd';
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
+import { DatePicker } from "antd";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { overtime_details } from '../../../core/data/json/overtime_details';
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import { overtime_details } from "../../../core/data/json/overtime_details";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const OverTime = () => {
-
   const data = overtime_details;
   const columns = [
     {
@@ -20,7 +19,11 @@ const OverTime = () => {
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
           <Link to="#" className="avatar avatar-md border avatar-rounded">
-            <ImageWithBasePath src={`assets/img/users/${record.EmpImage}`} className="img-fluid" alt="img" />
+            <ImageWithBasePath
+              src={`assets/img/users/${record.EmpImage}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -40,7 +43,8 @@ const OverTime = () => {
     {
       title: "Overtime Hours",
       dataIndex: "OvertimeHours",
-      sorter: (a: any, b: any) => a.OvertimeHours.length - b.OvertimeHours.length,
+      sorter: (a: any, b: any) =>
+        a.OvertimeHours.length - b.OvertimeHours.length,
     },
     {
       title: "Project",
@@ -58,15 +62,16 @@ const OverTime = () => {
           >
             <OverlayTrigger
               placement="bottom"
-              overlay={<Tooltip id="collapse-tooltip">Worked on the Management
-                design & Development</Tooltip>}
+              overlay={
+                <Tooltip id="collapse-tooltip">
+                  Worked on the Management design & Development
+                </Tooltip>
+              }
             >
               <i className="ti ti-info-circle text-info"></i>
             </OverlayTrigger>
-
           </Link>
         </p>
-
       ),
       sorter: (a: any, b: any) => a.Project.length - b.Project.length,
     },
@@ -76,7 +81,11 @@ const OverTime = () => {
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
           <Link to="#" className="avatar avatar-md border avatar-rounded">
-            <ImageWithBasePath src={`assets/img/users/${record.Image}`} className="img-fluid" alt="img" />
+            <ImageWithBasePath
+              src={`assets/img/users/${record.Image}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -91,11 +100,14 @@ const OverTime = () => {
       title: "Status",
       dataIndex: "Status",
       render: (text: String, record: any) => (
-        <span className={`badge  d-inline-flex align-items-center badge-xs ${text === 'Accepted' ? 'badge-success' : 'badge-danger'}`}>
+        <span
+          className={`badge  d-inline-flex align-items-center badge-xs ${
+            text === "Accepted" ? "badge-success" : "badge-danger"
+          }`}
+        >
           <i className="ti ti-point-filled me-1" />
           {text}
         </span>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -107,19 +119,24 @@ const OverTime = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_overtime"
           >
             <i className="ti ti-edit" />
           </Link>
-          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal">
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
-  ]
+  ];
   const employeeName = [
     { value: "Anthony Lewis", label: "Anthony Lewis" },
     { value: "Brian Villalobos", label: "Brian Villalobos" },
@@ -131,11 +148,11 @@ const OverTime = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -175,19 +192,13 @@ const OverTime = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -198,7 +209,8 @@ const OverTime = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_overtime"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -276,7 +288,9 @@ const OverTime = () => {
                 <div className="card-body">
                   <div className="d-flex align-items-center flex-wrap justify-content-between">
                     <div>
-                      <p className="fs-12 fw-medium mb-0 text-gray-5">Rejected</p>
+                      <p className="fs-12 fw-medium mb-0 text-gray-5">
+                        Rejected
+                      </p>
                       <h4>5</h4>
                     </div>
                     <div>
@@ -313,26 +327,17 @@ const OverTime = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Anthony Lewis
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Brian Villalobos
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Harvey Smith
                       </Link>
                     </li>
@@ -348,26 +353,17 @@ const OverTime = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Office Management
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Project Management
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Hospital Administration
                       </Link>
                     </li>
@@ -383,18 +379,12 @@ const OverTime = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Accepted
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Rejected
                       </Link>
                     </li>
@@ -410,42 +400,27 @@ const OverTime = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -460,11 +435,11 @@ const OverTime = () => {
           {/* /Performance Indicator list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -494,7 +469,7 @@ const OverTime = () => {
                         Employee<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={employeeName}
                         defaultValue={employeeName[0]}
                       />
@@ -553,7 +528,7 @@ const OverTime = () => {
                         Status<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[0]}
                       />
@@ -569,7 +544,11 @@ const OverTime = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Overtime
                 </button>
               </div>
@@ -602,7 +581,7 @@ const OverTime = () => {
                         Employee * <span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={employeeName}
                         defaultValue={employeeName[1]}
                       />
@@ -669,7 +648,7 @@ const OverTime = () => {
                         Status<span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[1]}
                       />
@@ -685,7 +664,11 @@ const OverTime = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Overtime
                 </button>
               </div>
@@ -732,13 +715,17 @@ const OverTime = () => {
                                 <h6 className="fw-medium fs-14">
                                   <Link to="#">Anthony Lewis</Link>
                                 </h6>
-                                <span className="fs-12 fw-normal ">UI/UX Team</span>
+                                <span className="fs-12 fw-normal ">
+                                  UI/UX Team
+                                </span>
                               </div>
                             </div>
                           </div>
                           <div className="col-md-4">
                             <div>
-                              <p className="fs-14 fw-normal mb-1">Hours Worked</p>
+                              <p className="fs-14 fw-normal mb-1">
+                                Hours Worked
+                              </p>
                               <h6 className="fs-14 fw-medium">32</h6>
                             </div>
                           </div>
@@ -766,7 +753,7 @@ const OverTime = () => {
                         Select Status <span className="text-danger"> *</span>
                       </label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[0]}
                       />
@@ -782,7 +769,11 @@ const OverTime = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Submit
                 </button>
               </div>
@@ -792,8 +783,7 @@ const OverTime = () => {
       </div>
       {/* /Overtime Details */}
     </>
+  );
+};
 
-  )
-}
-
-export default OverTime
+export default OverTime;

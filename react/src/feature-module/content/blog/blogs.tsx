@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import CommonSelect from '../../../core/common/commonSelect';
+import CommonSelect from "../../../core/common/commonSelect";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import { all_routes } from "../../router/all_routes";
 
@@ -8,9 +8,7 @@ import PredefinedDateRanges from "../../../core/common/datePicker";
 import CommonTagsInput from "../../../core/common/Taginput";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
-
 const Blogs = () => {
-
   const [tags, setTags] = useState<string[]>(["HRMS", "Recruitment", "HRTech"]);
 
   const categoryChoose = [
@@ -61,19 +59,13 @@ const Blogs = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -84,7 +76,8 @@ const Blogs = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_blog"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -121,18 +114,12 @@ const Blogs = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Active
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Inactive
                         </Link>
                       </li>
@@ -148,42 +135,27 @@ const Blogs = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Recently Added
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Ascending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Desending
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last Month
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           Last 7 Days
                         </Link>
                       </li>
@@ -235,7 +207,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -243,7 +216,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -322,7 +296,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -330,7 +305,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -409,7 +385,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -417,7 +394,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -497,7 +475,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -505,7 +484,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -585,7 +565,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -593,7 +574,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -673,7 +655,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -681,7 +664,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -760,7 +744,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -768,7 +753,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -847,7 +833,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -855,7 +842,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -934,7 +922,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default me-2"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#edit_blog"
                       >
                         <i className="ti ti-edit" />
@@ -942,7 +931,8 @@ const Blogs = () => {
                       <Link
                         to="#"
                         className="link-default"
-                        data-bs-toggle="modal" data-inert={true}
+                        data-bs-toggle="modal"
+                        data-inert={true}
                         data-bs-target="#delete_modal"
                       >
                         <i className="ti ti-trash" />
@@ -989,11 +979,11 @@ const Blogs = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -1041,10 +1031,7 @@ const Blogs = () => {
                                 multiple
                               />
                             </div>
-                            <Link
-                              to="#"
-                              className="btn btn-light btn-sm"
-                            >
+                            <Link to="#" className="btn btn-light btn-sm">
                               Cancel
                             </Link>
                           </div>
@@ -1099,8 +1086,8 @@ const Blogs = () => {
                         <label className="form-label">Description</label>
                         <div className="summernote">
                           <p className="text-gray fw-normal">
-                            Write a new comment, send your team notification by typing
-                            @ followed by their name
+                            Write a new comment, send your team notification by
+                            typing @ followed by their name
                           </p>
                         </div>
                       </div>
@@ -1115,7 +1102,11 @@ const Blogs = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add Blog
                   </button>
                 </div>
@@ -1168,10 +1159,7 @@ const Blogs = () => {
                                 multiple
                               />
                             </div>
-                            <Link
-                              to="#"
-                              className="btn btn-light btn-sm"
-                            >
+                            <Link to="#" className="btn btn-light btn-sm">
                               Cancel
                             </Link>
                           </div>
@@ -1226,8 +1214,8 @@ const Blogs = () => {
                         <label className="form-label">Description</label>
                         <div className="summernote">
                           <p className="text-gray fw-normal">
-                            Write a new comment, send your team notification by typing
-                            @ followed by their name
+                            Write a new comment, send your team notification by
+                            typing @ followed by their name
                           </p>
                         </div>
                       </div>
@@ -1242,7 +1230,11 @@ const Blogs = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -1252,10 +1244,7 @@ const Blogs = () => {
         </div>
         {/* /Edit Blog */}
       </>
-
-
     </>
-
   );
 };
 

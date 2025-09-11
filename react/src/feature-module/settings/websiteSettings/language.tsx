@@ -2,12 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
-
 
 const Language = () => {
   const routes = all_routes;
@@ -136,7 +133,6 @@ const Language = () => {
                         to={routes.aiSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         AI Settings
                       </Link>
                     </div>
@@ -153,10 +149,7 @@ const Language = () => {
                       <div className="col-md-6 col-sm-8">
                         <div className="d-flex justify-content-sm-end align-items-center flex-wrap row-gap-2">
                           <div className="me-3">
-                            <CommonSelect
-                              className="select"
-                              options={status}
-                            />
+                            <CommonSelect className="select" options={status} />
                           </div>
                           <Link to="#" className="btn btn-primary">
                             Add Language
@@ -257,7 +250,10 @@ const Language = () => {
                                 <td>1296</td>
                                 <td>
                                   <div className="d-flex align-items-center">
-                                    <div className="circle-progress" data-value={80}>
+                                    <div
+                                      className="circle-progress"
+                                      data-value={80}
+                                    >
                                       <span className="progress-left">
                                         <span className="progress-bar border-warning" />
                                       </span>
@@ -265,7 +261,9 @@ const Language = () => {
                                         <span className="progress-bar border-warning" />
                                       </span>
                                     </div>
-                                    <div className="progress-value ms-2">80%</div>
+                                    <div className="progress-value ms-2">
+                                      80%
+                                    </div>
                                   </div>
                                 </td>
                                 <td>
@@ -354,7 +352,10 @@ const Language = () => {
                                 <td>810</td>
                                 <td>
                                   <div className="d-flex align-items-center">
-                                    <div className="circle-progress" data-value={50}>
+                                    <div
+                                      className="circle-progress"
+                                      data-value={50}
+                                    >
                                       <span className="progress-left">
                                         <span className="progress-bar border-purple" />
                                       </span>
@@ -362,7 +363,9 @@ const Language = () => {
                                         <span className="progress-bar border-purple" />
                                       </span>
                                     </div>
-                                    <div className="progress-value ms-2">50%</div>
+                                    <div className="progress-value ms-2">
+                                      50%
+                                    </div>
                                   </div>
                                 </td>
                                 <td>
@@ -451,7 +454,10 @@ const Language = () => {
                                 <td>972</td>
                                 <td>
                                   <div className="d-flex align-items-center">
-                                    <div className="circle-progress" data-value={70}>
+                                    <div
+                                      className="circle-progress"
+                                      data-value={70}
+                                    >
                                       <span className="progress-left">
                                         <span className="progress-bar border-skyblue" />
                                       </span>
@@ -459,7 +465,9 @@ const Language = () => {
                                         <span className="progress-bar border-skyblue" />
                                       </span>
                                     </div>
-                                    <div className="progress-value ms-2">70%</div>
+                                    <div className="progress-value ms-2">
+                                      70%
+                                    </div>
                                   </div>
                                 </td>
                                 <td>
@@ -548,7 +556,10 @@ const Language = () => {
                                 <td>324</td>
                                 <td>
                                   <div className="d-flex align-items-center">
-                                    <div className="circle-progress" data-value={20}>
+                                    <div
+                                      className="circle-progress"
+                                      data-value={20}
+                                    >
                                       <span className="progress-left">
                                         <span className="progress-bar border-danger" />
                                       </span>
@@ -556,7 +567,9 @@ const Language = () => {
                                         <span className="progress-bar border-danger" />
                                       </span>
                                     </div>
-                                    <div className="progress-value ms-2">20%</div>
+                                    <div className="progress-value ms-2">
+                                      20%
+                                    </div>
                                   </div>
                                 </td>
                                 <td>
@@ -614,22 +627,19 @@ const Language = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
-
     </div>
-  )
-}
-
+  );
+};
 
 export default Language;

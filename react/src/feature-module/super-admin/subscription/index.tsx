@@ -604,11 +604,11 @@ const Subscription = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -627,7 +627,7 @@ const Subscription = () => {
                         <ImageWithBasePath
                           src="assets/img/logo.svg"
                           className="img-fluid"
-                          alt="SmartHR Logo"
+                          alt="Amasqis Logo"
                           height={50}
                         />
                       </div>
@@ -659,11 +659,11 @@ const Subscription = () => {
                         Invoice From :
                       </p>
                       <div>
-                        <p className="mb-1">SmartHR</p>
+                        <p className="mb-1">Amasqis</p>
                         <p className="mb-1">
                           367 Hillcrest Lane, Irvine, California, United States
                         </p>
-                        <p className="mb-1">smarthr@example.com</p>
+                        <p className="mb-1">Amasqis@example.com</p>
                       </div>
                     </div>
                     <div className="col-md-5">

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
@@ -7,10 +7,14 @@ const Validate = () => {
   const { isSignedIn, user } = useUser();
   const routes = all_routes;
   const navigate = useNavigate();
+  const [role, setRole] = useState("");
+  const [userId, setUserId] = useState("");
   useEffect(() => {
     if (!isSignedIn || !user) {
       navigate(routes.login);
     }
+    setRole(user?.publicMetadata?.role || "");
+    setUserId(user?.id || "");
 
     console.log("Hihihi");
     // const publicMetadata = user?.publicMetadata || {};
@@ -22,7 +26,24 @@ const Validate = () => {
     //   window.location.href = `http://localhost:3000/employee-dashboard`;
     // }
 
-    navigate(routes.superAdminCompanies);
+    switch (role) {
+      case "public":
+        console.log("public");
+        return navigate(routes.login);
+        break;
+      case "superadmin":
+        return navigate(routes.superAdminDashboard);
+        break;
+      case "admin":
+        return navigate(routes.adminDashboard);
+        break;
+      case "employee":
+        return navigate(routes.employeeDashboard);
+        break;
+      default:
+        return navigate(routes.adminDashboard);
+        break;
+    }
 
     // Logics for multitenancy system
   }, [isSignedIn, user]);

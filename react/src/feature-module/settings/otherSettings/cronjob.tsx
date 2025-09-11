@@ -10,11 +10,11 @@ const routes = all_routes;
 
 const Cronjob = () => {
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   return (
@@ -42,7 +42,7 @@ const Cronjob = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -255,7 +255,9 @@ const Cronjob = () => {
                                   </div>
                                 </td>
                                 <td>
-                                  <h6 className="fw-medium">Job Expired Cron</h6>
+                                  <h6 className="fw-medium">
+                                    Job Expired Cron
+                                  </h6>
                                 </td>
                                 <td>3 minutes</td>
                                 <td>
@@ -306,11 +308,11 @@ const Cronjob = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -345,10 +347,7 @@ const Cronjob = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Schedule</label>
-                        <CommonSelect
-                          className="select"
-                          options={schudeSet}
-                        />
+                        <CommonSelect className="select" options={schudeSet} />
                       </div>
                     </div>
                     <div className="col-md-12">
@@ -379,7 +378,13 @@ const Cronjob = () => {
                         <div className="col-md-5">
                           <div className="mb-3">
                             <div className="input-icon-end position-relative">
-                              <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                              <TimePicker
+                                getPopupContainer={getModalContainer2}
+                                use12Hours
+                                placeholder="Choose"
+                                format="h:mm A"
+                                className="form-control timepicker"
+                              />
                               <span className="input-icon-addon">
                                 <i className="ti ti-clock text-gray-7" />
                               </span>
@@ -404,7 +409,11 @@ const Cronjob = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add Cronjob
                   </button>
                 </div>
@@ -479,7 +488,13 @@ const Cronjob = () => {
                         <div className="col-md-5">
                           <div className="mb-3">
                             <div className="input-icon-end position-relative">
-                              <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                              <TimePicker
+                                getPopupContainer={getModalContainer2}
+                                use12Hours
+                                placeholder="Choose"
+                                format="h:mm A"
+                                className="form-control timepicker"
+                              />
                               <span className="input-icon-addon">
                                 <i className="ti ti-clock text-gray-7" />
                               </span>
@@ -508,7 +523,11 @@ const Cronjob = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Cronjob
                   </button>
                 </div>
@@ -518,8 +537,6 @@ const Cronjob = () => {
         </div>
         {/* /Edit Cronjob */}
       </>
-
-
     </div>
   );
 };

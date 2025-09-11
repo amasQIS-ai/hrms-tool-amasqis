@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { all_routes } from '../../router/all_routes';
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
+import { all_routes } from "../../router/all_routes";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 
 const ResetPasswordSuccess2 = () => {
   const routes = all_routes;
@@ -16,14 +16,17 @@ const ResetPasswordSuccess2 = () => {
           <div className="col-lg-5">
             <div className="d-lg-flex align-items-center justify-content-center d-none flex-wrap vh-100 bg-primary-transparent">
               <div>
-                <ImageWithBasePath src="assets/img/bg/authentication-bg-07.svg" alt="Img" />
+                <ImageWithBasePath
+                  src="assets/img/bg/authentication-bg-07.svg"
+                  alt="Img"
+                />
               </div>
             </div>
           </div>
           <div className="col-lg-7 col-md-12 col-sm-12">
             <div className="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap ">
               <div className="col-md-7 mx-auto vh-100">
-                <form  className="vh-100">
+                <form className="vh-100">
                   <div className="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                     <div className=" mx-auto mb-5 text-center">
                       <ImageWithBasePath
@@ -45,13 +48,19 @@ const ResetPasswordSuccess2 = () => {
                         </p>
                       </div>
                       <div className="mb-3">
-                        <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                        <button
+                          type="submit"
+                          onClick={navigationPath}
+                          className="btn btn-primary w-100"
+                        >
                           Back to Sign In
                         </button>
                       </div>
                     </div>
                     <div className="mt-5 pb-4 text-center">
-                      <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                      <p className="mb-0 text-gray-9">
+                        Copyright © 2025 - Amasqis
+                      </p>
                     </div>
                   </div>
                 </form>
@@ -61,8 +70,7 @@ const ResetPasswordSuccess2 = () => {
         </div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default ResetPasswordSuccess2
+export default ResetPasswordSuccess2;

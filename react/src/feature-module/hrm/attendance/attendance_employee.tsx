@@ -1,14 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes';
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import { attendance_employee_details } from '../../../core/data/json/attendanceemployee';
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import { attendance_employee_details } from "../../../core/data/json/attendanceemployee";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 import Table from "../../../core/common/dataTable/index";
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const AttendanceEmployee = () => {
-
   const data = attendance_employee_details;
   const columns = [
     {
@@ -25,11 +24,16 @@ const AttendanceEmployee = () => {
       title: "Status",
       dataIndex: "Status",
       render: (text: String, record: any) => (
-        <span className={`badge ${text === 'Present' ? 'badge-success-transparent' : 'badge-danger-transparent'} d-inline-flex align-items-center`}>
+        <span
+          className={`badge ${
+            text === "Present"
+              ? "badge-success-transparent"
+              : "badge-danger-transparent"
+          } d-inline-flex align-items-center`}
+        >
           <i className="ti ti-point-filled me-1" />
           {record.Status}
         </span>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -57,19 +61,24 @@ const AttendanceEmployee = () => {
       title: "Production Hours",
       dataIndex: "ProductionHours",
       render: (text: String, record: any) => (
-        <span className={`badge d-inline-flex align-items-center badge-sm ${record.ProductionHours < '8.00'
-          ? 'badge-danger'
-          : record.ProductionHours >= '8.00' && record.ProductionHours <= '9.00'
-            ? 'badge-success'
-            : 'badge-info'
+        <span
+          className={`badge d-inline-flex align-items-center badge-sm ${
+            record.ProductionHours < "8.00"
+              ? "badge-danger"
+              : record.ProductionHours >= "8.00" &&
+                record.ProductionHours <= "9.00"
+              ? "badge-success"
+              : "badge-info"
           }`}
         >
-          <i className="ti ti-clock-hour-11 me-1"></i>{record.ProductionHours}
+          <i className="ti ti-clock-hour-11 me-1"></i>
+          {record.ProductionHours}
         </span>
       ),
-      sorter: (a: any, b: any) => a.ProductionHours.length - b.ProductionHours.length,
+      sorter: (a: any, b: any) =>
+        a.ProductionHours.length - b.ProductionHours.length,
     },
-  ]
+  ];
 
   return (
     <>
@@ -103,7 +112,10 @@ const AttendanceEmployee = () => {
                   >
                     <i className="ti ti-brand-days-counter" />
                   </Link>
-                  <Link to={all_routes.attendanceadmin} className="btn btn-icon btn-sm">
+                  <Link
+                    to={all_routes.attendanceadmin}
+                    className="btn btn-icon btn-sm"
+                  >
                     <i className="ti ti-calendar-event" />
                   </Link>
                 </div>
@@ -120,19 +132,13 @@ const AttendanceEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -144,7 +150,8 @@ const AttendanceEmployee = () => {
                 <Link
                   to="#"
                   className="btn btn-primary d-flex align-items-center"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#attendance_report"
                 >
                   <i className="ti ti-file-analytics me-2" />
@@ -152,7 +159,7 @@ const AttendanceEmployee = () => {
                 </Link>
               </div>
               <div className="ms-2 head-icons">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
           </div>
@@ -178,7 +185,10 @@ const AttendanceEmployee = () => {
                       <span className="progress-bar border-success" />
                     </span>
                     <div className="avatar avatar-xxl avatar-rounded">
-                      <ImageWithBasePath src="assets/img/profiles/avatar-27.jpg" alt="Img" />
+                      <ImageWithBasePath
+                        src="assets/img/profiles/avatar-27.jpg"
+                        alt="Img"
+                      />
                     </div>
                   </div>
                   <div className="text-center">
@@ -208,7 +218,9 @@ const AttendanceEmployee = () => {
                         <h2 className="mb-2">
                           8.36 / <span className="fs-20 text-gray-5"> 9</span>
                         </h2>
-                        <p className="fw-medium text-truncate">Total Hours Today</p>
+                        <p className="fw-medium text-truncate">
+                          Total Hours Today
+                        </p>
                       </div>
                       <div>
                         <p className="d-flex align-items-center fs-13">
@@ -231,7 +243,9 @@ const AttendanceEmployee = () => {
                         <h2 className="mb-2">
                           10 / <span className="fs-20 text-gray-5"> 40</span>
                         </h2>
-                        <p className="fw-medium text-truncate">Total Hours Week</p>
+                        <p className="fw-medium text-truncate">
+                          Total Hours Week
+                        </p>
                       </div>
                       <div>
                         <p className="d-flex align-items-center fs-13">
@@ -254,7 +268,9 @@ const AttendanceEmployee = () => {
                         <h2 className="mb-2">
                           75 / <span className="fs-20 text-gray-5"> 98</span>
                         </h2>
-                        <p className="fw-medium text-truncate">Total Hours Month</p>
+                        <p className="fw-medium text-truncate">
+                          Total Hours Month
+                        </p>
                       </div>
                       <div>
                         <p className="d-flex align-items-center fs-13 text-truncate">
@@ -442,18 +458,12 @@ const AttendanceEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Present
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Absent
                       </Link>
                     </li>
@@ -469,42 +479,27 @@ const AttendanceEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -518,11 +513,11 @@ const AttendanceEmployee = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -693,9 +688,7 @@ const AttendanceEmployee = () => {
       </div>
       {/* /Attendance Report */}
     </>
+  );
+};
 
-
-  )
-}
-
-export default AttendanceEmployee
+export default AttendanceEmployee;

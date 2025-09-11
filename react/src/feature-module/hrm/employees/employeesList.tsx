@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
-import { all_routes } from '../../router/all_routes'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
 import Table from "../../../core/common/dataTable/index";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import { employee_list_details } from '../../../core/data/json/employees_list_details';
-import { DatePicker } from 'antd';
-import CommonSelect from '../../../core/common/commonSelect';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import { employee_list_details } from "../../../core/data/json/employees_list_details";
+import { DatePicker } from "antd";
+import CommonSelect from "../../../core/common/commonSelect";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 type PasswordField = "password" | "confirmPassword";
 
 const EmployeeList = () => {
-
   const data = employee_list_details;
   const columns = [
     {
@@ -30,7 +29,8 @@ const EmployeeList = () => {
           <Link
             to={all_routes.employeedetails}
             className="avatar avatar-md"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#view_details"
           >
             <ImageWithBasePath
@@ -43,7 +43,8 @@ const EmployeeList = () => {
             <p className="text-dark mb-0">
               <Link
                 to={all_routes.employeedetails}
-                data-bs-toggle="modal" data-inert={true}
+                data-bs-toggle="modal"
+                data-inert={true}
                 data-bs-target="#view_details"
               >
                 {record.Name}
@@ -102,11 +103,14 @@ const EmployeeList = () => {
       title: "Status",
       dataIndex: "Status",
       render: (text: string, record: any) => (
-        <span className={`badge ${text === 'Active' ? 'badge-success' : 'badge-danger'} d-inline-flex align-items-center badge-xs`}>
+        <span
+          className={`badge ${
+            text === "Active" ? "badge-success" : "badge-danger"
+          } d-inline-flex align-items-center badge-xs`}
+        >
           <i className="ti ti-point-filled me-1" />
           {text}
         </span>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -118,18 +122,24 @@ const EmployeeList = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_employee"
           >
             <i className="ti ti-edit" />
           </Link>
-          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal">
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
             <i className="ti ti-trash" />
           </Link>
         </div>
       ),
     },
-  ]
+  ];
 
   const department = [
     { value: "Select", label: "Select" },
@@ -146,7 +156,7 @@ const EmployeeList = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -194,7 +204,10 @@ const EmployeeList = () => {
                   >
                     <i className="ti ti-list-tree" />
                   </Link>
-                  <Link to={all_routes.employeeGrid} className="btn btn-icon btn-sm">
+                  <Link
+                    to={all_routes.employeeGrid}
+                    className="btn btn-icon btn-sm"
+                  >
                     <i className="ti ti-layout-grid" />
                   </Link>
                 </div>
@@ -211,19 +224,13 @@ const EmployeeList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -234,7 +241,8 @@ const EmployeeList = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_employee"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -287,7 +295,9 @@ const EmployeeList = () => {
                       </span>
                     </div>
                     <div className="ms-2 overflow-hidden">
-                      <p className="fs-12 fw-medium mb-1 text-truncate">Active</p>
+                      <p className="fs-12 fw-medium mb-1 text-truncate">
+                        Active
+                      </p>
                       <h4>1007</h4>
                     </div>
                   </div>
@@ -312,7 +322,9 @@ const EmployeeList = () => {
                       </span>
                     </div>
                     <div className="ms-2 overflow-hidden">
-                      <p className="fs-12 fw-medium mb-1 text-truncate">InActive</p>
+                      <p className="fs-12 fw-medium mb-1 text-truncate">
+                        InActive
+                      </p>
                       <h4>1007</h4>
                     </div>
                   </div>
@@ -376,26 +388,17 @@ const EmployeeList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Finance
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Executive
                       </Link>
                     </li>
@@ -411,18 +414,12 @@ const EmployeeList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Active
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Inactive
                       </Link>
                     </li>
@@ -438,10 +435,7 @@ const EmployeeList = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
@@ -455,11 +449,11 @@ const EmployeeList = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -532,7 +526,9 @@ const EmployeeList = () => {
                           <div className="profile-upload">
                             <div className="mb-2">
                               <h6 className="mb-1">Upload Profile Image</h6>
-                              <p className="fs-12">Image should be below 4 mb</p>
+                              <p className="fs-12">
+                                Image should be below 4 mb
+                              </p>
                             </div>
                             <div className="profile-uploader d-flex align-items-center">
                               <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -543,10 +539,7 @@ const EmployeeList = () => {
                                   multiple
                                 />
                               </div>
-                              <Link
-                                to="#"
-                                className="btn btn-light btn-sm"
-                              >
+                              <Link to="#" className="btn btn-light btn-sm">
                                 Cancel
                               </Link>
                             </div>
@@ -627,10 +620,11 @@ const EmployeeList = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.password
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.password
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("password")
                               }
@@ -641,7 +635,8 @@ const EmployeeList = () => {
                       <div className="col-md-6">
                         <div className="mb-3 ">
                           <label className="form-label">
-                            Confirm Password <span className="text-danger"> *</span>
+                            Confirm Password{" "}
+                            <span className="text-danger"> *</span>
                           </label>
                           <div className="pass-group">
                             <input
@@ -653,10 +648,11 @@ const EmployeeList = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.confirmPassword
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("confirmPassword")
                               }
@@ -684,7 +680,7 @@ const EmployeeList = () => {
                         <div className="mb-3">
                           <label className="form-label">Department</label>
                           <CommonSelect
-                            className='select'
+                            className="select"
                             options={department}
                             defaultValue={department[0]}
                           />
@@ -694,7 +690,7 @@ const EmployeeList = () => {
                         <div className="mb-3">
                           <label className="form-label">Designation</label>
                           <CommonSelect
-                            className='select'
+                            className="select"
                             options={designation}
                             defaultValue={designation[0]}
                           />
@@ -722,7 +718,11 @@ const EmployeeList = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save{" "}
                     </button>
                   </div>
@@ -1426,7 +1426,8 @@ const EmployeeList = () => {
                     <button
                       type="button"
                       className="btn btn-primary"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#success_modal"
                     >
                       Save{" "}
@@ -1510,7 +1511,9 @@ const EmployeeList = () => {
                           <div className="profile-upload">
                             <div className="mb-2">
                               <h6 className="mb-1">Upload Profile Image</h6>
-                              <p className="fs-12">Image should be below 4 mb</p>
+                              <p className="fs-12">
+                                Image should be below 4 mb
+                              </p>
                             </div>
                             <div className="profile-uploader d-flex align-items-center">
                               <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -1521,10 +1524,7 @@ const EmployeeList = () => {
                                   multiple
                                 />
                               </div>
-                              <Link
-                                to="#"
-                                className="btn btn-light btn-sm"
-                              >
+                              <Link to="#" className="btn btn-light btn-sm">
                                 Cancel
                               </Link>
                             </div>
@@ -1625,10 +1625,11 @@ const EmployeeList = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.password
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.password
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("password")
                               }
@@ -1639,7 +1640,8 @@ const EmployeeList = () => {
                       <div className="col-md-6">
                         <div className="mb-3 ">
                           <label className="form-label">
-                            Confirm Password <span className="text-danger"> *</span>
+                            Confirm Password{" "}
+                            <span className="text-danger"> *</span>
                           </label>
                           <div className="pass-group">
                             <input
@@ -1651,10 +1653,11 @@ const EmployeeList = () => {
                               className="pass-input form-control"
                             />
                             <span
-                              className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                                ? "ti-eye"
-                                : "ti-eye-off"
-                                }`}
+                              className={`ti toggle-passwords ${
+                                passwordVisibility.confirmPassword
+                                  ? "ti-eye"
+                                  : "ti-eye-off"
+                              }`}
                               onClick={() =>
                                 togglePasswordVisibility("confirmPassword")
                               }
@@ -1690,7 +1693,7 @@ const EmployeeList = () => {
                         <div className="mb-3">
                           <label className="form-label">Department</label>
                           <CommonSelect
-                            className='select'
+                            className="select"
                             options={department}
                             defaultValue={department[1]}
                           />
@@ -1700,7 +1703,7 @@ const EmployeeList = () => {
                         <div className="mb-3">
                           <label className="form-label">Designation</label>
                           <CommonSelect
-                            className='select'
+                            className="select"
                             options={designation}
                             defaultValue={designation[1]}
                           />
@@ -1728,7 +1731,11 @@ const EmployeeList = () => {
                     >
                       Cancel
                     </button>
-                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-primary"
+                    >
                       Save{" "}
                     </button>
                   </div>
@@ -2432,7 +2439,8 @@ const EmployeeList = () => {
                     <button
                       type="button"
                       className="btn btn-primary"
-                      data-bs-toggle="modal" data-inert={true}
+                      data-bs-toggle="modal"
+                      data-inert={true}
                       data-bs-target="#success_modal"
                     >
                       Save{" "}
@@ -2462,7 +2470,10 @@ const EmployeeList = () => {
                 <div>
                   <div className="row g-2">
                     <div className="col-6">
-                      <Link to={all_routes.employeeList} className="btn btn-dark w-100">
+                      <Link
+                        to={all_routes.employeeList}
+                        className="btn btn-dark w-100"
+                      >
                         Back to List
                       </Link>
                     </div>
@@ -2483,8 +2494,7 @@ const EmployeeList = () => {
       </div>
       {/* /Add Client Success */}
     </>
+  );
+};
 
-  )
-}
-
-export default EmployeeList
+export default EmployeeList;

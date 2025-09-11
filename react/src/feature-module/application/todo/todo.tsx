@@ -35,8 +35,6 @@ interface TodoStats {
   };
 }
 
-
-
 const Todo = () => {
   const socket = useSocket() as Socket | null;
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -44,7 +42,7 @@ const Todo = () => {
     total: 0,
     completed: 0,
     pending: 0,
-    byPriority: { high: 0, medium: 0, low: 0 }
+    byPriority: { high: 0, medium: 0, low: 0 },
   });
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("all");
@@ -52,35 +50,41 @@ const Todo = () => {
   const [sortBy, setSortBy] = useState("createdDate");
   const [dueDateFilter, setDueDateFilter] = useState<string | null>(null);
   const [availableTags, setAvailableTags] = useState<string[]>([]);
-  const [selectedTodoToDelete, setSelectedTodoToDelete] = useState<string | null>(null);
-  const [selectedTodoToEdit, setSelectedTodoToEdit] = useState<Todo | null>(null);
-  const [selectedTodoToView, setSelectedTodoToView] = useState<Todo | null>(null);
+  const [selectedTodoToDelete, setSelectedTodoToDelete] = useState<
+    string | null
+  >(null);
+  const [selectedTodoToEdit, setSelectedTodoToEdit] = useState<Todo | null>(
+    null
+  );
+  const [selectedTodoToView, setSelectedTodoToView] = useState<Todo | null>(
+    null
+  );
 
   const toggleTodo = async (todoId: string, currentCompleted: boolean) => {
     if (!socket) {
-      console.error('Socket not available');
+      console.error("Socket not available");
       return;
     }
 
     try {
       const updateData = {
         id: todoId,
-        completed: !currentCompleted
+        completed: !currentCompleted,
       };
 
-      console.log('Updating todo completion status:', updateData);
+      console.log("Updating todo completion status:", updateData);
 
       const handleResponse = (response: any) => {
-        console.log('Update todo response received:', response);
+        console.log("Update todo response received:", response);
         if (response.done) {
-          console.log('Todo completion status updated successfully');
+          console.log("Todo completion status updated successfully");
           // The todos will be updated via the broadcast from the backend
         } else {
-          console.error('Failed to update todo:', response.error);
+          console.error("Failed to update todo:", response.error);
           // Revert the change in UI if update failed
-          setTodos(prevTodos => 
-            prevTodos.map(todo => 
-              todo._id === todoId 
+          setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+              todo._id === todoId
                 ? { ...todo, completed: currentCompleted } // Revert to original state
                 : todo
             )
@@ -93,11 +97,9 @@ const Todo = () => {
       };
 
       // Optimistically update the UI
-      setTodos(prevTodos => 
-        prevTodos.map(todo => 
-          todo._id === todoId 
-            ? { ...todo, completed: !currentCompleted }
-            : todo
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === todoId ? { ...todo, completed: !currentCompleted } : todo
         )
       );
 
@@ -113,23 +115,20 @@ const Todo = () => {
           socket.off("admin/dashboard/update-todo-response", handleResponse);
         }
         // Revert the change if timeout
-        setTodos(prevTodos => 
-          prevTodos.map(todo => 
-            todo._id === todoId 
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo._id === todoId
               ? { ...todo, completed: currentCompleted }
               : todo
           )
         );
       }, 10000); // 10 second timeout
-
     } catch (error) {
-      console.error('Error updating todo completion status:', error);
+      console.error("Error updating todo completion status:", error);
       // Revert the change in UI if error occurred
-      setTodos(prevTodos => 
-        prevTodos.map(todo => 
-          todo._id === todoId 
-            ? { ...todo, completed: currentCompleted }
-            : todo
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === todoId ? { ...todo, completed: currentCompleted } : todo
         )
       );
     }
@@ -139,53 +138,74 @@ const Todo = () => {
   useEffect(() => {
     if (socket) {
       // Fetch todos
-      (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
-      (socket as any).on("admin/dashboard/get-todos-response", (response: any) => {
-    if (response.done) {
-          const todosData = response.data || [];
-          setTodos(todosData);
-          
-          // Extract unique tags
-          const tags = Array.from(new Set(todosData.map((todo: Todo) => todo.tag).filter(Boolean))) as string[];
-          setAvailableTags(tags);
-    }
-    setLoading(false);
+      (socket as any).emit("admin/dashboard/get-todos", {
+        filter: activeFilter,
       });
+      (socket as any).on(
+        "admin/dashboard/get-todos-response",
+        (response: any) => {
+          if (response.done) {
+            const todosData = response.data || [];
+            setTodos(todosData);
+
+            // Extract unique tags
+            const tags = Array.from(
+              new Set(todosData.map((todo: Todo) => todo.tag).filter(Boolean))
+            ) as string[];
+            setAvailableTags(tags);
+          }
+          setLoading(false);
+        }
+      );
 
       // Fetch statistics
-      (socket as any).emit("admin/dashboard/get-todo-statistics", { filter: activeFilter });
-      (socket as any).on("admin/dashboard/get-todo-statistics-response", (response: any) => {
-        console.log("Statistics response:", response);
-    if (response.done) {
-          setTodoStats(response.data || {
-            total: 0,
-            completed: 0,
-            pending: 0,
-            byPriority: { high: 0, medium: 0, low: 0 }
-          });
-    } else {
-          console.error("Statistics error:", response.error);
-          // Set default stats on error
-          setTodoStats({
-            total: 0,
-            completed: 0,
-            pending: 0,
-            byPriority: { high: 0, medium: 0, low: 0 }
-          });
-        }
+      (socket as any).emit("admin/dashboard/get-todo-statistics", {
+        filter: activeFilter,
       });
+      (socket as any).on(
+        "admin/dashboard/get-todo-statistics-response",
+        (response: any) => {
+          console.log("Statistics response:", response);
+          if (response.done) {
+            setTodoStats(
+              response.data || {
+                total: 0,
+                completed: 0,
+                pending: 0,
+                byPriority: { high: 0, medium: 0, low: 0 },
+              }
+            );
+          } else {
+            console.error("Statistics error:", response.error);
+            // Set default stats on error
+            setTodoStats({
+              total: 0,
+              completed: 0,
+              pending: 0,
+              byPriority: { high: 0, medium: 0, low: 0 },
+            });
+          }
+        }
+      );
 
       // Listen for todo deletion success
-      (socket as any).on("admin/dashboard/delete-todo-response", (response: any) => {
-    if (response.done) {
-          console.log("Todo deleted successfully");
-          // Refresh the todo list and statistics after successful deletion
-          (socket as any).emit("admin/dashboard/get-todos", { filter: activeFilter });
-          (socket as any).emit("admin/dashboard/get-todo-statistics", { filter: activeFilter });
-        } else {
-          console.error("Delete failed:", response.error);
+      (socket as any).on(
+        "admin/dashboard/delete-todo-response",
+        (response: any) => {
+          if (response.done) {
+            console.log("Todo deleted successfully");
+            // Refresh the todo list and statistics after successful deletion
+            (socket as any).emit("admin/dashboard/get-todos", {
+              filter: activeFilter,
+            });
+            (socket as any).emit("admin/dashboard/get-todo-statistics", {
+              filter: activeFilter,
+            });
+          } else {
+            console.error("Delete failed:", response.error);
+          }
         }
-      });
+      );
 
       return () => {
         (socket as any).off("admin/dashboard/get-todos-response");
@@ -230,7 +250,9 @@ const Todo = () => {
   // Handle delete button click
   const handleDeleteClick = (todoId: string) => {
     console.log("Delete button clicked for todo:", todoId);
-    const confirmed = window.confirm("Are you sure you want to delete this todo? This action cannot be undone.");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this todo? This action cannot be undone."
+    );
     if (confirmed) {
       handleDeleteTodo(todoId);
     }
@@ -239,23 +261,31 @@ const Todo = () => {
   // Handle edit button click
   const handleEditClick = (todo: Todo) => {
     setSelectedTodoToEdit(todo);
-    console.log('Edit todo clicked:', todo);
+    console.log("Edit todo clicked:", todo);
   };
 
   // Handle todo refresh
   const handleTodoRefresh = () => {
     if (socket) {
       socket.emit("admin/dashboard/get-todos", { filter: activeFilter });
-      socket.emit("admin/dashboard/get-todo-statistics", { filter: activeFilter });
+      socket.emit("admin/dashboard/get-todo-statistics", {
+        filter: activeFilter,
+      });
     }
   };
 
   // Get filtered todos based on current filters
   const getFilteredTodos = () => {
-    return todos.filter(todo => {
-      const tagMatch = selectedTag === "all" || todo.tag?.toLowerCase() === selectedTag.toLowerCase();
-      const dueDateMatch = !dueDateFilter || (todo.dueDate && new Date(todo.dueDate).toDateString() === new Date(dueDateFilter).toDateString());
-      
+    return todos.filter((todo) => {
+      const tagMatch =
+        selectedTag === "all" ||
+        todo.tag?.toLowerCase() === selectedTag.toLowerCase();
+      const dueDateMatch =
+        !dueDateFilter ||
+        (todo.dueDate &&
+          new Date(todo.dueDate).toDateString() ===
+            new Date(dueDateFilter).toDateString());
+
       return tagMatch && dueDateMatch;
     });
   };
@@ -264,13 +294,19 @@ const Todo = () => {
   const calculateStats = () => {
     const filteredTodos = getFilteredTodos();
     const total = filteredTodos.length;
-    const completed = filteredTodos.filter(todo => todo.completed).length;
+    const completed = filteredTodos.filter((todo) => todo.completed).length;
     const pending = total - completed;
-    
+
     const byPriority = {
-      high: filteredTodos.filter(todo => todo.priority?.toLowerCase() === "high").length,
-      medium: filteredTodos.filter(todo => todo.priority?.toLowerCase() === "medium").length,
-      low: filteredTodos.filter(todo => todo.priority?.toLowerCase() === "low").length
+      high: filteredTodos.filter(
+        (todo) => todo.priority?.toLowerCase() === "high"
+      ).length,
+      medium: filteredTodos.filter(
+        (todo) => todo.priority?.toLowerCase() === "medium"
+      ).length,
+      low: filteredTodos.filter(
+        (todo) => todo.priority?.toLowerCase() === "low"
+      ).length,
     };
 
     return { total, completed, pending, byPriority };
@@ -278,11 +314,18 @@ const Todo = () => {
 
   // Get todos by priority with additional filtering and sorting
   const getTodosByPriority = (priority: string) => {
-    let filteredTodos = todos.filter(todo => {
-      const priorityMatch = todo.priority?.toLowerCase() === priority.toLowerCase();
-      const tagMatch = selectedTag === "all" || todo.tag?.toLowerCase() === selectedTag.toLowerCase();
-      const dueDateMatch = !dueDateFilter || (todo.dueDate && new Date(todo.dueDate).toDateString() === new Date(dueDateFilter).toDateString());
-      
+    let filteredTodos = todos.filter((todo) => {
+      const priorityMatch =
+        todo.priority?.toLowerCase() === priority.toLowerCase();
+      const tagMatch =
+        selectedTag === "all" ||
+        todo.tag?.toLowerCase() === selectedTag.toLowerCase();
+      const dueDateMatch =
+        !dueDateFilter ||
+        (todo.dueDate &&
+          new Date(todo.dueDate).toDateString() ===
+            new Date(dueDateFilter).toDateString());
+
       return priorityMatch && tagMatch && dueDateMatch;
     });
 
@@ -291,8 +334,14 @@ const Todo = () => {
       switch (sortBy) {
         case "priority":
           const priorityOrder = { high: 3, medium: 2, low: 1 };
-          return (priorityOrder[b.priority?.toLowerCase() as keyof typeof priorityOrder] || 0) - 
-                 (priorityOrder[a.priority?.toLowerCase() as keyof typeof priorityOrder] || 0);
+          return (
+            (priorityOrder[
+              b.priority?.toLowerCase() as keyof typeof priorityOrder
+            ] || 0) -
+            (priorityOrder[
+              a.priority?.toLowerCase() as keyof typeof priorityOrder
+            ] || 0)
+          );
         case "dueDate":
           if (!a.dueDate && !b.dueDate) return 0;
           if (!a.dueDate) return 1;
@@ -300,7 +349,9 @@ const Todo = () => {
           return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
         case "createdDate":
         default:
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
       }
     });
 
@@ -311,26 +362,30 @@ const Todo = () => {
   const formatDate = (dateString: string) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
     });
   };
 
   // Get priority color
   const getPriorityColor = (priority: string) => {
     switch (priority?.toLowerCase()) {
-      case 'high': return 'text-purple';
-      case 'medium': return 'text-warning';
-      case 'low': return 'text-success';
-      default: return 'text-secondary';
+      case "high":
+        return "text-purple";
+      case "medium":
+        return "text-warning";
+      case "low":
+        return "text-success";
+      default:
+        return "text-secondary";
     }
   };
 
   // Get status badge class
   const getStatusBadgeClass = (completed: boolean) => {
-    return completed 
+    return completed
       ? "badge badge-soft-success d-inline-flex align-items-center"
       : "badge badge-soft-secondary d-inline-flex align-items-center";
   };
@@ -338,18 +393,18 @@ const Todo = () => {
   // Get tag badge class
   const getTagBadgeClass = (tag: string) => {
     const tagColors: { [key: string]: string } = {
-      'projects': 'badge-success',
-      'internal': 'badge-danger',
-      'reminder': 'badge-secondary',
-      'research': 'bg-pink',
-      'meetings': 'badge-purple',
-      'social': 'badge-info',
-      'bugs': 'badge-danger',
-      'animation': 'badge-warning',
-      'security': 'badge-danger',
-      'reports': 'badge-info'
+      projects: "badge-success",
+      internal: "badge-danger",
+      reminder: "badge-secondary",
+      research: "bg-pink",
+      meetings: "badge-purple",
+      social: "badge-info",
+      bugs: "badge-danger",
+      animation: "badge-warning",
+      security: "badge-danger",
+      reports: "badge-info",
     };
-    return tagColors[tag?.toLowerCase()] || 'badge-secondary';
+    return tagColors[tag?.toLowerCase()] || "badge-secondary";
   };
 
   const options = [
@@ -384,7 +439,10 @@ const Todo = () => {
               </div>
               <div className="d-flex my-xl-auto right-content align-items-center flex-wrap ">
                 <div className="d-flex align-items-center border rounded p-1 me-2">
-                  <Link to={all_routes.TodoList} className="btn btn-icon btn-sm">
+                  <Link
+                    to={all_routes.TodoList}
+                    className="btn btn-icon btn-sm"
+                  >
                     <i className="ti ti-list-tree" />
                   </Link>
                   <Link
@@ -425,13 +483,25 @@ const Todo = () => {
                   <div className="col-sm-8">
                     <div className="d-flex align-items-center justify-content-end">
                       <p className="mb-0 me-3 pe-3 border-end fs-14">
-                        Total Task : <span className="text-dark"> {calculateStats().total} </span>
+                        Total Task :{" "}
+                        <span className="text-dark">
+                          {" "}
+                          {calculateStats().total}{" "}
+                        </span>
                       </p>
                       <p className="mb-0 me-3 pe-3 border-end fs-14">
-                        Pending : <span className="text-dark"> {calculateStats().pending} </span>
+                        Pending :{" "}
+                        <span className="text-dark">
+                          {" "}
+                          {calculateStats().pending}{" "}
+                        </span>
                       </p>
                       <p className="mb-0 fs-14">
-                        Completed : <span className="text-dark"> {calculateStats().completed} </span>
+                        Completed :{" "}
+                        <span className="text-dark">
+                          {" "}
+                          {calculateStats().completed}{" "}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -457,7 +527,9 @@ const Todo = () => {
                       >
                         <li className="nav-item" role="presentation">
                           <button
-                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${activeFilter === "all" ? "active" : ""}`}
+                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${
+                              activeFilter === "all" ? "active" : ""
+                            }`}
                             onClick={() => handleFilterChange("all")}
                             type="button"
                             role="tab"
@@ -468,7 +540,9 @@ const Todo = () => {
                         </li>
                         <li className="nav-item" role="presentation">
                           <button
-                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${activeFilter === "high" ? "active" : ""}`}
+                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${
+                              activeFilter === "high" ? "active" : ""
+                            }`}
                             onClick={() => handleFilterChange("high")}
                             type="button"
                             role="tab"
@@ -479,7 +553,9 @@ const Todo = () => {
                         </li>
                         <li className="nav-item" role="presentation">
                           <button
-                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${activeFilter === "medium" ? "active" : ""}`}
+                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${
+                              activeFilter === "medium" ? "active" : ""
+                            }`}
                             onClick={() => handleFilterChange("medium")}
                             type="button"
                             role="tab"
@@ -490,7 +566,9 @@ const Todo = () => {
                         </li>
                         <li className="nav-item" role="presentation">
                           <button
-                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${activeFilter === "low" ? "active" : ""}`}
+                            className={`nav-link btn btn-sm btn-icon py-3 d-flex align-items-center justify-content-center w-auto ${
+                              activeFilter === "low" ? "active" : ""
+                            }`}
                             onClick={() => handleFilterChange("low")}
                             type="button"
                             role="tab"
@@ -516,7 +594,7 @@ const Todo = () => {
                           onChange={(date: any) => {
                             if (date) {
                               // Convert to YYYY-MM-DD format for filtering
-                              const formattedDate = date.format('YYYY-MM-DD');
+                              const formattedDate = date.format("YYYY-MM-DD");
                               handleDueDateChange(formattedDate);
                             } else {
                               handleDueDateChange(null);
@@ -529,33 +607,36 @@ const Todo = () => {
                             className="btn btn-sm btn-light border-0 ms-2 d-flex align-items-center justify-content-center"
                             onClick={() => handleDueDateChange(null)}
                             title="Clear due date filter"
-                            style={{ 
-                              fontSize: '14px', 
-                              width: '28px', 
-                              height: '28px', 
-                              padding: '0', 
-                              lineHeight: '1',
-                              borderRadius: '50%',
-                              backgroundColor: '#f8f9fa',
-                              border: '1px solid #dee2e6',
-                              color: '#6c757d',
-                              transition: 'all 0.2s ease',
-                              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                            style={{
+                              fontSize: "14px",
+                              width: "28px",
+                              height: "28px",
+                              padding: "0",
+                              lineHeight: "1",
+                              borderRadius: "50%",
+                              backgroundColor: "#f8f9fa",
+                              border: "1px solid #dee2e6",
+                              color: "#6c757d",
+                              transition: "all 0.2s ease",
+                              boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
                             }}
                             onMouseEnter={(e) => {
                               const target = e.target as HTMLButtonElement;
-                              target.style.backgroundColor = '#e9ecef';
-                              target.style.color = '#495057';
-                              target.style.transform = 'scale(1.05)';
+                              target.style.backgroundColor = "#e9ecef";
+                              target.style.color = "#495057";
+                              target.style.transform = "scale(1.05)";
                             }}
                             onMouseLeave={(e) => {
                               const target = e.target as HTMLButtonElement;
-                              target.style.backgroundColor = '#f8f9fa';
-                              target.style.color = '#6c757d';
-                              target.style.transform = 'scale(1)';
+                              target.style.backgroundColor = "#f8f9fa";
+                              target.style.color = "#6c757d";
+                              target.style.transform = "scale(1)";
                             }}
                           >
-                            <i className="ti ti-x" style={{ fontSize: '12px' }}></i>
+                            <i
+                              className="ti ti-x"
+                              style={{ fontSize: "12px" }}
+                            ></i>
                           </button>
                         )}
                       </div>
@@ -571,7 +652,9 @@ const Todo = () => {
                           <li>
                             <Link
                               to="#"
-                              className={`dropdown-item rounded-1 ${selectedTag === "all" ? "active" : ""}`}
+                              className={`dropdown-item rounded-1 ${
+                                selectedTag === "all" ? "active" : ""
+                              }`}
                               onClick={(e) => {
                                 e.preventDefault();
                                 handleTagChange("all");
@@ -582,17 +665,19 @@ const Todo = () => {
                           </li>
                           {availableTags.map((tag) => (
                             <li key={tag}>
-                            <Link
-                              to="#"
-                                className={`dropdown-item rounded-1 ${selectedTag === tag ? "active" : ""}`}
+                              <Link
+                                to="#"
+                                className={`dropdown-item rounded-1 ${
+                                  selectedTag === tag ? "active" : ""
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   handleTagChange(tag);
                                 }}
                               >
                                 {tag}
-                            </Link>
-                          </li>
+                              </Link>
+                            </li>
                           ))}
                         </ul>
                       </div>
@@ -604,15 +689,21 @@ const Todo = () => {
                             className="dropdown-toggle btn btn-white d-inline-flex align-items-center border-0 bg-transparent p-0 text-dark"
                             data-bs-toggle="dropdown"
                           >
-                            {sortBy === "createdDate" ? "Created Date" : 
-                             sortBy === "priority" ? "Priority" : 
-                             sortBy === "dueDate" ? "Due Date" : "Created Date"}
+                            {sortBy === "createdDate"
+                              ? "Created Date"
+                              : sortBy === "priority"
+                              ? "Priority"
+                              : sortBy === "dueDate"
+                              ? "Due Date"
+                              : "Created Date"}
                           </Link>
                           <ul className="dropdown-menu dropdown-menu-end p-3">
                             <li>
                               <Link
                                 to="#"
-                                className={`dropdown-item rounded-1 ${sortBy === "createdDate" ? "active" : ""}`}
+                                className={`dropdown-item rounded-1 ${
+                                  sortBy === "createdDate" ? "active" : ""
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   handleSortChange("createdDate");
@@ -624,7 +715,9 @@ const Todo = () => {
                             <li>
                               <Link
                                 to="#"
-                                className={`dropdown-item rounded-1 ${sortBy === "priority" ? "active" : ""}`}
+                                className={`dropdown-item rounded-1 ${
+                                  sortBy === "priority" ? "active" : ""
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   handleSortChange("priority");
@@ -636,7 +729,9 @@ const Todo = () => {
                             <li>
                               <Link
                                 to="#"
-                                className={`dropdown-item rounded-1 ${sortBy === "dueDate" ? "active" : ""}`}
+                                className={`dropdown-item rounded-1 ${
+                                  sortBy === "dueDate" ? "active" : ""
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   handleSortChange("dueDate");
@@ -664,204 +759,271 @@ const Todo = () => {
                         </div>
                       </div>
                     ) : (
-                    <div className="accordion todo-accordion" id="accordionExample">
-                        {["High", "Medium", "Low"].map((priority, priorityIndex) => {
-                          const priorityTodos = getTodosByPriority(priority.toLowerCase());
-                          const priorityCount = priorityTodos.length;
-                          
-                          if (priorityCount === 0 && activeFilter !== "all") return null;
-                          
-                          return (
-                            <div key={priority} className="accordion-item mb-3">
-                        <div className="row align-items-center mb-3 row-gap-3">
-                          <div className="col-lg-4 col-sm-6">
-                                  <div className="accordion-header" id={`heading${priority}`}>
+                      <div
+                        className="accordion todo-accordion"
+                        id="accordionExample"
+                      >
+                        {["High", "Medium", "Low"].map(
+                          (priority, priorityIndex) => {
+                            const priorityTodos = getTodosByPriority(
+                              priority.toLowerCase()
+                            );
+                            const priorityCount = priorityTodos.length;
+
+                            if (priorityCount === 0 && activeFilter !== "all")
+                              return null;
+
+                            return (
                               <div
-                                className="accordion-button"
-                                data-bs-toggle="collapse"
-                                      data-bs-target={`#collapse${priority}`}
-                                      aria-controls={`collapse${priority}`}
+                                key={priority}
+                                className="accordion-item mb-3"
                               >
-                                <div className="d-flex align-items-center w-100">
-                                  <div className="me-2">
-                                    <Link to="#">
-                                      <span>
-                                        <i className="fas fa-chevron-down" />
-                                      </span>
-                                    </Link>
-                                  </div>
-                                  <div className="d-flex align-items-center">
-                                    <span>
-                                            <i className={`ti ti-square-rounded ${getPriorityColor(priority)} me-2`} />
-                                    </span>
-                                          <h5 className="fw-semibold">{priority}</h5>
-                                    <span className="badge bg-light rounded-pill ms-2">
-                                            {priorityCount}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col-lg-8 col-sm-6">
-                            <div className="d-flex align-items-center justify-content-sm-end">
-                              <Link
-                                to="#"
-                                className="btn btn-light me-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#add_todo"
-                              >
-                                <i className="ti ti-circle-plus me-2" />
-                                Add New
-                              </Link>
-                              <Link to="#" className="btn btn-outline-light border">
-                                See All <i className="ti ti-arrow-right ms-2" />
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                                id={`collapse${priority}`}
-                          className="accordion-collapse collapse show"
-                                aria-labelledby={`heading${priority}`}
-                          data-bs-parent="#accordionExample"
-                        >
-                          <div className="accordion-body">
-                            <div className="list-group list-group-flush border-bottom pb-2">
-                                    {priorityTodos.map((todo, todoIndex) => (
-                                      <div key={todo._id} className="list-group-item list-item-hover shadow-sm rounded mb-2 p-3">
-                                <div className="row align-items-center row-gap-3">
-                                  <div className="col-lg-6 col-md-7">
-                                            <div className={`todo-inbox-check d-flex align-items-center flex-wrap row-gap-3 ${todo.completed ? 'todo-strike-content' : ''}`}>
-                                      <span className="me-2 d-flex align-items-center">
-                                        <i className="ti ti-grid-dots text-dark" />
-                                      </span>
-                                      <div className="form-check form-check-md me-2">
-                                        <input
-                                          className="form-check-input"
-                                          type="checkbox"
-                                                  checked={todo.completed}
-                                                  onChange={() => toggleTodo(todo._id, todo.completed)}
-                                        />
+                                <div className="row align-items-center mb-3 row-gap-3">
+                                  <div className="col-lg-4 col-sm-6">
+                                    <div
+                                      className="accordion-header"
+                                      id={`heading${priority}`}
+                                    >
+                                      <div
+                                        className="accordion-button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target={`#collapse${priority}`}
+                                        aria-controls={`collapse${priority}`}
+                                      >
+                                        <div className="d-flex align-items-center w-100">
+                                          <div className="me-2">
+                                            <Link to="#">
+                                              <span>
+                                                <i className="fas fa-chevron-down" />
+                                              </span>
+                                            </Link>
+                                          </div>
+                                          <div className="d-flex align-items-center">
+                                            <span>
+                                              <i
+                                                className={`ti ti-square-rounded ${getPriorityColor(
+                                                  priority
+                                                )} me-2`}
+                                              />
+                                            </span>
+                                            <h5 className="fw-semibold">
+                                              {priority}
+                                            </h5>
+                                            <span className="badge bg-light rounded-pill ms-2">
+                                              {priorityCount}
+                                            </span>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <span className="me-2 d-flex align-items-center rating-select">
-                                                <i className={`ti ti-star${todo.completed ? '-filled filled' : ''}`} />
-                                      </span>
-                                      <div className="strike-info">
-                                        <h4 className="fs-14">
-                                                  {todo.title}
-                                        </h4>
-                                      </div>
-                                              {todo.dueDate && (
-                                      <span className="badge bg-transparent-dark text-dark rounded-pill ms-2">
-                                        <i className="ti ti-calendar me-1" />
-                                                  {formatDate(todo.dueDate)}
-                                      </span>
-                                              )}
                                     </div>
                                   </div>
-                                  <div className="col-lg-6 col-md-5">
-                                    <div className="d-flex align-items-center justify-content-md-end flex-wrap row-gap-3">
-                                              {todo.tag && (
-                                                <span className={`badge ${getTagBadgeClass(todo.tag)} me-3`}>
-                                                  {todo.tag}
-                                      </span>
-                                              )}
-                                              <span className={`${getStatusBadgeClass(todo.completed)} me-3`}>
-                                        <i className="fas fa-circle fs-6 me-1" />
-                                                {todo.completed ? 'Completed' : 'Pending'}
-                                      </span>
-                                      <div className="d-flex align-items-center">
-                                        <div className="avatar-list-stacked avatar-group-sm">
-                                          <span className="avatar avatar-rounded">
-                                            <ImageWithBasePath
-                                              className="border border-white"
-                                              src="assets/img/profiles/avatar-13.jpg"
-                                              alt="img"
-                                            />
-                                          </span>
-                                        </div>
-                                        <div className="dropdown ms-2">
-                                          <Link
-                                            to="#"
-                                            className="d-inline-flex align-items-center"
-                                            data-bs-toggle="dropdown"
-                                          >
-                                            <i className="ti ti-dots-vertical" />
-                                          </Link>
-                                          <ul className="dropdown-menu dropdown-menu-end p-3">
-                                            <li>
-                                              <Link
-                                                to="#"
-                                                className="dropdown-item rounded-1"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#edit-note-units"
-                                                onClick={() => handleEditClick(todo)}
-                                              >
-                                                <i className="ti ti-edit me-2" />
-                                                Edit
-                                              </Link>
-                                            </li>
-                                            <li>
-                                              <button
-                                                type="button"
-                                                className="dropdown-item rounded-1 border-0 bg-transparent w-100 text-start"
-                                                onClick={() => handleDeleteClick(todo._id)}
-                                              >
-                                                <i className="ti ti-trash me-2" />
-                                                Delete
-                                              </button>
-                                            </li>
-                                            <li>
-                                              <Link
-                                                to="#"
-                                                className="dropdown-item rounded-1"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#view-note-units"
-                                                onClick={() => setSelectedTodoToView(todo)}
-                                              >
-                                                <i className="ti ti-eye me-2" />
-                                                View
-                                              </Link>
-                                            </li>
-                                          </ul>
-                                        </div>
-                                      </div>
+                                  <div className="col-lg-8 col-sm-6">
+                                    <div className="d-flex align-items-center justify-content-sm-end">
+                                      <Link
+                                        to="#"
+                                        className="btn btn-light me-2"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#add_todo"
+                                      >
+                                        <i className="ti ti-circle-plus me-2" />
+                                        Add New
+                                      </Link>
+                                      <Link
+                                        to="#"
+                                        className="btn btn-outline-light border"
+                                      >
+                                        See All{" "}
+                                        <i className="ti ti-arrow-right ms-2" />
+                                      </Link>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                                    ))}
-                                    {priorityTodos.length === 0 && (
-                                      <div className="text-center py-4 text-muted">
-                                        No {priority.toLowerCase()} priority todos found.
-                                      </div>
-                                    )}
-                                      </div>
+                                <div
+                                  id={`collapse${priority}`}
+                                  className="accordion-collapse collapse show"
+                                  aria-labelledby={`heading${priority}`}
+                                  data-bs-parent="#accordionExample"
+                                >
+                                  <div className="accordion-body">
+                                    <div className="list-group list-group-flush border-bottom pb-2">
+                                      {priorityTodos.map((todo, todoIndex) => (
+                                        <div
+                                          key={todo._id}
+                                          className="list-group-item list-item-hover shadow-sm rounded mb-2 p-3"
+                                        >
+                                          <div className="row align-items-center row-gap-3">
+                                            <div className="col-lg-6 col-md-7">
+                                              <div
+                                                className={`todo-inbox-check d-flex align-items-center flex-wrap row-gap-3 ${
+                                                  todo.completed
+                                                    ? "todo-strike-content"
+                                                    : ""
+                                                }`}
+                                              >
+                                                <span className="me-2 d-flex align-items-center">
+                                                  <i className="ti ti-grid-dots text-dark" />
+                                                </span>
+                                                <div className="form-check form-check-md me-2">
+                                                  <input
+                                                    className="form-check-input"
+                                                    type="checkbox"
+                                                    checked={todo.completed}
+                                                    onChange={() =>
+                                                      toggleTodo(
+                                                        todo._id,
+                                                        todo.completed
+                                                      )
+                                                    }
+                                                  />
+                                                </div>
+                                                <span className="me-2 d-flex align-items-center rating-select">
+                                                  <i
+                                                    className={`ti ti-star${
+                                                      todo.completed
+                                                        ? "-filled filled"
+                                                        : ""
+                                                    }`}
+                                                  />
+                                                </span>
+                                                <div className="strike-info">
+                                                  <h4 className="fs-14">
+                                                    {todo.title}
+                                                  </h4>
+                                                </div>
+                                                {todo.dueDate && (
+                                                  <span className="badge bg-transparent-dark text-dark rounded-pill ms-2">
+                                                    <i className="ti ti-calendar me-1" />
+                                                    {formatDate(todo.dueDate)}
+                                                  </span>
+                                                )}
+                                              </div>
+                                            </div>
+                                            <div className="col-lg-6 col-md-5">
+                                              <div className="d-flex align-items-center justify-content-md-end flex-wrap row-gap-3">
+                                                {todo.tag && (
+                                                  <span
+                                                    className={`badge ${getTagBadgeClass(
+                                                      todo.tag
+                                                    )} me-3`}
+                                                  >
+                                                    {todo.tag}
+                                                  </span>
+                                                )}
+                                                <span
+                                                  className={`${getStatusBadgeClass(
+                                                    todo.completed
+                                                  )} me-3`}
+                                                >
+                                                  <i className="fas fa-circle fs-6 me-1" />
+                                                  {todo.completed
+                                                    ? "Completed"
+                                                    : "Pending"}
+                                                </span>
+                                                <div className="d-flex align-items-center">
+                                                  <div className="avatar-list-stacked avatar-group-sm">
+                                                    <span className="avatar avatar-rounded">
+                                                      <ImageWithBasePath
+                                                        className="border border-white"
+                                                        src="assets/img/profiles/avatar-13.jpg"
+                                                        alt="img"
+                                                      />
+                                                    </span>
+                                                  </div>
+                                                  <div className="dropdown ms-2">
+                                                    <Link
+                                                      to="#"
+                                                      className="d-inline-flex align-items-center"
+                                                      data-bs-toggle="dropdown"
+                                                    >
+                                                      <i className="ti ti-dots-vertical" />
+                                                    </Link>
+                                                    <ul className="dropdown-menu dropdown-menu-end p-3">
+                                                      <li>
+                                                        <Link
+                                                          to="#"
+                                                          className="dropdown-item rounded-1"
+                                                          data-bs-toggle="modal"
+                                                          data-bs-target="#edit-note-units"
+                                                          onClick={() =>
+                                                            handleEditClick(
+                                                              todo
+                                                            )
+                                                          }
+                                                        >
+                                                          <i className="ti ti-edit me-2" />
+                                                          Edit
+                                                        </Link>
+                                                      </li>
+                                                      <li>
+                                                        <button
+                                                          type="button"
+                                                          className="dropdown-item rounded-1 border-0 bg-transparent w-100 text-start"
+                                                          onClick={() =>
+                                                            handleDeleteClick(
+                                                              todo._id
+                                                            )
+                                                          }
+                                                        >
+                                                          <i className="ti ti-trash me-2" />
+                                                          Delete
+                                                        </button>
+                                                      </li>
+                                                      <li>
+                                                        <Link
+                                                          to="#"
+                                                          className="dropdown-item rounded-1"
+                                                          data-bs-toggle="modal"
+                                                          data-bs-target="#view-note-units"
+                                                          onClick={() =>
+                                                            setSelectedTodoToView(
+                                                              todo
+                                                            )
+                                                          }
+                                                        >
+                                                          <i className="ti ti-eye me-2" />
+                                                          View
+                                                        </Link>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
+                                      {priorityTodos.length === 0 && (
+                                        <div className="text-center py-4 text-muted">
+                                          No {priority.toLowerCase()} priority
+                                          todos found.
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
-                                        </div>
-                          );
-                        })}
-                                        </div>
+                                </div>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>
                 <div className="text-center">
-                  <Link to="#" className="btn btn-primary">
+                  {/* <Link to="#" className="btn btn-primary">
                     <i className="ti ti-loader me-2" />
                     Load More
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -869,7 +1031,7 @@ const Todo = () => {
         {/* /Page Wrapper */}
       </>
 
-      <TodoModal 
+      <TodoModal
         onTodoAdded={handleTodoRefresh}
         selectedTodoToDelete={selectedTodoToDelete}
         onDeleteTodo={handleDeleteTodo}

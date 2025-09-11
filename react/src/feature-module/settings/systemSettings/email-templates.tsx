@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import CommonTextEditor from "../../../core/common/textEditor";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
@@ -35,7 +33,7 @@ const Emailtemplates = () => {
                 </nav>
               </div>
               <div className="head-icons ms-2">
-              <CollapseHeader />
+                <CollapseHeader />
               </div>
             </div>
             {/* /Breadcrumb */}
@@ -86,7 +84,6 @@ const Emailtemplates = () => {
                         to={routes.emailSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Email Settings
                       </Link>
                       <Link
@@ -94,7 +91,7 @@ const Emailtemplates = () => {
                         className="d-inline-flex align-items-center rounded active py-2 px-3"
                       >
                         <i className="ti ti-arrow-badge-right me-2" />
-                        Email Templates
+                        Email Dashboards
                       </Link>
                       <Link
                         to={routes.smsSettings}
@@ -106,7 +103,7 @@ const Emailtemplates = () => {
                         to={routes.smsTemplate}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        SMS Templates
+                        SMS Dashboards
                       </Link>
                       <Link
                         to={routes.otpSettings}
@@ -134,7 +131,7 @@ const Emailtemplates = () => {
                 <div className="card">
                   <div className="card-body">
                     <div className="border-bottom d-flex align-items-center justify-content-between pb-3 mb-3">
-                      <h4>Email Templates</h4>
+                      <h4>Email Dashboards</h4>
                       <Link
                         to="#"
                         className="btn btn-primary"
@@ -142,7 +139,7 @@ const Emailtemplates = () => {
                         data-bs-target="#addtemplate"
                       >
                         <i className="ti ti-circle-plus me-2" />
-                        Add Template
+                        Add Dashboard
                       </Link>
                     </div>
                     <form>
@@ -254,7 +251,10 @@ const Emailtemplates = () => {
                                           >
                                             <i className="ti ti-edit" />
                                           </Link>
-                                          <Link to="#" className="btn btn-sm btn-icon">
+                                          <Link
+                                            to="#"
+                                            className="btn btn-sm btn-icon"
+                                          >
                                             <i className="ti ti-trash" />
                                           </Link>
                                         </div>
@@ -343,11 +343,11 @@ const Emailtemplates = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -361,7 +361,7 @@ const Emailtemplates = () => {
           <div className="modal-dialog modal-dialog-centered modal-md">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Add Template</h4>
+                <h4 className="modal-title">Add Dashboard</h4>
                 <button
                   type="button"
                   className="btn-close custom-btn-close"
@@ -389,10 +389,7 @@ const Emailtemplates = () => {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Status</label>
-                        <CommonSelect
-                          className="select"
-                          options={status}
-                        />
+                        <CommonSelect className="select" options={status} />
                       </div>
                     </div>
                   </div>
@@ -406,7 +403,7 @@ const Emailtemplates = () => {
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary">
-                    Add Template
+                    Add Dashboard
                   </button>
                 </div>
               </form>
@@ -419,7 +416,7 @@ const Emailtemplates = () => {
           <div className="modal-dialog modal-dialog-centered modal-md">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Edit Template</h4>
+                <h4 className="modal-title">Edit Dashboard</h4>
                 <button
                   type="button"
                   className="btn-close custom-btn-close"
@@ -487,8 +484,8 @@ const Emailtemplates = () => {
                 </span>
                 <h4 className="mb-1">Confirm Delete</h4>
                 <p className="mb-3">
-                  You want to delete all the marked items, this cant be undone once
-                  you delete.
+                  You want to delete all the marked items, this cant be undone
+                  once you delete.
                 </p>
                 <div className="d-flex justify-content-center">
                   <Link
@@ -508,7 +505,6 @@ const Emailtemplates = () => {
         </div>
         {/* /Delete Modal */}
       </>
-
     </div>
   );
 };

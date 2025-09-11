@@ -16,7 +16,9 @@ const Pricing = () => {
       title: "Plan",
       dataIndex: "plan",
       render: (text: string, record: any) => (
-        <h6 className="fw-medium"><Link to="#">{text}</Link></h6>
+        <h6 className="fw-medium">
+          <Link to="#">{text}</Link>
+        </h6>
       ),
       sorter: (a: TableData, b: TableData) => a.name.length - b.name.length,
     },
@@ -33,7 +35,8 @@ const Pricing = () => {
     {
       title: "Modified Date",
       dataIndex: "modified_date",
-      sorter: (a: any, b: any) => a.modified_date.length - b.modified_date.length,
+      sorter: (a: any, b: any) =>
+        a.modified_date.length - b.modified_date.length,
     },
     {
       title: "Amount",
@@ -43,9 +46,10 @@ const Pricing = () => {
     {
       title: "Subscribed User",
       dataIndex: "subscribed_user",
-      sorter: (a: any, b: any) => a.subscribed_user.length - b.subscribed_user.length,
+      sorter: (a: any, b: any) =>
+        a.subscribed_user.length - b.subscribed_user.length,
     },
-  ]
+  ];
 
   const planName = [
     { value: "Select", label: "Select" },
@@ -116,19 +120,13 @@ const Pricing = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -140,7 +138,8 @@ const Pricing = () => {
                 <Link
                   to="#"
                   className="btn btn-primary d-flex align-items-center"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_plans"
                 >
                   <i className="ti ti-circle-plus me-2" />
@@ -354,42 +353,27 @@ const Pricing = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -404,11 +388,11 @@ const Pricing = () => {
           {/* /Pricing Table */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -457,10 +441,7 @@ const Pricing = () => {
                                 multiple
                               />
                             </div>
-                            <Link
-                              to="#"
-                              className="btn btn-light btn-sm"
-                            >
+                            <Link to="#" className="btn btn-light btn-sm">
                               Cancel
                             </Link>
                           </div>
@@ -555,7 +536,9 @@ const Pricing = () => {
                     </div>
                     <div className="col-lg-3">
                       <div className="mb-3">
-                        <label className="form-label">Limitations Invoices</label>
+                        <label className="form-label">
+                          Limitations Invoices
+                        </label>
                         <input type="text" className="form-control" />
                       </div>
                     </div>
@@ -582,7 +565,10 @@ const Pricing = () => {
                         <h6>Plan Modules</h6>
                         <div className="form-check d-flex align-items-center">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Select All
                           </label>
                         </div>
@@ -592,7 +578,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Employees
                           </label>
                         </div>
@@ -600,7 +589,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Invoices
                           </label>
                         </div>
@@ -608,7 +600,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Reports
                           </label>
                         </div>
@@ -616,7 +611,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Contacts
                           </label>
                         </div>
@@ -624,7 +622,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Clients
                           </label>
                         </div>
@@ -632,7 +633,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Estimates
                           </label>
                         </div>
@@ -640,7 +644,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Goals
                           </label>
                         </div>
@@ -648,7 +655,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Deals
                           </label>
                         </div>
@@ -656,7 +666,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Projects
                           </label>
                         </div>
@@ -664,7 +677,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Payments
                           </label>
                         </div>
@@ -672,7 +688,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Assets
                           </label>
                         </div>
@@ -680,7 +699,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Leads
                           </label>
                         </div>
@@ -688,7 +710,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Tickets
                           </label>
                         </div>
@@ -696,7 +721,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Taxes
                           </label>
                         </div>
@@ -704,7 +732,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Activities
                           </label>
                         </div>
@@ -712,7 +743,10 @@ const Pricing = () => {
                       <div className="col-lg-3 col-sm-6">
                         <div className="form-check d-flex align-items-center mb-3">
                           <label className="form-check-label mt-0 text-dark fw-medium">
-                            <input className="form-check-input" type="checkbox" />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                            />
                             Pipelines
                           </label>
                         </div>
@@ -794,10 +828,7 @@ const Pricing = () => {
         </div>
         {/* /Add Plan */}
       </>
-
-
     </>
-
   );
 };
 

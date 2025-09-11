@@ -1,16 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { attendance_admin_details } from '../../../core/data/json/attendanceadmin';
-import { all_routes } from '../../router/all_routes';
-import PredefinedDateRanges from '../../../core/common/datePicker';
+import React from "react";
+import { Link } from "react-router-dom";
+import { attendance_admin_details } from "../../../core/data/json/attendanceadmin";
+import { all_routes } from "../../router/all_routes";
+import PredefinedDateRanges from "../../../core/common/datePicker";
 import Table from "../../../core/common/dataTable/index";
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CommonSelect from '../../../core/common/commonSelect';
-import { DatePicker, TimePicker } from 'antd';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
+import { DatePicker, TimePicker } from "antd";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const AttendanceAdmin = () => {
-
   const data = attendance_admin_details;
   const columns = [
     {
@@ -19,7 +18,11 @@ const AttendanceAdmin = () => {
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
           <Link to="#" className="avatar avatar-md border avatar-rounded">
-            <ImageWithBasePath src={`assets/img/users/${record.Image}`} className="img-fluid" alt="img" />
+            <ImageWithBasePath
+              src={`assets/img/users/${record.Image}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -35,11 +38,16 @@ const AttendanceAdmin = () => {
       title: "Status",
       dataIndex: "Status",
       render: (text: String, record: any) => (
-        <span className={`badge ${text === 'Present' ? 'badge-success-transparent' : 'badge-danger-transparent'} d-inline-flex align-items-center`}>
+        <span
+          className={`badge ${
+            text === "Present"
+              ? "badge-success-transparent"
+              : "badge-danger-transparent"
+          } d-inline-flex align-items-center`}
+        >
           <i className="ti ti-point-filled me-1" />
           {record.Status}
         </span>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -67,17 +75,22 @@ const AttendanceAdmin = () => {
       title: "Production Hours",
       dataIndex: "ProductionHours",
       render: (text: String, record: any) => (
-        <span className={`badge d-inline-flex align-items-center badge-sm ${record.ProductionHours < '8.00'
-          ? 'badge-danger'
-          : record.ProductionHours >= '8.00' && record.ProductionHours <= '9.00'
-            ? 'badge-success'
-            : 'badge-info'
+        <span
+          className={`badge d-inline-flex align-items-center badge-sm ${
+            record.ProductionHours < "8.00"
+              ? "badge-danger"
+              : record.ProductionHours >= "8.00" &&
+                record.ProductionHours <= "9.00"
+              ? "badge-success"
+              : "badge-info"
           }`}
         >
-          <i className="ti ti-clock-hour-11 me-1"></i>{record.ProductionHours}
+          <i className="ti ti-clock-hour-11 me-1"></i>
+          {record.ProductionHours}
         </span>
       ),
-      sorter: (a: any, b: any) => a.ProductionHours.length - b.ProductionHours.length,
+      sorter: (a: any, b: any) =>
+        a.ProductionHours.length - b.ProductionHours.length,
     },
     {
       title: "",
@@ -87,16 +100,16 @@ const AttendanceAdmin = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_attendance"
           >
             <i className="ti ti-edit" />
           </Link>
         </div>
-
       ),
     },
-  ]
+  ];
   const statusChoose = [
     { value: "Select", label: "Select" },
     { value: "Present", label: "Present" },
@@ -104,11 +117,11 @@ const AttendanceAdmin = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const getModalContainer2 = () => {
-    const modalElement = document.getElementById('modal_datepicker');
+    const modalElement = document.getElementById("modal_datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -164,19 +177,13 @@ const AttendanceAdmin = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -189,7 +196,8 @@ const AttendanceAdmin = () => {
                   to="#"
                   className="btn btn-primary d-flex align-items-center"
                   data-bs-target="#attendance_report"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                 >
                   <i className="ti ti-file-analytics me-2" />
                   Report
@@ -347,26 +355,17 @@ const AttendanceAdmin = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Finance
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Application Development
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         IT Management
                       </Link>
                     </li>
@@ -382,18 +381,12 @@ const AttendanceAdmin = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Present
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Absent
                       </Link>
                     </li>
@@ -409,42 +402,27 @@ const AttendanceAdmin = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -458,11 +436,11 @@ const AttendanceAdmin = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -509,7 +487,13 @@ const AttendanceAdmin = () => {
                     <div className="mb-3">
                       <label className="form-label">Check In</label>
                       <div className="input-icon input-icon-new position-relative w-100">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          placeholder="Choose"
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-icon-addon">
                           <i className="ti ti-clock-hour-3" />
                         </span>
@@ -520,7 +504,13 @@ const AttendanceAdmin = () => {
                     <div className="mb-3">
                       <label className="form-label">Check Out</label>
                       <div className="input-icon input-icon-new position-relative w-100">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          placeholder="Choose"
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-icon-addon">
                           <i className="ti ti-clock-hour-3" />
                         </span>
@@ -551,7 +541,13 @@ const AttendanceAdmin = () => {
                     <div className="mb-3">
                       <label className="form-label">Production Hours</label>
                       <div className="input-icon input-icon-new position-relative w-100">
-                        <TimePicker getPopupContainer={getModalContainer2} use12Hours placeholder="Choose" format="h:mm A" className="form-control timepicker" />
+                        <TimePicker
+                          getPopupContainer={getModalContainer2}
+                          use12Hours
+                          placeholder="Choose"
+                          format="h:mm A"
+                          className="form-control timepicker"
+                        />
                         <span className="input-icon-addon">
                           <i className="ti ti-clock-hour-3" />
                         </span>
@@ -562,7 +558,7 @@ const AttendanceAdmin = () => {
                     <div className="mb-3 ">
                       <label className="form-label">Status</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={statusChoose}
                         defaultValue={statusChoose[1]}
                       />
@@ -578,7 +574,11 @@ const AttendanceAdmin = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Changes
                 </button>
               </div>
@@ -609,7 +609,10 @@ const AttendanceAdmin = () => {
                     <div className="col-lg-4">
                       <div className="d-flex align-items-center mb-3">
                         <span className="avatar avatar-sm avatar-rounded flex-shrink-0 me-2">
-                          <ImageWithBasePath src="assets/img/profiles/avatar-02.jpg" alt="Img" />
+                          <ImageWithBasePath
+                            src="assets/img/profiles/avatar-02.jpg"
+                            alt="Img"
+                          />
                         </span>
                         <div>
                           <h6 className="fw-medium">Anthony Lewis</h6>
@@ -767,11 +770,7 @@ const AttendanceAdmin = () => {
       </div>
       {/* /Attendance Report */}
     </>
+  );
+};
 
-
-
-
-  )
-}
-
-export default AttendanceAdmin
+export default AttendanceAdmin;

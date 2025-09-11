@@ -51,7 +51,7 @@ const EmailVerification3 = () => {
                   </div>
                 </div>
                 <div className="p-4 text-center">
-                  <p className="mb-0 ">Copyright © 2024 - Preskool</p>
+                  <p className="mb-0 ">Copyright © 2025 - Preskool</p>
                 </div>
               </div>
             </form>

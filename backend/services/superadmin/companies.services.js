@@ -61,43 +61,43 @@ const addCompany = async (data, user) => {
     // Step 3: Generate a random temporary password
     const tempPassword = generateRandomPassword();
 
-    // // Step 4: Create Clerk user
-    // const createdUser = await clerkClient.users.createUser({
-    //   emailAddress: [data.email],
-    //   password: tempPassword,
-    //   publicMetadata: {
-    //     role: "admin",
-    //     company: companyId,
-    //     subdomain: data.domain,
-    //   },
-    // });
+    // Step 4: Create Clerk user
+    const createdUser = await clerkClient.users.createUser({
+      emailAddress: [data.email],
+      password: tempPassword,
+      publicMetadata: {
+        role: "admin",
+        company: companyId,
+        subdomain: data.domain,
+      },
+    });
 
-    // const clerkUserId = createdUser.id;
+    const clerkUserId = createdUser.id;
 
     // Step 5: Update the company document with clerkUserId
-    // await companiesCollection.updateOne(
-    //   { _id: result.insertedId },
-    //   {
-    //     $set: {
-    //       clerkUserId,
-    //       updatedAt: new Date(),
-    //     },
-    //   }
-    // );
+    await companiesCollection.updateOne(
+      { _id: result.insertedId },
+      {
+        $set: {
+          clerkUserId,
+          updatedAt: new Date(),
+        },
+      }
+    );
 
     // Step 6: Send credentials email
-    // await sendCredentialsEmail({
-    //   to: data.email,
-    //   companyName: data.name,
-    //   password: tempPassword,
-    //   loginLink: `http://${data.domain}.localhost:3000/login`,
-    // });
+    await sendCredentialsEmail({
+      to: data.email,
+      companyName: data.name,
+      password: tempPassword,
+      loginLink: "https://devhrms-pm.amasqis.ai/login", // Login URL for every company should change
+    });
 
     return {
       done: true,
-      // message: "Company and user created. Credentials emailed.",
-      // companyId,
-      // clerkUserId,
+      message: "Company and user created. Credentials emailed.",
+      companyId,
+      clerkUserId,
     };
   } catch (error) {
     console.error("Error creating company/org/user:", error);

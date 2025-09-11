@@ -138,8 +138,8 @@ const ConnectedApps = () => {
                             </div>
                             <div>
                               <p className="text-truncate line-clamb-2">
-                                Team communication platform with channels for group
-                                discussions and direct messaging.
+                                Team communication platform with channels for
+                                group discussions and direct messaging.
                               </p>
                             </div>
                           </div>
@@ -169,8 +169,9 @@ const ConnectedApps = () => {
                             </div>
                             <div>
                               <p className="text-truncate line-clamb-2">
-                                Google Calendar is a web-based scheduling tool that
-                                allows users to create, manage, and share events.
+                                Google Calendar is a web-based scheduling tool
+                                that allows users to create, manage, and share
+                                events.
                               </p>
                             </div>
                           </div>
@@ -200,8 +201,9 @@ const ConnectedApps = () => {
                             </div>
                             <div>
                               <p className="text-truncate line-clamb-2">
-                                Gmail is a free email service by Google that offers
-                                robust spam protection &amp; 15GB of storage.
+                                Gmail is a free email service by Google that
+                                offers robust spam protection &amp; 15GB of
+                                storage.
                               </p>
                             </div>
                           </div>
@@ -231,9 +233,9 @@ const ConnectedApps = () => {
                             </div>
                             <div>
                               <p className="text-truncate line-clamb-2">
-                                Github is a web-based platform for version control and
-                                collaboration, allowing developers to host &amp;
-                                review code
+                                Github is a web-based platform for version
+                                control and collaboration, allowing developers
+                                to host &amp; review code
                               </p>
                             </div>
                           </div>
@@ -246,18 +248,17 @@ const ConnectedApps = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

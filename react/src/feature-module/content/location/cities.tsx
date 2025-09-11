@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  status,
-} from "../../../core/common/selectoption/selectoption";
+import { status } from "../../../core/common/selectoption/selectoption";
 import Table from "../../../core/common/dataTable/index";
 import { cities_data } from "../../../core/data/json/cities_data";
 import { TableData } from "../../../core/data/interface";
@@ -11,7 +9,6 @@ import { all_routes } from "../../router/all_routes";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const Cities = () => {
-
   const countryName = [
     { value: "Select", label: "Select" },
     { value: "United States", label: "United States" },
@@ -29,31 +26,35 @@ const Cities = () => {
   const routes = all_routes;
   const columns = [
     {
-      title: 'City Name',
-      dataIndex: 'cityName',
-      key: 'cityName',
+      title: "City Name",
+      dataIndex: "cityName",
+      key: "cityName",
       render: (text: String) => (
         <>
-          <span className="text-dark">{text}</span></>
+          <span className="text-dark">{text}</span>
+        </>
       ),
-      sorter: (a: TableData, b: TableData) => a.cityName.length - b.cityName.length,
+      sorter: (a: TableData, b: TableData) =>
+        a.cityName.length - b.cityName.length,
     },
     {
-      title: 'State Name',
-      dataIndex: 'stateName',
-      key: 'stateName',
-      sorter: (a: TableData, b: TableData) => a.stateName.length - b.stateName.length,
+      title: "State Name",
+      dataIndex: "stateName",
+      key: "stateName",
+      sorter: (a: TableData, b: TableData) =>
+        a.stateName.length - b.stateName.length,
     },
     {
-      title: 'Country Name',
-      dataIndex: 'countryName',
-      key: 'countryName',
-      sorter: (a: TableData, b: TableData) => a.countryName.length - b.countryName.length,
+      title: "Country Name",
+      dataIndex: "countryName",
+      key: "countryName",
+      sorter: (a: TableData, b: TableData) =>
+        a.countryName.length - b.countryName.length,
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       sorter: (a: TableData, b: TableData) => a.status.length - b.status.length,
       render: (status: any) => (
         <span className="badge badge-success d-inline-flex align-items-center badge-xs">
@@ -63,14 +64,15 @@ const Cities = () => {
       ),
     },
     {
-      title: '',
-      dataIndex: 'action',
-      key: 'action',
+      title: "",
+      dataIndex: "action",
+      key: "action",
       render: (_: any, record: any) => (
         <div className="action-icon d-inline-flex">
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_cities"
             className="me-2"
           >
@@ -78,13 +80,13 @@ const Cities = () => {
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
       ),
     },
   ];
@@ -116,7 +118,8 @@ const Cities = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_cities"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -144,42 +147,27 @@ const Cities = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -193,11 +181,11 @@ const Cities = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -269,7 +257,11 @@ const Cities = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add City
                   </button>
                 </div>
@@ -293,7 +285,7 @@ const Cities = () => {
                   <i className="ti ti-x" />
                 </button>
               </div>
-              <form >
+              <form>
                 <div className="modal-body pb-0">
                   <div className="row">
                     <div className="col-md-12">
@@ -346,7 +338,11 @@ const Cities = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -356,11 +352,7 @@ const Cities = () => {
         </div>
         {/* /Edit City */}
       </>
-
-
-
     </>
-
   );
 };
 

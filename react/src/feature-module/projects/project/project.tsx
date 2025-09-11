@@ -1,25 +1,33 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../router/all_routes'
-import ImageWithBasePath from '../../../core/common/imageWithBasePath'
-import CommonSelect from '../../../core/common/commonSelect'
-import { DatePicker } from 'antd'
-import { priority } from '../../../core/common/selectoption/selectoption'
-import CommonTagsInput from '../../../core/common/Taginput'
-import CommonTextEditor from '../../../core/common/textEditor'
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../router/all_routes";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CommonSelect from "../../../core/common/commonSelect";
+import { DatePicker } from "antd";
+import { priority } from "../../../core/common/selectoption/selectoption";
+import CommonTagsInput from "../../../core/common/Taginput";
+import CommonTextEditor from "../../../core/common/textEditor";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 
 const Project = () => {
-
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
-  const [tags, setTags] = useState<string[]>(["Jerald", "Andrew", "Philip", "Davis"]);
+  const [tags, setTags] = useState<string[]>([
+    "Jerald",
+    "Andrew",
+    "Philip",
+    "Davis",
+  ]);
   const [tags1, setTags1] = useState<string[]>(["Hendry", "James"]);
   const [tags2, setTags2] = useState<string[]>(["Dwight"]);
-  const [tags3, setTags3] = useState<string[]>(["Collab", "Promotion", "Rated"]);
+  const [tags3, setTags3] = useState<string[]>([
+    "Collab",
+    "Promotion",
+    "Rated",
+  ]);
 
   const clinetChoose = [
     { value: "Anthony Lewis", label: "Anthony Lewis" },
@@ -64,7 +72,10 @@ const Project = () => {
               <div className="d-flex my-xl-auto right-content align-items-center flex-wrap ">
                 <div className="me-2 mb-2">
                   <div className="d-flex align-items-center border bg-white rounded p-1 me-2 icon-list">
-                    <Link to={all_routes.projectlist} className="btn btn-icon btn-sm me-1">
+                    <Link
+                      to={all_routes.projectlist}
+                      className="btn btn-icon btn-sm me-1"
+                    >
                       <i className="ti ti-list-tree" />
                     </Link>
                     <Link
@@ -87,19 +98,13 @@ const Project = () => {
                     </Link>
                     <ul className="dropdown-menu  dropdown-menu-end p-3">
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           <i className="ti ti-file-type-pdf me-1" />
                           Export as PDF
                         </Link>
                       </li>
                       <li>
-                        <Link
-                          to="#"
-                          className="dropdown-item rounded-1"
-                        >
+                        <Link to="#" className="dropdown-item rounded-1">
                           <i className="ti ti-file-type-xls me-1" />
                           Export as Excel{" "}
                         </Link>
@@ -110,7 +115,8 @@ const Project = () => {
                 <div className="mb-2">
                   <Link
                     to="#"
-                    data-bs-toggle="modal" data-inert={true}
+                    data-bs-toggle="modal"
+                    data-inert={true}
                     data-bs-target="#add_project"
                     className="btn btn-primary d-flex align-items-center"
                   >
@@ -119,7 +125,7 @@ const Project = () => {
                   </Link>
                 </div>
                 <div className="ms-2 head-icons">
-                <CollapseHeader />
+                  <CollapseHeader />
                 </div>
               </div>
             </div>
@@ -139,26 +145,17 @@ const Project = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Select Status
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Active
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Inactive
                           </Link>
                         </li>
@@ -174,42 +171,27 @@ const Project = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Recently Added
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Ascending
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Desending
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last Month
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Last 7 Days
                           </Link>
                         </li>
@@ -226,7 +208,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Office Management</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Office Management
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -242,7 +226,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -253,7 +238,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -265,10 +251,10 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        An office management app project streamlines administrative
-                        tasks by integrating tools for scheduling, communication, and
-                        task management, enhancing overall productivity and
-                        efficiency.
+                        An office management app project streamlines
+                        administrative tasks by integrating tools for
+                        scheduling, communication, and task management,
+                        enhancing overall productivity and efficiency.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -287,7 +273,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Anthony Lewis</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -345,7 +333,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Clinic Management </Link>
+                        <Link to={all_routes.projectdetails}>
+                          Clinic Management{" "}
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -361,7 +351,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -372,7 +363,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -385,8 +377,8 @@ const Project = () => {
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
                         A clinic management project streamlines patient records,
-                        appointments, and billing processes to improve operational
-                        efficiency.
+                        appointments, and billing processes to improve
+                        operational efficiency.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -405,7 +397,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Sophie Headrick</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -463,7 +457,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Educational Platform</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Educational Platform
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -479,7 +475,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -490,7 +487,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -502,9 +500,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        An educational platform project provides a centralized space
-                        for delivering online courses, tracking progress, and managing
-                        student assessments.
+                        An educational platform project provides a centralized
+                        space for delivering online courses, tracking progress,
+                        and managing student assessments.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -523,7 +521,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Cameron Drake</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -581,7 +581,10 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}> Chat &amp; Call Mobile App</Link>
+                        <Link to={all_routes.projectdetails}>
+                          {" "}
+                          Chat &amp; Call Mobile App
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -597,7 +600,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -608,7 +612,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -620,9 +625,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        A chat and call mobile app enables users to send messages,
-                        make voice and video calls, and share media seamlessly across
-                        devices.
+                        A chat and call mobile app enables users to send
+                        messages, make voice and video calls, and share media
+                        seamlessly across devices.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -641,7 +646,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Doris Crowley</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -699,7 +706,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Travel Planning Website</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Travel Planning Website
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -715,7 +724,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -726,7 +736,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -738,9 +749,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        A travel planning website helps users explore destinations,
-                        compare flights and accommodations, and create personalized
-                        itineraries.
+                        A travel planning website helps users explore
+                        destinations, compare flights and accommodations, and
+                        create personalized itineraries.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -817,7 +828,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Service Booking Software</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Service Booking Software
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -833,7 +846,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -844,7 +858,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -857,8 +872,8 @@ const Project = () => {
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
                         Service booking software enables users to schedule
-                        appointments, manage bookings, and handle payments for various
-                        services.
+                        appointments, manage bookings, and handle payments for
+                        various services.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -877,7 +892,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Kathleen Gutierrez</Link>
                           </h6>
-                          <span className="fs-12 fw-normal">Project Leader</span>
+                          <span className="fs-12 fw-normal">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -935,7 +952,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Hotel Booking App</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Hotel Booking App
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -951,7 +970,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -962,7 +982,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -974,8 +995,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        A hotel booking app allows users to search, compare, and book
-                        accommodations with ease, offering a wide range of options.
+                        A hotel booking app allows users to search, compare, and
+                        book accommodations with ease, offering a wide range of
+                        options.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -994,7 +1016,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Bruce Wright</Link>
                           </h6>
-                          <span className="fs-12 fw-normal">Project Leader</span>
+                          <span className="fs-12 fw-normal">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -1070,7 +1094,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -1081,7 +1106,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -1093,8 +1119,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        Car and bike rental software allows users to browse, reserve,
-                        and rent vehicles efficiently through an online platform.
+                        Car and bike rental software allows users to browse,
+                        reserve, and rent vehicles efficiently through an online
+                        platform.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -1113,7 +1140,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Rebecca Smtih</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -1171,7 +1200,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Navigation and Safety App</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Navigation and Safety App
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -1187,7 +1218,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -1198,7 +1230,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -1210,12 +1243,12 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        A navigation and safety app provides real-time GPS guidance,
-                        traffic updates, and route optimization to help users reach
-                        their destinations efficiently.A navigation and safety app
-                        provides real-time GPS guidance, traffic updates, and route
-                        optimization to help users reach their destinations
-                        efficiently.
+                        A navigation and safety app provides real-time GPS
+                        guidance, traffic updates, and route optimization to
+                        help users reach their destinations efficiently.A
+                        navigation and safety app provides real-time GPS
+                        guidance, traffic updates, and route optimization to
+                        help users reach their destinations efficiently.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -1234,7 +1267,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Connie Waters</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -1292,7 +1327,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>Food Order App</Link>
+                        <Link to={all_routes.projectdetails}>
+                          Food Order App
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -1308,7 +1345,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -1319,7 +1357,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -1331,8 +1370,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        A food order app allows users to browse menus, place orders,
-                        and track delivery from their favorite restaurants with ease.
+                        A food order app allows users to browse menus, place
+                        orders, and track delivery from their favorite
+                        restaurants with ease.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -1351,7 +1391,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Lori Broaddus</Link>
                           </h6>
-                          <span className="fs-12 fw-normal ">Project Leader</span>
+                          <span className="fs-12 fw-normal ">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -1409,7 +1451,9 @@ const Project = () => {
                   <div className="card-body">
                     <div className="d-flex align-items-center justify-content-between mb-2">
                       <h6>
-                        <Link to={all_routes.projectdetails}>POS Admin Software</Link>
+                        <Link to={all_routes.projectdetails}>
+                          POS Admin Software
+                        </Link>
                       </h6>
                       <div className="dropdown">
                         <Link
@@ -1425,7 +1469,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -1436,7 +1481,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -1448,9 +1494,9 @@ const Project = () => {
                     </div>
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
-                        POS admin software enables businesses to manage sales, track
-                        inventory, and process transactions efficiently through a
-                        centralized platform.
+                        POS admin software enables businesses to manage sales,
+                        track inventory, and process transactions efficiently
+                        through a centralized platform.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -1545,7 +1591,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#edit_project"
                             >
                               <i className="ti ti-edit me-2" />
@@ -1556,7 +1603,8 @@ const Project = () => {
                             <Link
                               to="#"
                               className="dropdown-item rounded-1"
-                              data-bs-toggle="modal" data-inert={true}
+                              data-bs-toggle="modal"
+                              data-inert={true}
                               data-bs-target="#delete_modal"
                             >
                               <i className="ti ti-trash me-1" />
@@ -1569,8 +1617,8 @@ const Project = () => {
                     <div className="mb-3 pb-3 border-bottom">
                       <p className="text-truncate line-clamb-3 mb-0">
                         Invoicing and billing software automates the creation,
-                        sending, and tracking of invoices, making payment processes
-                        quicker and more efficient.
+                        sending, and tracking of invoices, making payment
+                        processes quicker and more efficient.
                       </p>
                     </div>
                     <div className="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -1589,7 +1637,9 @@ const Project = () => {
                           <h6 className="fw-normal fs-12">
                             <Link to="#">Angela Thomas</Link>
                           </h6>
-                          <span className="fs-12 fw-normal">Project Leader</span>
+                          <span className="fs-12 fw-normal">
+                            Project Leader
+                          </span>
                         </div>
                       </div>
                       <div className="d-flex align-items-center">
@@ -1654,11 +1704,11 @@ const Project = () => {
             {/* / Project Grid */}
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
@@ -1734,7 +1784,9 @@ const Project = () => {
                             <div className="profile-upload">
                               <div className="mb-2">
                                 <h6 className="mb-1">Upload Project Logo</h6>
-                                <p className="fs-12">Image should be below 4 mb</p>
+                                <p className="fs-12">
+                                  Image should be below 4 mb
+                                </p>
                               </div>
                               <div className="profile-uploader d-flex align-items-center">
                                 <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -1745,10 +1797,7 @@ const Project = () => {
                                     multiple
                                   />
                                 </div>
-                                <Link
-                                  to="#"
-                                  className="btn btn-light btn-sm"
-                                >
+                                <Link to="#" className="btn btn-light btn-sm">
                                   Cancel
                                 </Link>
                               </div>
@@ -1765,7 +1814,7 @@ const Project = () => {
                           <div className="mb-3">
                             <label className="form-label">Client</label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={clinetChoose}
                             />
                           </div>
@@ -1814,7 +1863,7 @@ const Project = () => {
                               <div className="mb-3">
                                 <label className="form-label">Priority</label>
                                 <CommonSelect
-                                  className='select'
+                                  className="select"
                                   options={priority}
                                   defaultValue={priority[0]}
                                 />
@@ -1822,7 +1871,9 @@ const Project = () => {
                             </div>
                             <div className="col-md-4">
                               <div className="mb-3">
-                                <label className="form-label">Project Value</label>
+                                <label className="form-label">
+                                  Project Value
+                                </label>
                                 <input
                                   type="text"
                                   className="form-control"
@@ -1865,7 +1916,11 @@ const Project = () => {
                         >
                           Cancel
                         </button>
-                        <button className="btn btn-primary" type="button" data-bs-dismiss="modal">
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          data-bs-dismiss="modal"
+                        >
                           Save
                         </button>
                       </div>
@@ -1884,7 +1939,9 @@ const Project = () => {
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label me-2">Team Members</label>
+                            <label className="form-label me-2">
+                              Team Members
+                            </label>
                             <CommonTagsInput
                               value={tags}
                               onChange={setTags}
@@ -1895,7 +1952,9 @@ const Project = () => {
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label me-2">Team Leader</label>
+                            <label className="form-label me-2">
+                              Team Leader
+                            </label>
                             <CommonTagsInput
                               value={tags1}
                               onChange={setTags1}
@@ -1932,7 +1991,7 @@ const Project = () => {
                           <div className="mb-3">
                             <label className="form-label">Status</label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={statusChoose}
                               defaultValue={statusChoose[0]}
                             />
@@ -1952,7 +2011,8 @@ const Project = () => {
                         <button
                           className="btn btn-primary"
                           type="button"
-                          data-bs-toggle="modal" data-inert={true}
+                          data-bs-toggle="modal"
+                          data-inert={true}
                           data-bs-target="#success_modal"
                         >
                           Save
@@ -2035,7 +2095,9 @@ const Project = () => {
                             <div className="profile-upload">
                               <div className="mb-2">
                                 <h6 className="mb-1">Upload Project Logo</h6>
-                                <p className="fs-12">Image should be below 4 mb</p>
+                                <p className="fs-12">
+                                  Image should be below 4 mb
+                                </p>
                               </div>
                               <div className="profile-uploader d-flex align-items-center">
                                 <div className="drag-upload-btn btn btn-sm btn-primary me-2">
@@ -2046,10 +2108,7 @@ const Project = () => {
                                     multiple
                                   />
                                 </div>
-                                <Link
-                                  to="#"
-                                  className="btn btn-light btn-sm"
-                                >
+                                <Link to="#" className="btn btn-light btn-sm">
                                   Cancel
                                 </Link>
                               </div>
@@ -2070,7 +2129,7 @@ const Project = () => {
                           <div className="mb-3">
                             <label className="form-label">Client</label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={clinetChoose}
                               defaultValue={clinetChoose[1]}
                             />
@@ -2120,7 +2179,7 @@ const Project = () => {
                               <div className="mb-3">
                                 <label className="form-label">Priority</label>
                                 <CommonSelect
-                                  className='select'
+                                  className="select"
                                   options={priorityChoose}
                                   defaultValue={priorityChoose[1]}
                                 />
@@ -2128,7 +2187,9 @@ const Project = () => {
                             </div>
                             <div className="col-md-4">
                               <div className="mb-3">
-                                <label className="form-label">Project Value</label>
+                                <label className="form-label">
+                                  Project Value
+                                </label>
                                 <input
                                   type="text"
                                   className="form-control"
@@ -2171,7 +2232,11 @@ const Project = () => {
                         >
                           Cancel
                         </button>
-                        <button className="btn btn-primary" type="button" data-bs-dismiss="modal">
+                        <button
+                          className="btn btn-primary"
+                          type="button"
+                          data-bs-dismiss="modal"
+                        >
                           Save
                         </button>
                       </div>
@@ -2190,7 +2255,9 @@ const Project = () => {
                       <div className="row">
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label me-2">Team Members</label>
+                            <label className="form-label me-2">
+                              Team Members
+                            </label>
                             <CommonTagsInput
                               value={tags}
                               onChange={setTags}
@@ -2201,7 +2268,9 @@ const Project = () => {
                         </div>
                         <div className="col-md-12">
                           <div className="mb-3">
-                            <label className="form-label me-2">Team Leader</label>
+                            <label className="form-label me-2">
+                              Team Leader
+                            </label>
                             <CommonTagsInput
                               value={tags1}
                               onChange={setTags1}
@@ -2238,7 +2307,7 @@ const Project = () => {
                           <div className="mb-3">
                             <label className="form-label">Status</label>
                             <CommonSelect
-                              className='select'
+                              className="select"
                               options={statusChoose}
                               defaultValue={statusChoose[1]}
                             />
@@ -2258,7 +2327,8 @@ const Project = () => {
                         <button
                           className="btn btn-primary"
                           type="button"
-                          data-bs-toggle="modal" data-inert={true}
+                          data-bs-toggle="modal"
+                          data-inert={true}
                           data-bs-target="#success_modal"
                         >
                           Save
@@ -2290,7 +2360,10 @@ const Project = () => {
                 <div>
                   <div className="row g-2">
                     <div className="col-6">
-                      <Link to={all_routes.project} className="btn btn-dark w-100">
+                      <Link
+                        to={all_routes.project}
+                        className="btn btn-dark w-100"
+                      >
                         Back to List
                       </Link>
                     </div>
@@ -2311,8 +2384,7 @@ const Project = () => {
       </div>
       {/* /Add Project Success */}
     </>
+  );
+};
 
-  )
-}
-
-export default Project
+export default Project;

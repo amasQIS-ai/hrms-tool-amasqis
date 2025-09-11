@@ -1,6 +1,25 @@
 import React, { useEffect } from "react";
-import { Bar, Line, Doughnut, Pie, Radar, Scatter, PolarArea } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Bar,
+  Line,
+  Doughnut,
+  Pie,
+  Radar,
+  Scatter,
+  PolarArea,
+} from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { Link } from "react-router-dom";
 
 // Register the necessary components for Chart.js
@@ -150,7 +169,6 @@ const ChartJSExample = () => {
                 <div style={{ width: "434px", height: "300px" }}>
                   <Line data={lineData} />
                 </div>
-
               </div>
             </div>
           </div>
@@ -181,7 +199,6 @@ const ChartJSExample = () => {
                 <div style={{ width: "434px", height: "300px" }}>
                   <Pie data={pieData} />
                 </div>
-
               </div>
             </div>
           </div>
@@ -224,10 +241,9 @@ const ChartJSExample = () => {
                 <div className="card-title">Polar Area Chart</div>
               </div>
               <div className="card-body">
-                <div style={{ width: "434px", height: "300px" }} >
+                <div style={{ width: "434px", height: "300px" }}>
                   <PolarArea data={polarData} />
                 </div>
-
               </div>
             </div>
           </div>
@@ -235,13 +251,13 @@ const ChartJSExample = () => {
         </div>
       </div>
       <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-        <p className="mb-0">2014 - 2025 © SmartHR.</p>
+        <p className="mb-0">2014 - 2025 © Amasqis.</p>
         <p>
-              Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
-              </Link>
-            </p>
+          Designed &amp; Developed By{" "}
+          <Link to="#" className="text-primary">
+            Dreams
+          </Link>
+        </p>
       </div>
     </div>
   );

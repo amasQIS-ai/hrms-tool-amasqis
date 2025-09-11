@@ -13,7 +13,7 @@ const SimpleList = () => {
     "Create project plan with milestones",
     "Develop sample interview questions",
     "Generate customer feedback for product.",
-    "Write email template for newsletter.",
+    "Write email Dashboard for newsletter.",
   ]);
 
   const handleDragEnd = (result: any) => {

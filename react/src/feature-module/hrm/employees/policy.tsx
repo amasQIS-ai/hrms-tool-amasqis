@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
-import { all_routes } from '../../router/all_routes'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { all_routes } from "../../router/all_routes";
+import { Link } from "react-router-dom";
 import Table from "../../../core/common/dataTable/index";
-import CommonSelect from '../../../core/common/commonSelect';
-import { policy_details } from '../../../core/data/json/policy_details';
-import PredefinedDateRanges from '../../../core/common/datePicker';
-import ImageWithBasePath from '../../../core/common/imageWithBasePath';
-import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import CommonSelect from "../../../core/common/commonSelect";
+import { policy_details } from "../../../core/data/json/policy_details";
+import PredefinedDateRanges from "../../../core/common/datePicker";
+import ImageWithBasePath from "../../../core/common/imageWithBasePath";
+import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
 type PasswordField = "password" | "confirmPassword";
 
 const Policy = () => {
-
   const data = policy_details;
   const columns = [
     {
@@ -18,7 +17,6 @@ const Policy = () => {
       dataIndex: "Name",
       render: (text: String, record: any) => (
         <h6 className="fw-medium fs-14 text-dark">{text}</h6>
-
       ),
       sorter: (a: any, b: any) => a.Name.length - b.Name.length,
     },
@@ -45,14 +43,16 @@ const Policy = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_policy"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
@@ -60,7 +60,7 @@ const Policy = () => {
         </div>
       ),
     },
-  ]
+  ];
   const department = [
     { value: "Select", label: "Select" },
     { value: "All Department", label: "All Department" },
@@ -117,19 +117,13 @@ const Policy = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -140,7 +134,8 @@ const Policy = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_policy"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -177,26 +172,17 @@ const Policy = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Designing
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Developer
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         DevOps
                       </Link>
                     </li>
@@ -212,42 +198,27 @@ const Policy = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -262,11 +233,11 @@ const Policy = () => {
           {/* /Policylist list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -306,7 +277,7 @@ const Policy = () => {
                     <div className="mb-3">
                       <label className="form-label">Department</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={department}
                         defaultValue={department[0]}
                       />
@@ -350,7 +321,11 @@ const Policy = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Policy
                 </button>
               </div>
@@ -402,7 +377,7 @@ const Policy = () => {
                     <div className="mb-3">
                       <label className="form-label">Department</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={department}
                         defaultValue={department[1]}
                       />
@@ -446,7 +421,11 @@ const Policy = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Policy
                 </button>
               </div>
@@ -456,11 +435,7 @@ const Policy = () => {
       </div>
       {/* /Edit  Policy */}
     </>
+  );
+};
 
-
-
-
-  )
-}
-
-export default Policy
+export default Policy;

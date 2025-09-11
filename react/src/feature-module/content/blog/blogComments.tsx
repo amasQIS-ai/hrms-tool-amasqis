@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PredefinedDateRanges from "../../../core/common/datePicker";
 import CommonSelect from "../../../core/common/commonSelect";
-import {
-  publish,
-} from "../../../core/common/selectoption/selectoption";
+import { publish } from "../../../core/common/selectoption/selectoption";
 import { blog_comments_data } from "../../../core/data/json/blog_comments_data";
 import { TableData } from "../../../core/data/interface";
 import Table from "../../../core/common/dataTable/index";
@@ -18,7 +16,8 @@ const BlogComments = () => {
     {
       title: "Comment",
       dataIndex: "comment",
-      sorter: (a: TableData, b: TableData) => a.comment.length - b.comment.length,
+      sorter: (a: TableData, b: TableData) =>
+        a.comment.length - b.comment.length,
     },
     {
       title: "Date",
@@ -68,8 +67,14 @@ const BlogComments = () => {
       key: "delete",
       render: (text: any, record: any) => (
         <div className="action-icon d-inline-flex">
-
-          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal"><i className="ti ti-trash"></i></Link>
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
+            <i className="ti ti-trash"></i>
+          </Link>
         </div>
       ),
     },
@@ -111,19 +116,13 @@ const BlogComments = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -159,42 +158,27 @@ const BlogComments = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -208,18 +192,17 @@ const BlogComments = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
-
   );
 };
 

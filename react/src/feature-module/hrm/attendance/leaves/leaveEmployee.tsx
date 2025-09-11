@@ -1,16 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { all_routes } from '../../../router/all_routes';
+import React from "react";
+import { Link } from "react-router-dom";
+import { all_routes } from "../../../router/all_routes";
 import Table from "../../../../core/common/dataTable/index";
-import CommonSelect from '../../../../core/common/commonSelect';
-import PredefinedDateRanges from '../../../../core/common/datePicker';
-import ImageWithBasePath from '../../../../core/common/imageWithBasePath';
-import { DatePicker } from 'antd';
-import { leaveemployee_details } from '../../../../core/data/json/leaveemployee_details';
-import CollapseHeader from '../../../../core/common/collapse-header/collapse-header';
+import CommonSelect from "../../../../core/common/commonSelect";
+import PredefinedDateRanges from "../../../../core/common/datePicker";
+import ImageWithBasePath from "../../../../core/common/imageWithBasePath";
+import { DatePicker } from "antd";
+import { leaveemployee_details } from "../../../../core/data/json/leaveemployee_details";
+import CollapseHeader from "../../../../core/common/collapse-header/collapse-header";
 
 const LeaveEmployee = () => {
-
   const data = leaveemployee_details;
   const columns = [
     {
@@ -45,11 +44,12 @@ const LeaveEmployee = () => {
       dataIndex: "ApprovedBy",
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center file-name-icon">
-          <Link
-            to="#"
-            className="avatar avatar-md border avatar-rounded"
-          >
-            <ImageWithBasePath src={`assets/img/users/${record.Image}`} className="img-fluid" alt="img" />
+          <Link to="#" className="avatar avatar-md border avatar-rounded">
+            <ImageWithBasePath
+              src={`assets/img/users/${record.Image}`}
+              className="img-fluid"
+              alt="img"
+            />
           </Link>
           <div className="ms-2">
             <h6 className="fw-medium">
@@ -58,7 +58,6 @@ const LeaveEmployee = () => {
             <span className="fs-12 fw-normal ">{record.Roll}</span>
           </div>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.ApprovedBy.length - b.ApprovedBy.length,
     },
@@ -82,8 +81,24 @@ const LeaveEmployee = () => {
             className="dropdown-toggle btn btn-sm btn-white d-inline-flex align-items-center"
             data-bs-toggle="dropdown"
           >
-            <span className={`rounded-circle ${text === 'Approved' ? 'bg-transparent-success' : text === 'New' ? 'bg-transparent-purple' : 'bg-transparent-danger'} d-flex justify-content-center align-items-center me-2`}>
-              <i className={`ti ti-point-filled ${text === 'Approved' ? 'text-success' : text === 'New' ? 'text-purple' : 'text-danger'}`} />
+            <span
+              className={`rounded-circle ${
+                text === "Approved"
+                  ? "bg-transparent-success"
+                  : text === "New"
+                  ? "bg-transparent-purple"
+                  : "bg-transparent-danger"
+              } d-flex justify-content-center align-items-center me-2`}
+            >
+              <i
+                className={`ti ti-point-filled ${
+                  text === "Approved"
+                    ? "text-success"
+                    : text === "New"
+                    ? "text-purple"
+                    : "text-danger"
+                }`}
+              />
             </span>{" "}
             {text}
           </Link>
@@ -123,7 +138,6 @@ const LeaveEmployee = () => {
             </li>
           </ul>
         </div>
-
       ),
       sorter: (a: any, b: any) => a.Status.length - b.Status.length,
     },
@@ -135,14 +149,16 @@ const LeaveEmployee = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_leaves"
           >
             <i className="ti ti-edit" />
           </Link>
           <Link
             to="#"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#delete_modal"
           >
             <i className="ti ti-trash" />
@@ -150,7 +166,7 @@ const LeaveEmployee = () => {
         </div>
       ),
     },
-  ]
+  ];
 
   const leavetype = [
     { value: "Select", label: "Select" },
@@ -166,7 +182,7 @@ const LeaveEmployee = () => {
   ];
 
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -206,19 +222,13 @@ const LeaveEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -229,7 +239,8 @@ const LeaveEmployee = () => {
               <div className="mb-2">
                 <Link
                   to="#"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_leaves"
                   className="btn btn-primary d-flex align-items-center"
                 >
@@ -366,26 +377,17 @@ const LeaveEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Medical Leave
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Casual Leave
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Annual Leave
                       </Link>
                     </li>
@@ -401,26 +403,17 @@ const LeaveEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Doglas Martini
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Warren Morales
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Doglas Martini
                       </Link>
                     </li>
@@ -480,42 +473,27 @@ const LeaveEmployee = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -530,11 +508,11 @@ const LeaveEmployee = () => {
           {/* /Leaves list */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -555,14 +533,14 @@ const LeaveEmployee = () => {
                 <i className="ti ti-x" />
               </button>
             </div>
-            <form >
+            <form>
               <div className="modal-body pb-0">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="mb-3">
                       <label className="form-label">Leave Type</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={leavetype}
                         defaultValue={leavetype[0]}
                       />
@@ -627,7 +605,7 @@ const LeaveEmployee = () => {
                   <div className="col-md-6">
                     <div className="mb-3">
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={selectChoose}
                         defaultValue={selectChoose[0]}
                       />
@@ -670,7 +648,11 @@ const LeaveEmployee = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Add Leave
                 </button>
               </div>
@@ -701,7 +683,7 @@ const LeaveEmployee = () => {
                     <div className="mb-3">
                       <label className="form-label">Leave Type</label>
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={leavetype}
                         defaultValue={leavetype[1]}
                       />
@@ -763,7 +745,7 @@ const LeaveEmployee = () => {
                   <div className="col-md-6">
                     <div className="mb-3">
                       <CommonSelect
-                        className='select'
+                        className="select"
                         options={selectChoose}
                         defaultValue={selectChoose[1]}
                       />
@@ -775,7 +757,7 @@ const LeaveEmployee = () => {
                       <input
                         type="text"
                         className="form-control"
-                        defaultValue={'01'}
+                        defaultValue={"01"}
                         disabled
                       />
                     </div>
@@ -786,7 +768,7 @@ const LeaveEmployee = () => {
                       <input
                         type="text"
                         className="form-control"
-                        defaultValue={'07'}
+                        defaultValue={"07"}
                         disabled
                       />
                     </div>
@@ -851,7 +833,11 @@ const LeaveEmployee = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Save Changes
                 </button>
               </div>
@@ -861,10 +847,7 @@ const LeaveEmployee = () => {
       </div>
       {/* /Edit Leaves */}
     </>
+  );
+};
 
-
-
-  )
-}
-
-export default LeaveEmployee
+export default LeaveEmployee;

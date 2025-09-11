@@ -24,10 +24,10 @@ export const goalTrackingData = [
   {
     GoalType: "Project Goals",
     Subject: "Web Development",
-    TargetAchievement: "Deliver the template",
+    TargetAchievement: "Deliver the Dashboard",
     StartDate: "18 Feb 2024",
     EndDate: "18 Mar 2024",
-    Description: "Complete the template",
+    Description: "Complete the Dashboard",
     Status: "Active",
     Progress: "Completed 60%",
     key: "3",

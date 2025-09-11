@@ -29,7 +29,10 @@ const Login2 = () => {
           <div className="col-lg-5">
             <div className="d-lg-flex align-items-center justify-content-center d-none flex-wrap vh-100 bg-primary-transparent">
               <div>
-                <ImageWithBasePath src="assets/img/bg/authentication-bg-03.svg" alt="Img" />
+                <ImageWithBasePath
+                  src="assets/img/bg/authentication-bg-03.svg"
+                  alt="Img"
+                />
               </div>
             </div>
           </div>
@@ -48,7 +51,9 @@ const Login2 = () => {
                     <div className="">
                       <div className="text-center mb-3">
                         <h2 className="mb-2">Sign In</h2>
-                        <p className="mb-0">Please enter your details to sign in</p>
+                        <p className="mb-0">
+                          Please enter your details to sign in
+                        </p>
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Email Address</label>
@@ -68,20 +73,17 @@ const Login2 = () => {
                         <div className="pass-group">
                           <input
                             type={
-                              passwordVisibility.password
-                                ? "text"
-                                : "password"
+                              passwordVisibility.password ? "text" : "password"
                             }
                             className="pass-input form-control"
                           />
                           <span
-                            className={`ti toggle-passwords ${passwordVisibility.password
-                              ? "ti-eye"
-                              : "ti-eye-off"
-                              }`}
-                            onClick={() =>
-                              togglePasswordVisibility("password")
-                            }
+                            className={`ti toggle-passwords ${
+                              passwordVisibility.password
+                                ? "ti-eye"
+                                : "ti-eye-off"
+                            }`}
+                            onClick={() => togglePasswordVisibility("password")}
                           ></span>
                         </div>
                       </div>
@@ -102,7 +104,10 @@ const Login2 = () => {
                           </div>
                         </div>
                         <div className="text-end">
-                          <Link to={all_routes.forgotPassword2} className="link-danger">
+                          <Link
+                            to={all_routes.forgotPassword2}
+                            className="link-danger"
+                          >
                             Forgot Password?
                           </Link>
                         </div>
@@ -170,7 +175,9 @@ const Login2 = () => {
                       </div>
                     </div>
                     <div className="mt-5 pb-4 text-center">
-                      <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                      <p className="mb-0 text-gray-9">
+                        Copyright © 2025 - Amasqis
+                      </p>
                     </div>
                   </div>
                 </form>
@@ -180,7 +187,6 @@ const Login2 = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

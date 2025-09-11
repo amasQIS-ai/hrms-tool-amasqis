@@ -30,7 +30,11 @@ const Register3 = () => {
             <form className="vh-100">
               <div className="vh-100 d-flex flex-column justify-content-between p-4 pb-0">
                 <div className=" mx-auto mb-5 text-center">
-                  <ImageWithBasePath src="assets/img/logo.svg" className="img-fluid" alt="Logo" />
+                  <ImageWithBasePath
+                    src="assets/img/logo.svg"
+                    className="img-fluid"
+                    alt="Logo"
+                  />
                 </div>
                 <div className="">
                   <div className="text-center mb-3">
@@ -67,21 +71,14 @@ const Register3 = () => {
                     <label className="form-label">Password</label>
                     <div className="pass-group">
                       <input
-                        type={
-                          passwordVisibility.password
-                            ? "text"
-                            : "password"
-                        }
+                        type={passwordVisibility.password ? "text" : "password"}
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.password
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
-                        onClick={() =>
-                          togglePasswordVisibility("password")
-                        }
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.password ? "ti-eye" : "ti-eye-off"
+                        }`}
+                        onClick={() => togglePasswordVisibility("password")}
                       ></span>
                     </div>
                   </div>
@@ -97,10 +94,11 @@ const Register3 = () => {
                         className="pass-input form-control"
                       />
                       <span
-                        className={`ti toggle-passwords ${passwordVisibility.confirmPassword
-                          ? "ti-eye"
-                          : "ti-eye-off"
-                          }`}
+                        className={`ti toggle-passwords ${
+                          passwordVisibility.confirmPassword
+                            ? "ti-eye"
+                            : "ti-eye-off"
+                        }`}
                         onClick={() =>
                           togglePasswordVisibility("confirmPassword")
                         }
@@ -120,13 +118,20 @@ const Register3 = () => {
                           className="form-check-label mt-0"
                         >
                           Agree to{" "}
-                          <span className="text-primary"> Terms &amp; Privacy</span>
+                          <span className="text-primary">
+                            {" "}
+                            Terms &amp; Privacy
+                          </span>
                         </label>
                       </div>
                     </div>
                   </div>
                   <div className="mb-3">
-                    <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                    <button
+                      type="submit"
+                      onClick={navigationPath}
+                      className="btn btn-primary w-100"
+                    >
                       Sign In
                     </button>
                   </div>
@@ -184,7 +189,7 @@ const Register3 = () => {
                   </div>
                 </div>
                 <div className="mt-5 pb-4 text-center">
-                  <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                  <p className="mb-0 text-gray-9">Copyright © 2025 - Amasqis</p>
                 </div>
               </div>
             </form>
@@ -192,7 +197,6 @@ const Register3 = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

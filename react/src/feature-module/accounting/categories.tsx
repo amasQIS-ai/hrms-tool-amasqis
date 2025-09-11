@@ -17,34 +17,36 @@ const Categories = () => {
       sorter: (a: any, b: any) => a.CategoryName.length - b.CategoryName.length,
     },
     {
-        title: "Phone",
-        dataIndex: "SubCategoryName",
-        sorter: (a: any, b: any) => a.phone_number.length - b.phone_number.length,
+      title: "Phone",
+      dataIndex: "SubCategoryName",
+      sorter: (a: any, b: any) => a.phone_number.length - b.phone_number.length,
     },
     {
-        title: "",
-        dataIndex: "actions",
-        render: () => (
-          <div>
-            <div className="action-icon d-inline-flex">
-                <Link
-                    to="#"
-                    className="me-2"
-                    data-bs-toggle="modal" data-inert={true}
-                    data-bs-target="#edit_category"
-                >
-                    <i className="ti ti-edit" />
-                </Link>
-                <Link
-                    to="#"
-                    data-bs-toggle="modal" data-inert={true}
-                    data-bs-target="#delete_modal"
-                >
-                    <i className="ti ti-trash" />
-                </Link>
-            </div>
+      title: "",
+      dataIndex: "actions",
+      render: () => (
+        <div>
+          <div className="action-icon d-inline-flex">
+            <Link
+              to="#"
+              className="me-2"
+              data-bs-toggle="modal"
+              data-inert={true}
+              data-bs-target="#edit_category"
+            >
+              <i className="ti ti-edit" />
+            </Link>
+            <Link
+              to="#"
+              data-bs-toggle="modal"
+              data-inert={true}
+              data-bs-target="#delete_modal"
+            >
+              <i className="ti ti-trash" />
+            </Link>
           </div>
-        ),
+        </div>
+      ),
     },
   ];
   return (
@@ -83,19 +85,13 @@ const Categories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-pdf me-1" />
                         Export as PDF
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         <i className="ti ti-file-type-xls me-1" />
                         Export as Excel{" "}
                       </Link>
@@ -107,7 +103,8 @@ const Categories = () => {
                 <Link
                   to="#"
                   className="btn btn-primary d-flex align-items-center"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#add_category"
                 >
                   <i className="ti ti-circle-plus me-2" />
@@ -135,26 +132,17 @@ const Categories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Technology
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recruitment
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Employee Engagement
                       </Link>
                     </li>
@@ -170,26 +158,17 @@ const Categories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Hardware Cost
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Advertisement
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Engagement Activities
                       </Link>
                     </li>
@@ -205,42 +184,27 @@ const Categories = () => {
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Recently Added
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Ascending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Desending
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last Month
                       </Link>
                     </li>
                     <li>
-                      <Link
-                        to="#"
-                        className="dropdown-item rounded-1"
-                      >
+                      <Link to="#" className="dropdown-item rounded-1">
                         Last 7 Days
                       </Link>
                     </li>
@@ -249,24 +213,24 @@ const Categories = () => {
               </div>
             </div>
             <div className="card-body p-0">
-            <Table dataSource={data} columns={columns} Selection={true} />
+              <Table dataSource={data} columns={columns} Selection={true} />
             </div>
           </div>
           {/* /Categories Table */}
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
-      {/* /Page Wrapper */} 
+      {/* /Page Wrapper */}
 
-      <CategoriesModal />      
+      <CategoriesModal />
     </>
   );
 };

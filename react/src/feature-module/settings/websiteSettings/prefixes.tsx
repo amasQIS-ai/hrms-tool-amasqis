@@ -148,7 +148,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Employee</label>
+                                <label className="form-label mb-md-0">
+                                  Employee
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -162,7 +164,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Clients</label>
+                                <label className="form-label mb-md-0">
+                                  Clients
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -176,7 +180,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Invoice</label>
+                                <label className="form-label mb-md-0">
+                                  Invoice
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -190,7 +196,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Tickets</label>
+                                <label className="form-label mb-md-0">
+                                  Tickets
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -220,7 +228,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Job</label>
+                                <label className="form-label mb-md-0">
+                                  Job
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -234,7 +244,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Referral</label>
+                                <label className="form-label mb-md-0">
+                                  Referral
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -248,7 +260,9 @@ const Prefixes = () => {
                           <div className="col-md-6">
                             <div className="row align-items-center mb-3">
                               <div className="col-md-6">
-                                <label className="form-label mb-md-0">Assets</label>
+                                <label className="form-label mb-md-0">
+                                  Assets
+                                </label>
                               </div>
                               <div className="col-md-6">
                                 <input
@@ -279,18 +293,17 @@ const Prefixes = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

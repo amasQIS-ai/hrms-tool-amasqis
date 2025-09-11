@@ -3,7 +3,6 @@ import { Sliders, Upload } from "react-feather";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 
-
 import {
   Clock,
   File,
@@ -33,9 +32,8 @@ import "dragula/dist/dragula.css";
 import CollapseHeader from "../../core/common/collapse-header/collapse-header";
 
 const KanbanView = () => {
-
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
 
@@ -117,19 +115,13 @@ const KanbanView = () => {
                 </Link>
                 <ul className="dropdown-menu  dropdown-menu-end p-3">
                   <li>
-                    <Link
-                      to="#"
-                      className="dropdown-item rounded-1"
-                    >
+                    <Link to="#" className="dropdown-item rounded-1">
                       <i className="ti ti-file-type-pdf me-1" />
                       Export as PDF
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="#"
-                      className="dropdown-item rounded-1"
-                    >
+                    <Link to="#" className="dropdown-item rounded-1">
                       <i className="ti ti-file-type-xls me-1" />
                       Export as Excel{" "}
                     </Link>
@@ -167,7 +159,9 @@ const KanbanView = () => {
                       alt="img"
                     />
                   </span>
-                  <span className="avatar avatar-rounded bg-primary fs-12">1+</span>
+                  <span className="avatar avatar-rounded bg-primary fs-12">
+                    1+
+                  </span>
                 </div>
                 <div className="d-flex align-items-center me-3">
                   <p className="mb-0 me-3 pe-3 border-end fs-14">
@@ -265,34 +259,22 @@ const KanbanView = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Clients
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Sophie
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Cameron
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Doris
                           </Link>
                         </li>
@@ -336,26 +318,17 @@ const KanbanView = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Inprogress
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             On-hold
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Completed
                           </Link>
                         </li>
@@ -373,26 +346,17 @@ const KanbanView = () => {
                         </Link>
                         <ul className="dropdown-menu  dropdown-menu-end p-3">
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               Created Date
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               Last 7 Days
                             </Link>
                           </li>
                           <li>
-                            <Link
-                              to="#"
-                              className="dropdown-item rounded-1"
-                            >
+                            <Link to="#" className="dropdown-item rounded-1">
                               Due Date
                             </Link>
                           </li>
@@ -417,7 +381,9 @@ const KanbanView = () => {
                               <span className="bg-pink rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">New</h5>
-                            <span className="badge bg-light rounded-pill">02</span>
+                            <span className="badge bg-light rounded-pill">
+                              02
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -441,7 +407,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -488,7 +455,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -639,7 +607,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -774,7 +743,9 @@ const KanbanView = () => {
                               <span className="bg-skyblue rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Inprogress</h5>
-                            <span className="badge bg-light rounded-pill">13</span>
+                            <span className="badge bg-light rounded-pill">
+                              13
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -798,7 +769,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -845,7 +817,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -996,7 +969,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -1147,7 +1121,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -1282,7 +1257,9 @@ const KanbanView = () => {
                               <span className="bg-danger rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">On-hold</h5>
-                            <span className="badge bg-light rounded-pill">04</span>
+                            <span className="badge bg-light rounded-pill">
+                              04
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -1306,7 +1283,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -1353,7 +1331,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -1504,7 +1483,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -1639,7 +1619,9 @@ const KanbanView = () => {
                               <span className="bg-success rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Completed</h5>
-                            <span className="badge bg-light rounded-pill">10</span>
+                            <span className="badge bg-light rounded-pill">
+                              10
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -1663,7 +1645,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -1710,7 +1693,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -1839,7 +1823,11 @@ const KanbanView = () => {
                     </div>
                   </div>
                 </div>
-                <div className="tab-pane fade" id="pills-contact" role="tabpanel">
+                <div
+                  className="tab-pane fade"
+                  id="pills-contact"
+                  role="tabpanel"
+                >
                   <div className="d-flex align-items-start overflow-auto project-status pb-4">
                     <div className="p-3 rounded bg-transparent-secondary w-100 me-3">
                       <div className="bg-white p-2 rounded mb-2">
@@ -1849,7 +1837,9 @@ const KanbanView = () => {
                               <span className="bg-pink rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">New</h5>
-                            <span className="badge bg-light rounded-pill">02</span>
+                            <span className="badge bg-light rounded-pill">
+                              02
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -1873,7 +1863,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -1920,7 +1911,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2071,7 +2063,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2206,7 +2199,9 @@ const KanbanView = () => {
                               <span className="bg-skyblue rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Inprogress</h5>
-                            <span className="badge bg-light rounded-pill">13</span>
+                            <span className="badge bg-light rounded-pill">
+                              13
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -2230,7 +2225,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -2277,7 +2273,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2428,7 +2425,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2563,7 +2561,9 @@ const KanbanView = () => {
                               <span className="bg-danger rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">On-hold</h5>
-                            <span className="badge bg-light rounded-pill">04</span>
+                            <span className="badge bg-light rounded-pill">
+                              04
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -2587,7 +2587,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -2634,7 +2635,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2769,7 +2771,9 @@ const KanbanView = () => {
                               <span className="bg-success rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Completed</h5>
-                            <span className="badge bg-light rounded-pill">10</span>
+                            <span className="badge bg-light rounded-pill">
+                              10
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -2793,7 +2797,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -2840,7 +2845,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -2969,7 +2975,11 @@ const KanbanView = () => {
                     </div>
                   </div>
                 </div>
-                <div className="tab-pane fade" id="pills-medium" role="tabpanel">
+                <div
+                  className="tab-pane fade"
+                  id="pills-medium"
+                  role="tabpanel"
+                >
                   <div className="d-flex align-items-start overflow-auto project-status pb-4">
                     <div className="p-3 rounded bg-transparent-secondary w-100 me-3">
                       <div className="bg-white p-2 rounded mb-2">
@@ -2979,7 +2989,9 @@ const KanbanView = () => {
                               <span className="bg-pink rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">New</h5>
-                            <span className="badge bg-light rounded-pill">02</span>
+                            <span className="badge bg-light rounded-pill">
+                              02
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -3003,7 +3015,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -3050,7 +3063,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -3201,7 +3215,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -3336,7 +3351,9 @@ const KanbanView = () => {
                               <span className="bg-skyblue rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Inprogress</h5>
-                            <span className="badge bg-light rounded-pill">13</span>
+                            <span className="badge bg-light rounded-pill">
+                              13
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -3360,7 +3377,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -3407,7 +3425,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -3558,7 +3577,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -3693,7 +3713,9 @@ const KanbanView = () => {
                               <span className="bg-danger rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">On-hold</h5>
-                            <span className="badge bg-light rounded-pill">04</span>
+                            <span className="badge bg-light rounded-pill">
+                              04
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -3717,7 +3739,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -3764,7 +3787,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -3899,7 +3923,9 @@ const KanbanView = () => {
                               <span className="bg-success rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Completed</h5>
-                            <span className="badge bg-light rounded-pill">10</span>
+                            <span className="badge bg-light rounded-pill">
+                              10
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -3923,7 +3949,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -3970,7 +3997,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -4109,7 +4137,9 @@ const KanbanView = () => {
                               <span className="bg-pink rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">New</h5>
-                            <span className="badge bg-light rounded-pill">02</span>
+                            <span className="badge bg-light rounded-pill">
+                              02
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -4133,7 +4163,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -4180,7 +4211,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -4331,7 +4363,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -4466,7 +4499,9 @@ const KanbanView = () => {
                               <span className="bg-skyblue rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Inprogress</h5>
-                            <span className="badge bg-light rounded-pill">13</span>
+                            <span className="badge bg-light rounded-pill">
+                              13
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -4490,7 +4525,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -4537,7 +4573,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -4688,7 +4725,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -4823,7 +4861,9 @@ const KanbanView = () => {
                               <span className="bg-danger rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">On-hold</h5>
-                            <span className="badge bg-light rounded-pill">04</span>
+                            <span className="badge bg-light rounded-pill">
+                              04
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -4847,7 +4887,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -4894,7 +4935,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -5029,7 +5071,9 @@ const KanbanView = () => {
                               <span className="bg-success rounded-circle d-block p-1" />
                             </span>
                             <h5 className="me-2">Completed</h5>
-                            <span className="badge bg-light rounded-pill">10</span>
+                            <span className="badge bg-light rounded-pill">
+                              10
+                            </span>
                           </div>
                           <div className="dropdown">
                             <Link
@@ -5053,7 +5097,8 @@ const KanbanView = () => {
                                 <Link
                                   to="#"
                                   className="dropdown-item rounded-1"
-                                  data-bs-toggle="modal" data-inert={true}
+                                  data-bs-toggle="modal"
+                                  data-inert={true}
                                   data-bs-target="#delete_modal"
                                 >
                                   <i className="ti ti-trash me-2" />
@@ -5100,7 +5145,8 @@ const KanbanView = () => {
                                       <Link
                                         to="#"
                                         className="dropdown-item rounded-1"
-                                        data-bs-toggle="modal" data-inert={true}
+                                        data-bs-toggle="modal"
+                                        data-inert={true}
                                         data-bs-target="#delete_modal"
                                       >
                                         <i className="ti ti-trash me-2" />
@@ -5234,18 +5280,17 @@ const KanbanView = () => {
           </div>
         </div>
         <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
       </div>
       {/* /Page Wrapper */}
     </>
-
   );
 };
 

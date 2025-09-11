@@ -1,20 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 import Table from "../../core/common/dataTable/index";
-import { termination_table } from '../../core/data/json/termination_table';
-import { all_routes } from '../router/all_routes';
-import ImageWithBasePath from '../../core/common/imageWithBasePath';
-import { termination, terminationtype } from '../../core/common/selectoption/selectoption';
-import CommonSelect from '../../core/common/commonSelect';
+import { termination_table } from "../../core/data/json/termination_table";
+import { all_routes } from "../router/all_routes";
+import ImageWithBasePath from "../../core/common/imageWithBasePath";
+import {
+  termination,
+  terminationtype,
+} from "../../core/common/selectoption/selectoption";
+import CommonSelect from "../../core/common/commonSelect";
 import { DatePicker } from "antd";
-import CollapseHeader from '../../core/common/collapse-header/collapse-header';
+import CollapseHeader from "../../core/common/collapse-header/collapse-header";
 
 const Termination = () => {
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
-
 
   const data = termination_table;
   const columns = [
@@ -23,7 +25,10 @@ const Termination = () => {
       dataIndex: "ResigningEmployee",
       render: (text: String, record: any) => (
         <div className="d-flex align-items-center">
-          <Link to={all_routes.invoiceDetails} className="avatar avatar-md me-2">
+          <Link
+            to={all_routes.invoiceDetails}
+            className="avatar avatar-md me-2"
+          >
             <ImageWithBasePath
               src={`assets/img/users/${record.Image}`}
               className="rounded-circle"
@@ -31,13 +36,14 @@ const Termination = () => {
             />
           </Link>
           <h6 className="fw-medium">
-            <Link to={all_routes.invoiceDetails}>{record.Resigning_Employee}</Link>
+            <Link to={all_routes.invoiceDetails}>
+              {record.Resigning_Employee}
+            </Link>
           </h6>
         </div>
-
-
       ),
-      sorter: (a: any, b: any) => a.ResigningEmployee.length - b.ResigningEmployee.length,
+      sorter: (a: any, b: any) =>
+        a.ResigningEmployee.length - b.ResigningEmployee.length,
     },
     {
       title: "Department",
@@ -47,7 +53,8 @@ const Termination = () => {
     {
       title: "Termination Type",
       dataIndex: "Termination_Type",
-      sorter: (a: any, b: any) => a.Termination_Type.length - b.Termination_Type.length,
+      sorter: (a: any, b: any) =>
+        a.Termination_Type.length - b.Termination_Type.length,
     },
     {
       title: "Notice Date",
@@ -62,7 +69,8 @@ const Termination = () => {
     {
       title: "Resignation Date",
       dataIndex: "Resignation_Date",
-      sorter: (a: any, b: any) => a.Resignation_Date.length - b.Resignation_Date.length,
+      sorter: (a: any, b: any) =>
+        a.Resignation_Date.length - b.Resignation_Date.length,
     },
     {
       title: "",
@@ -72,20 +80,24 @@ const Termination = () => {
           <Link
             to="#"
             className="me-2"
-            data-bs-toggle="modal" data-inert={true}
+            data-bs-toggle="modal"
+            data-inert={true}
             data-bs-target="#edit_termination"
           >
             <i className="ti ti-edit" />
           </Link>
-          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal">
+          <Link
+            to="#"
+            data-bs-toggle="modal"
+            data-inert={true}
+            data-bs-target="#delete_modal"
+          >
             <i className="ti ti-trash" />
           </Link>
         </div>
-
-
       ),
     },
-  ]
+  ];
   return (
     <>
       {/* Page Wrapper */}
@@ -114,7 +126,8 @@ const Termination = () => {
                 <Link
                   to="#"
                   className="btn btn-primary d-flex align-items-center"
-                  data-bs-toggle="modal" data-inert={true}
+                  data-bs-toggle="modal"
+                  data-inert={true}
                   data-bs-target="#new_termination"
                 >
                   <i className="ti ti-circle-plus me-2" />
@@ -132,7 +145,9 @@ const Termination = () => {
             <div className="col-sm-12">
               <div className="card">
                 <div className="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-                  <h5 className="d-flex align-items-center">Termination List</h5>
+                  <h5 className="d-flex align-items-center">
+                    Termination List
+                  </h5>
                   <div className="d-flex align-items-center flex-wrap row-gap-3">
                     <div className="input-icon position-relative me-2">
                       <span className="input-icon-addon">
@@ -155,26 +170,17 @@ const Termination = () => {
                       </Link>
                       <ul className="dropdown-menu  dropdown-menu-end p-3">
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Recently Added
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Ascending
                           </Link>
                         </li>
                         <li>
-                          <Link
-                            to="#"
-                            className="dropdown-item rounded-1"
-                          >
+                          <Link to="#" className="dropdown-item rounded-1">
                             Desending
                           </Link>
                         </li>
@@ -192,11 +198,11 @@ const Termination = () => {
         </div>
         {/* Footer */}
         <div className="footer d-sm-flex align-items-center justify-content-between bg-white border-top p-3">
-          <p className="mb-0">2014 - 2025 © SmartHR.</p>
+          <p className="mb-0">2014 - 2025 © Amasqis.</p>
           <p>
             Designed &amp; Developed By{" "}
-            <Link to="amasqis.ai" className="text-primary">
-              amasQIS.ai
+            <Link to="https://amasqis.ai" className="text-primary">
+              Amasqis
             </Link>
           </p>
         </div>
@@ -300,7 +306,11 @@ const Termination = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Add Termination
                   </button>
                 </div>
@@ -407,7 +417,11 @@ const Termination = () => {
                   >
                     Cancel
                   </button>
-                  <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    className="btn btn-primary"
+                  >
                     Save Changes
                   </button>
                 </div>
@@ -426,8 +440,8 @@ const Termination = () => {
                 </span>
                 <h4 className="mb-1">Confirm Delete</h4>
                 <p className="mb-3">
-                  You want to delete all the marked items, this cant be undone once
-                  you delete.
+                  You want to delete all the marked items, this cant be undone
+                  once you delete.
                 </p>
                 <div className="d-flex justify-content-center">
                   <Link
@@ -447,9 +461,8 @@ const Termination = () => {
         </div>
         {/* /Delete Modal */}
       </>
-
     </>
-  )
-}
+  );
+};
 
-export default Termination
+export default Termination;

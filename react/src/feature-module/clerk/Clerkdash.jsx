@@ -36,7 +36,8 @@ const ClerkDash = () => {
     }, 10000);
 
     try {
-      const response = await fetch("http://localhost:5000/api/update-role", {
+      const url = process.env.REACT_APP_BACKEND_URL + "/api/update-role";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

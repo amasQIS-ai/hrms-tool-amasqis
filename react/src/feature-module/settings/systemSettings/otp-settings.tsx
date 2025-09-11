@@ -87,14 +87,13 @@ const OtpSettings = () => {
                         to={routes.emailSettings}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-
                         Email Settings
                       </Link>
                       <Link
                         to={routes.emailTemplates}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        Email Templates
+                        Email Dashboards
                       </Link>
                       <Link
                         to={routes.smsSettings}
@@ -106,7 +105,7 @@ const OtpSettings = () => {
                         to={routes.smsTemplate}
                         className="d-inline-flex align-items-center rounded py-2 px-3"
                       >
-                        SMS Templates
+                        SMS Dashboards
                       </Link>
                       <Link
                         to={routes.otpSettings}
@@ -148,18 +147,20 @@ const OtpSettings = () => {
                                 </div>
                               </div>
                               <div className="col-lg-5">
-                                <div className="mb-3"><CommonSelect
-                                  className="select"
-                                  options={otpSet}
-                                />
-
+                                <div className="mb-3">
+                                  <CommonSelect
+                                    className="select"
+                                    options={otpSet}
+                                  />
                                 </div>
                               </div>
                             </div>
                             <div className="row align-items-center">
                               <div className="col-lg-6">
                                 <div className="mb-3">
-                                  <h6 className="mb-2 fw-medium">OTP Digit Limit</h6>
+                                  <h6 className="mb-2 fw-medium">
+                                    OTP Digit Limit
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-5">
@@ -174,7 +175,9 @@ const OtpSettings = () => {
                             <div className="row align-items-center">
                               <div className="col-lg-6">
                                 <div className="mb-3">
-                                  <h6 className="mb-2 fw-medium">OTP Expire Time</h6>
+                                  <h6 className="mb-2 fw-medium">
+                                    OTP Expire Time
+                                  </h6>
                                 </div>
                               </div>
                               <div className="col-lg-5">
@@ -207,18 +210,17 @@ const OtpSettings = () => {
             </div>
           </div>
           <div className="footer d-sm-flex align-items-center justify-content-between border-top bg-white p-3">
-            <p className="mb-0">2014 - 2025 © SmartHR.</p>
+            <p className="mb-0">2014 - 2025 © Amasqis.</p>
             <p>
               Designed &amp; Developed By{" "}
-              <Link to="amasQIS.ai" className="text-primary">
-                amasQIS.ai
+              <Link to="#" className="text-primary">
+                Dreams
               </Link>
             </p>
           </div>
         </div>
         {/* /Page Wrapper */}
       </>
-
     </div>
   );
 };

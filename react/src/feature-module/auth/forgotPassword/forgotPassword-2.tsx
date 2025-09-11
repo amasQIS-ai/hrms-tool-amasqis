@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
 
-
 const ForgotPassword2 = () => {
   const routes = all_routes;
   const navigation = useNavigate();
@@ -19,7 +18,10 @@ const ForgotPassword2 = () => {
           <div className="col-lg-5">
             <div className="d-lg-flex align-items-center justify-content-center d-none flex-wrap vh-100 bg-primary-transparent">
               <div>
-                <ImageWithBasePath src="assets/img/bg/authentication-bg-04.svg" alt="Img" />
+                <ImageWithBasePath
+                  src="assets/img/bg/authentication-bg-04.svg"
+                  alt="Img"
+                />
               </div>
             </div>
           </div>
@@ -39,8 +41,8 @@ const ForgotPassword2 = () => {
                       <div className="text-center mb-3">
                         <h2 className="mb-2">Forgot Password?</h2>
                         <p className="mb-0">
-                          If you forgot your password, well, then we'll email you
-                          instructions to reset your password.
+                          If you forgot your password, well, then we'll email
+                          you instructions to reset your password.
                         </p>
                       </div>
                       <div className="mb-3">
@@ -57,7 +59,11 @@ const ForgotPassword2 = () => {
                         </div>
                       </div>
                       <div className="mb-3">
-                        <button type="submit" onClick={navigationPath} className="btn btn-primary w-100">
+                        <button
+                          type="submit"
+                          onClick={navigationPath}
+                          className="btn btn-primary w-100"
+                        >
                           Submit
                         </button>
                       </div>
@@ -71,7 +77,9 @@ const ForgotPassword2 = () => {
                       </div>
                     </div>
                     <div className="mt-5 pb-4 text-center">
-                      <p className="mb-0 text-gray-9">Copyright © 2024 - Smarthr</p>
+                      <p className="mb-0 text-gray-9">
+                        Copyright © 2025 - Amasqis
+                      </p>
                     </div>
                   </div>
                 </form>
@@ -81,7 +89,6 @@ const ForgotPassword2 = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
