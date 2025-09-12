@@ -4,17 +4,17 @@ const initialState = {
   dataLayout: localStorage.getItem("dataLayout") || "default",
   dataWidth: localStorage.getItem("dataWidth") || "fluid",
   dataCard: localStorage.getItem("dataCard") || "bordered",
-  dataSidebar: localStorage.getItem("dataSidebar") || "light",
+  dataSidebar: localStorage.getItem("dataSidebar") || "indigo",
   dataSidebarAll: localStorage.getItem("dataSidebarAll") || "",
   dataTopbarAll: localStorage.getItem("dataTopbarAll") || "",
   dataTopBarColorAll: localStorage.getItem("dataTopBarColorAll") || "",
   dataColorAll: localStorage.getItem("dataColorAll") || "",
   dataTheme: localStorage.getItem("dataTheme") || "light",
-  dataTopBar: localStorage.getItem("dataTopBar") || "white",
+  dataTopBar: localStorage.getItem("dataTopBar") || "purplegradient",
   dataTopBarColor: localStorage.getItem("dataTopBarolor") || "white",
   dataSidebarBg: localStorage.getItem("dataSidebarBg") || "",
   dataTopbarBg: localStorage.getItem("dataTopbarBg") || "",
-  dataColor: localStorage.getItem("dataColor") || "primary",
+  dataColor: localStorage.getItem("dataColor") || "brightblue",
   dataLoader: localStorage.getItem("dataLoader") || "enable",
   isRtl: localStorage.getItem("rtl") || false,
   headerCollapse: false,
@@ -122,11 +122,11 @@ const themeSettingSlice = createSlice({
       localStorage.setItem("dataCard", "bordered");
       localStorage.setItem("dataSidebar", "light");
       localStorage.setItem("dataTheme", "light");
-      localStorage.setItem("dataTopBar", "white");
+      localStorage.setItem("dataTopBar", "purplegradient");
       localStorage.setItem("dataTopBarColor", "white");
       localStorage.setItem("dataSidebarBg", "");
       localStorage.setItem("dataTopbarBg", "");
-      localStorage.setItem("dataColor", "primary");
+      localStorage.setItem("dataColor", "brightblue");
       localStorage.setItem("dataLoader", "enable");
       localStorage.setItem("rtl", "");
     },
