@@ -19,15 +19,39 @@ const __dirname = dirname(__filename);
 const app = express();
 const httpServer = createServer(app);
 
-// Middleware
-app.use(cors());
+// ---------- CORS (updated) ----------
+const allowed = (process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || "")
+  .split(",")
+  .map((s) => s.trim().replace(/\/$/, "")) // strip trailing slash
+  .filter(Boolean);
+
+app.set("trust proxy", 1);
+
+app.use(cors({
+  origin(origin, cb) {
+    // allow same-origin requests (no Origin header), health checks, curl, etc.
+    if (!origin) return cb(null, true);
+    const o = origin.replace(/\/$/, "");
+    if (allowed.includes(o)) return cb(null, true);
+    return cb(new Error("CORS not allowed: " + origin), false);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+}));
+
+// Preflight for all routes
+app.options("*", cors());
+// -----------------------------------
+
+// Body parsing
 app.use(express.json());
 
 // Serve static files from the temp directory
 app.use(
   "/temp",
   express.static(path.join(__dirname, "temp"), {
-    setHeaders: (res, path) => {
+    setHeaders: (res, _path) => {
       res.set("Content-Type", "application/pdf");
       res.set("Content-Disposition", "attachment");
     },
@@ -92,6 +116,11 @@ const initializeServer = async () => {
     httpServer.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+      if (allowed.length) {
+        console.log("Allowed CORS origins:", allowed);
+      } else {
+        console.log("No CORS origins configured (ALL same-origin only). Set ALLOWED_ORIGINS or FRONTEND_URL.");
+      }
     });
   } catch (error) {
     console.error("Failed to initialize server:", error);
