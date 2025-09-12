@@ -61,7 +61,8 @@ const allowedOrigins = [
   ...new Set([
     "https://amasqis.ai",
     "https://devhrms-pm.amasqis.ai",
-    // Add more static origins here if needed
+    "https://devmanagertc.amasqis.ai",
+    // Add more static origins here if need
     ...envAllowed,
     ...(isDevelopment ? ["http://localhost:3000", "http://localhost:5173"] : []),
   ]),
