@@ -2,7 +2,7 @@ import { Server as SocketIOServer } from "socket.io";
 import dotenv from "dotenv";
 import router from "./router.js";
 import { clerkClient, verifyToken } from "@clerk/express";
-dotenv.config();
+dotenv.config({ path: `${__dirname}/../.env` });
 
 // Environment / rate limiting
 const isDevelopment =

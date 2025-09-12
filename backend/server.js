@@ -4,17 +4,18 @@ import cors from "cors";
 import path from "path";
 import fs from "fs";
 import { config } from "dotenv";
-import { connectDB } from "./config/db.js";
-import { socketHandler } from "./socket/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { connectDB } from "./config/db.js";
+import { socketHandler } from "./socket/index.js";
 import { clerkClient } from "@clerk/clerk-sdk-node";
 import socialFeedRoutes from "./routes/socialfeed.routes.js";
 
-config();
-
+// ---- Load .env from the same folder as server.js ----
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+config({ path: `${__dirname}/.env` });
+// -----------------------------------------------------
 
 const app = express();
 const httpServer = createServer(app);
