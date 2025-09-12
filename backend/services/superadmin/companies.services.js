@@ -90,7 +90,7 @@ const addCompany = async (data, user) => {
       to: data.email,
       companyName: data.name,
       password: tempPassword,
-      loginLink: "https://devmanagertc.amasqis.ai/login", // Login URL for every company should change
+      loginLink: "https://devhrms-pm.amasqis.ai/login", // Login URL for every company should change
     });
 
     return {

@@ -559,7 +559,7 @@ const EmployeeDashboard = () => {
 
         if (!isMounted) return;
 
-        currentSocket = io("https://api.devhrms-pm.amasqis.ai/", {
+        currentSocket = io("http://localhost:5000", {
           auth: { token },
           timeout: 20000,
         });

@@ -1,16 +1,22 @@
-import { DatePicker } from 'antd';
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import CommonSelect from '../common/commonSelect';
-import { beforeuse, company, contacts, deals, guests, owner } from '../common/selectoption/selectoption';
-import { label } from 'yet-another-react-lightbox/*';
-import CommonTagsInput from '../common/Taginput';
-import ImageWithBasePath from '../common/imageWithBasePath';
+import { DatePicker } from "antd";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import CommonSelect from "../common/commonSelect";
+import {
+  beforeuse,
+  company,
+  contacts,
+  deals,
+  guests,
+  owner,
+} from "../common/selectoption/selectoption";
+import { label } from "yet-another-react-lightbox/*";
+import CommonTagsInput from "../common/Taginput";
+import ImageWithBasePath from "../common/imageWithBasePath";
 
 const AddDeals = () => {
-
   const getModalContainer = () => {
-    const modalElement = document.getElementById('modal-datepicker');
+    const modalElement = document.getElementById("modal-datepicker");
     return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
   };
   const pipelineChoose = [
@@ -24,47 +30,47 @@ const AddDeals = () => {
     { value: "Open", label: "Open" },
     { value: "Won", label: "Won" },
     { value: "Lost", label: "Lost" },
-  ]
+  ];
   const dealsValue = [
     { value: "Select", label: "Select" },
     { value: "$4,50,000", label: "$4,50,000" },
     { value: "$3,15,000", label: "$3,15,000" },
     { value: "$8,40,000", label: "$8,40,000" },
-  ]
+  ];
   const currenyChoose = [
     { value: "Select", label: "Select" },
     { value: "$4,50,000", label: "$4,50,000" },
     { value: "$3,15,000", label: "$3,15,000" },
     { value: "$8,40,000", label: "$8,40,000" },
-  ]
+  ];
   const contactChoose = [
     { value: "Select", label: "Select" },
     { value: "Darlee Robertson", label: "Darlee Robertson" },
     { value: "Sharon Roy", label: "Sharon Roy" },
     { value: "Vaughan Lewis", label: "Vaughan Lewis" },
-  ]
+  ];
   const projectChoose = [
     { value: "Select", label: "Select" },
     { value: "Office Management App", label: "Office Management App" },
     { value: "Clinic Management", label: "Clinic Management" },
     { value: "Educational Platform", label: "Educational Platform" },
-  ]
+  ];
   const sourceChoose = [
     { value: "Select", label: "Select" },
     { value: "Barry Cuda", label: "Barry Cuda" },
     { value: "Tressa Wexler", label: "Tressa Wexler" },
-  ]
+  ];
   const assigneeChoose = [
     { value: "Select", label: "Select" },
     { value: "Active", label: "Active" },
     { value: "Inactive", label: "Inactive" },
-  ]
+  ];
   const priorityChoose = [
     { value: "Select", label: "Select" },
     { value: "High", label: "High" },
     { value: "Low", label: "Low" },
     { value: "Medium", label: "Medium" },
-  ]
+  ];
   const [tags, setTags] = useState<string[]>(["Collab", "Promotion", "Rated"]);
   return (
     <>
@@ -98,7 +104,8 @@ const AddDeals = () => {
                     <div className="input-block mb-3">
                       <div className="d-flex justify-content-between align-items-center">
                         <label className="form-label">
-                          Pipeline Stages <span className="text-danger"> *</span>
+                          Pipeline Stages{" "}
+                          <span className="text-danger"> *</span>
                         </label>
                         <Link
                           to="#"
@@ -180,7 +187,9 @@ const AddDeals = () => {
                             <span className="me-2">
                               <i className="ti ti-grip-vertical" />
                             </span>
-                            <h6 className="fs-14 fw-normal">Schedule Service</h6>
+                            <h6 className="fs-14 fw-normal">
+                              Schedule Service
+                            </h6>
                           </div>
                           <div className="d-flex align-items-center">
                             <Link
@@ -317,7 +326,7 @@ const AddDeals = () => {
                   data-bs-toggle="modal"
                   data-bs-target="#pipeline-access"
                 >
-                  Add Pipeline
+                  Add Pipelines
                 </button>
               </div>
             </form>
@@ -359,7 +368,8 @@ const AddDeals = () => {
                     <div className="input-block mb-3">
                       <div className="d-flex justify-content-between align-items-center">
                         <label className="form-label">
-                          Pipeline Stages <span className="text-danger"> *</span>
+                          Pipeline Stages{" "}
+                          <span className="text-danger"> *</span>
                         </label>
                         <Link
                           to="#"
@@ -421,7 +431,9 @@ const AddDeals = () => {
                             <span className="me-2">
                               <i className="ti ti-grip-vertical" />
                             </span>
-                            <h6 className="fs-14 fw-normal">Schedule Service</h6>
+                            <h6 className="fs-14 fw-normal">
+                              Schedule Service
+                            </h6>
                           </div>
                           <div className="d-flex align-items-center">
                             <Link to="#" className="text-default">
@@ -595,7 +607,10 @@ const AddDeals = () => {
                         <div className="pipeline-access-items">
                           <div className="d-flex  align-items-center p-2">
                             <div className="form-check  form-check-md me-2">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                             <div className="d-flex align-items-center file-name-icon">
                               <Link
@@ -620,7 +635,10 @@ const AddDeals = () => {
                           </div>
                           <div className="d-flex align-items-center p-2">
                             <div className="form-check form-check-md me-2">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                             <div className="d-flex align-items-center file-name-icon">
                               <Link
@@ -637,13 +655,18 @@ const AddDeals = () => {
                                 <h6 className="fw-medium fs-12">
                                   <Link to="#">Sharon Roy</Link>
                                 </h6>
-                                <span className="fs-10 fw-normal">Installer</span>
+                                <span className="fs-10 fw-normal">
+                                  Installer
+                                </span>
                               </div>
                             </div>
                           </div>
                           <div className="d-flex align-items-center p-2">
                             <div className="form-check form-check-md me-2">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                             <div className="d-flex align-items-center file-name-icon">
                               <Link
@@ -668,7 +691,10 @@ const AddDeals = () => {
                           </div>
                           <div className="d-flex align-items-center p-2">
                             <div className="form-check form-check-md me-2">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                             <div className="d-flex align-items-center file-name-icon">
                               <Link
@@ -693,7 +719,10 @@ const AddDeals = () => {
                           </div>
                           <div className="d-flex align-items-center p-2">
                             <div className="form-check form-check-md me-2">
-                              <input className="form-check-input" type="checkbox" />
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                              />
                             </div>
                             <div className="d-flex align-items-center file-name-icon">
                               <Link
@@ -730,7 +759,11 @@ const AddDeals = () => {
                 >
                   Cancel
                 </button>
-                <button type="button" data-bs-dismiss="modal" className="btn btn-primary">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  className="btn btn-primary"
+                >
                   Confirm
                 </button>
               </div>
@@ -740,10 +773,7 @@ const AddDeals = () => {
       </div>
       {/* /Pipeline Access */}
     </>
+  );
+};
 
-
-
-  )
-}
-
-export default AddDeals
+export default AddDeals;

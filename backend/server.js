@@ -5,7 +5,7 @@ import path from "path";
 import fs from "fs";
 import { config } from "dotenv";
 import { connectDB } from "./config/db.js";
-import { socketHandler } from "./socket/index.js"; // we'll pass CORS options into this
+import { socketHandler } from "./socket/index.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { clerkClient } from "@clerk/clerk-sdk-node";
@@ -19,37 +19,15 @@ const __dirname = dirname(__filename);
 const app = express();
 const httpServer = createServer(app);
 
-// ---------- CORS CONFIG (HTTP) ----------
-const allowed = (process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || "")
-  .split(",")
-  .map(s => s.trim())
-  .filter(Boolean);
-
-app.set("trust proxy", 1); // behind nginx
-
-app.use(cors({
-  origin(origin, cb) {
-    // allow no-origin (curl, health checks) and same-origin
-    if (!origin) return cb(null, true);
-    if (allowed.includes(origin)) return cb(null, true);
-    return cb(new Error("CORS not allowed: " + origin), false);
-  },
-  credentials: true,
-  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization","X-Requested-With"]
-}));
-
-// Preflight
-app.options("*", cors());
-
-// ---------- JSON + static files ----------
+// Middleware
+app.use(cors());
 app.use(express.json());
 
 // Serve static files from the temp directory
 app.use(
   "/temp",
   express.static(path.join(__dirname, "temp"), {
-    setHeaders: (res) => {
+    setHeaders: (res, path) => {
       res.set("Content-Type", "application/pdf");
       res.set("Content-Disposition", "attachment");
     },
@@ -62,7 +40,7 @@ if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir);
 }
 
-// ---------- INIT ----------
+// Initialize Server
 const initializeServer = async () => {
   try {
     await connectDB();
@@ -86,10 +64,17 @@ const initializeServer = async () => {
     app.post("/api/update-role", async (req, res) => {
       try {
         const { userId, companyId, role } = req.body;
-        if (!userId) return res.status(400).json({ error: "User ID is required" });
+        console.log(userId, companyId, role);
+
+        if (!userId) {
+          return res.status(400).json({ error: "User ID is required" });
+        }
 
         const updatedUser = await clerkClient.users.updateUserMetadata(userId, {
-          publicMetadata: { companyId, role },
+          publicMetadata: {
+            companyId,
+            role,
+          },
         });
 
         res.json({ message: "User metadata updated", user: updatedUser });
@@ -99,23 +84,14 @@ const initializeServer = async () => {
       }
     });
 
-    // ---------- SOCKET.IO with CORS ----------
-    // Pass the same allowed origins into Socket.IO
-    socketHandler(httpServer, {
-      cors: {
-        origin: allowed,
-        methods: ["GET","POST"],
-        credentials: true
-      },
-      transports: ["websocket", "polling"], // keep both unless you want ws only
-      path: "/socket.io" // default; keep explicit
-    });
+    // Socket setup
+    socketHandler(httpServer);
 
-    // ---------- LISTEN ----------
+    // Server listen
     const PORT = process.env.PORT || 5000;
-    httpServer.listen(PORT, "0.0.0.0", () => {
+    httpServer.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`Allowed origins: ${allowed.join(", ") || "(none)"}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     });
   } catch (error) {
     console.error("Failed to initialize server:", error);

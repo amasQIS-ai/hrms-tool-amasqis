@@ -1,236 +1,279 @@
-// socket/index.js  (ESM)
-
 import { Server as SocketIOServer } from "socket.io";
 import dotenv from "dotenv";
 import router from "./router.js";
 import { clerkClient, verifyToken } from "@clerk/express";
-
 dotenv.config();
 
-/* ------------------------- helpers / config ------------------------- */
-
+// Rate limiting configuration (disabled in development)
 const isDevelopment =
-  process.env.NODE_ENV === "development" || process.env.NODE_ENV !== "production";
-
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100; // per user per minute
+  process.env.NODE_ENV === "development" ||
+  process.env.NODE_ENV !== "production";
 const rateLimitMap = new Map();
-
-const norm = (u) => (u ? u.replace(/\/$/, "") : u); // strip trailing slash
-
-// Build allowed origins from env + known hosts
-const envAllowed = (process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || "")
-  .split(",")
-  .map((s) => norm(s.trim()))
-  .filter(Boolean);
-
-const devAllowed = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-  "http://byte.localhost:3000",
-  "http://test.localhost:3000",
-  "http://dummy.localhost:3000",
-];
-
-const baseAllowed = [
-  "https://amasqis.ai",
-  "https://devhrms-pm.amasqis.ai",
-  // add more static prod origins here if needed
-];
-
-const allowedOrigins = Array.from(
-  new Set([
-    ...baseAllowed.map(norm),
-    ...envAllowed,
-    ...(isDevelopment ? devAllowed.map(norm) : []),
-  ])
-).filter(Boolean);
-
-// Authorized parties for Clerk (must be exact origins, NO trailing slash)
-const authorizedParties = Array.from(
-  new Set(
-    [
-      "https://devmanagertc.amasqis.ai",
-      "https://devhrms-pm.amasqis.ai",
-      "http://localhost:3000",
-      "http://byte.localhost:3000",
-      "http://test.localhost:3000",
-      "http://dummy.localhost:3000",
-      "http://185.199.53.177:5000",
-    ].map(norm)
-  )
-);
-
-/* ---------------------------- rate limiting ---------------------------- */
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 100; // Max requests per minute per user
 
 const checkRateLimit = (userId) => {
-  if (isDevelopment) return true; // disabled in dev
-  const now = Date.now();
-  const key = `user:${userId}`;
-  const info = rateLimitMap.get(key);
+  // Skip rate limiting in development
+  if (isDevelopment) {
+    return true;
+  }
 
-  if (!info) {
-    rateLimitMap.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+  const now = Date.now();
+  const userKey = `user:${userId}`;
+
+  if (!rateLimitMap.has(userKey)) {
+    rateLimitMap.set(userKey, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
     return true;
   }
-  if (now > info.resetTime) {
-    rateLimitMap.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+
+  const userLimit = rateLimitMap.get(userKey);
+
+  if (now > userLimit.resetTime) {
+    // Reset the rate limit window
+    rateLimitMap.set(userKey, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
     return true;
   }
-  if (info.count >= RATE_LIMIT_MAX_REQUESTS) return false;
-  info.count++;
+
+  if (userLimit.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  userLimit.count++;
   return true;
 };
 
-// periodic cleanup in prod
+// Clean up old rate limit entries (only in production)
 if (!isDevelopment) {
   setInterval(() => {
     const now = Date.now();
     for (const [key, value] of rateLimitMap.entries()) {
-      if (now > value.resetTime) rateLimitMap.delete(key);
+      if (now > value.resetTime) {
+        rateLimitMap.delete(key);
+      }
     }
   }, RATE_LIMIT_WINDOW);
 }
 
-/* ----------------------------- socket.io ------------------------------ */
-/**
- * @param {import('http').Server} httpServer
- * @param {import('socket.io').ServerOptions} ioOptions (optional)
- */
-export const socketHandler = (httpServer, ioOptions = {}) => {
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://amasqis.ai",
+  "https://devhrms-pm.amasqis.ai",
+  "http://byte.localhost:3000",
+  "http://test.localhost:3000",
+  "http://dummy.localhost:3000",
+  "https://hrms-tool-amasqis.onrender.com",
+  process.env.FRONTEND_URL,
+  "*",
+];
+
+const authorizedParties = [
+  "https://devhrms-pm.amasqis.ai/",
+  "http://localhost:3000",
+  "http://185.199.53.177:5000/",
+  "http://byte.localhost:3000",
+  "http://test.localhost:3000",
+  "http://dummy.localhost:3000",
+  "https://devhrms-pm.amasqis.ai",
+];
+
+export const socketHandler = (httpServer) => {
   const io = new SocketIOServer(httpServer, {
-    path: "/socket.io",
-    transports: ["websocket", "polling"],
     cors: {
-      // IMPORTANT: no "*" since credentials:true
-      origin: (origin, cb) => {
-        if (!origin) return cb(null, true); // same-origin or server-side
-        const o = norm(origin);
-        if (allowedOrigins.includes(o)) return cb(null, true);
-        return cb(new Error("Socket.IO CORS not allowed: " + origin), false);
-      },
+      origin: allowedOrigins,
       methods: ["GET", "POST"],
       credentials: true,
     },
-    ...ioOptions,
   });
 
-  // auth middleware (Clerk JWT)
   io.use(async (socket, next) => {
-    try {
-      console.log("Socket connection attempt...");
-      const token = socket.handshake?.auth?.token;
-      if (!token) return next(new Error("Authentication error: No token provided"));
+    console.log("Socket connection attempt...");
+    const token = socket.handshake.auth.token;
+    console.log("Token received:", token ? "Token present" : "No token");
+    if (!token) {
+      console.error("No token provided");
+      return next(new Error("Authentication error: No token provided"));
+    }
 
-      const verified = await verifyToken(token, {
+    try {
+      const verifiedToken = await verifyToken(token, {
         jwtKey: process.env.CLERK_JWT_KEY,
         authorizedParties,
       });
-      if (!verified) return next(new Error("Authentication error: Invalid token"));
 
-      socket.user = verified; // raw claims
+      if (verifiedToken) {
+        console.log(`Token verified! User ID: ${verifiedToken.sub}`);
+        socket.user = verifiedToken;
 
-      // fetch user for metadata/role enforcement
-      let user;
-      try {
-        user = await clerkClient.users.getUser(verified.sub);
-      } catch (e) {
-        console.error("Failed to fetch user from Clerk:", e?.message || e);
-        return next(new Error("Authentication error: Failed to fetch user data"));
-      }
-
-      // role & company from publicMetadata
-      let role = user.publicMetadata?.role;
-      let companyId = user.publicMetadata?.companyId || null;
-
-      if (!role) {
-        if (companyId && user.publicMetadata?.isVerified) {
-          role = "employee";
-        } else if (isDevelopment && companyId) {
-          role = "admin"; // dev convenience
-          console.log(`[Dev] Assigning admin role for ${user.id} (company ${companyId})`);
-        } else {
-          role = "public";
+        let user;
+        try {
+          user = await clerkClient.users.getUser(verifiedToken.sub);
+        } catch (clerkError) {
+          console.error(`Failed to fetch user from Clerk:`, clerkError.message);
+          console.error(`Clerk error details:`, {
+            userId: verifiedToken.sub,
+            error: clerkError,
+          });
+          return next(
+            new Error("Authentication error: Failed to fetch user data")
+          );
         }
-        await clerkClient.users.updateUserMetadata(user.id, {
-          publicMetadata: { ...user.publicMetadata, role, companyId },
-        });
-      }
 
-      if (role === "admin") {
-        if (isDevelopment) {
-          if (!companyId) return next(new Error("Admin user must have a companyId (dev)"));
+        // Store user metadata on socket for security checks
+        socket.userMetadata = user.publicMetadata;
+
+        // Check if role exists, else assign default role based on metadata
+        let role = user.publicMetadata?.role;
+        let companyId = user.publicMetadata?.companyId || null;
+
+        // TEMPORARY FIX: Auto-assign companyId for admin users in development
+        if (isDevelopment && role === "admin" && !companyId) {
+          companyId = "68443081dcdfe43152aebf80";
+          console.log(
+            `🔧 Development fix: Auto-assigning companyId ${companyId} to admin user`
+          );
+        }
+
+        console.log(`User ${user.id} metadata:`, {
+          role: role,
+          companyId: companyId,
+          hasVerification: !!user.publicMetadata?.isAdminVerified,
+          environment: isDevelopment ? "development" : "production",
+          publicMetadata: user.publicMetadata,
+        });
+
+        if (!role) {
+          // SECURITY FIX: Never auto-assign admin role
+          // Only assign 'employee' role if they have a companyId and are verified
+          if (companyId && user.publicMetadata?.isVerified) {
+            role = "employee"; // Default to employee, not admin
+          } else if (isDevelopment && companyId) {
+            role = "admin"; // In development, allow admin role for testing
+            console.log(`[Development] Setting admin role for user ${user.id}`);
+          } else {
+            role = "public"; // Public users have no company access
+          }
+
+          // Log suspicious activity
+          console.warn(
+            `User ${user.id} had no role assigned, defaulting to: ${role}`
+          );
+
+          // Update metadata with the assigned role
+          await clerkClient.users.updateUserMetadata(user.id, {
+            publicMetadata: { ...user.publicMetadata, role, companyId },
+          });
         } else {
-          if (!companyId || !user.publicMetadata?.isAdminVerified) {
-            return next(new Error("Unauthorized: Admin access requires verification"));
+          console.log(`User ${user.id} has existing role: ${role}`);
+        }
+
+        // SECURITY CHECK: Verify admin role is legitimate
+        if (role === "admin") {
+          console.log(`Checking admin access for user ${user.id}...`);
+          // In development, allow admin access if they have companyId
+          if (isDevelopment) {
+            if (!companyId) {
+              console.error(
+                `Admin user ${user.id} missing companyId in development`
+              );
+              return next(new Error("Admin users must have a companyId"));
+            }
+            console.log(
+              `✅ Development: Allowing admin access for user ${user.id} with companyId: ${companyId}`
+            );
+          } else {
+            // In production, require proper verification
+            if (!companyId || !user.publicMetadata?.isAdminVerified) {
+              console.error(
+                `Unauthorized admin access attempt by user ${user.id} in production`
+              );
+              return next(
+                new Error("Unauthorized: Admin access requires verification")
+              );
+            }
+            console.log(
+              `✅ Production: Verified admin access for user ${user.id}`
+            );
           }
         }
+
+        // Store user ID for easy access & Mark socket as authenticated
+        socket.userId = verifiedToken.sub;
+        socket.role = role;
+        socket.companyId = companyId;
+        socket.authenticated = true;
+
+        console.log(
+          `Socket authentication complete for user: ${verifiedToken.sub}, role: ${role}, company: ${companyId}`
+        );
+
+        // SECURITY: Add rate limiting function to socket
+        socket.checkRateLimit = () => checkRateLimit(socket.userId);
+
+        console.log(`Company ID: ${companyId || "None"}`);
+
+        // Join role-based rooms
+        switch (role) {
+          case "superadmin":
+            socket.join("superadmin_room");
+            console.log(`User joined superadmin_room`);
+            break;
+          case "admin":
+            if (companyId) {
+              socket.join(`admin_room_${companyId}`);
+              socket.join(`company_${companyId}`);
+              socket.join(`user_${user.id}`);
+              console.log(`User joined admin_room_${companyId}`);
+            } else {
+              console.warn(`Admin user ${user.id} has no companyId`);
+              return next(new Error("Admin user must have a companyId"));
+            }
+            break;
+          case "hr":
+            if (companyId) {
+              socket.join(`hr_room_${companyId}`);
+              socket.join(`company_${companyId}`);
+              socket.join(`user_${user.id}`);
+              console.log(`User joined hr_room_${companyId}`);
+            }
+            break;
+          case "employee":
+            if (companyId) {
+              socket.join(`employee_room_${companyId}`);
+              socket.join(`company_${companyId}`);
+              socket.join(`user_${user.id}`);
+              console.log(`User joined employee_room_${companyId}`);
+            }
+            break;
+          default:
+            console.log(`User with role '${role}' connected`);
+            break;
+        }
+
+        return next();
+      } else {
+        console.error("Invalid token");
+        return next(new Error("Authentication error: Invalid token"));
       }
-
-      // attach useful props
-      socket.userId = verified.sub;
-      socket.role = role;
-      socket.companyId = companyId;
-      socket.userMetadata = user.publicMetadata;
-      socket.authenticated = true;
-
-      // per-socket rate limit helper
-      socket.checkRateLimit = () => checkRateLimit(socket.userId);
-
-      return next();
     } catch (err) {
-      return next(new Error("Authentication error: " + (err?.message || "failed")));
+      console.error("Token verification failed:", err.message);
+      return next(new Error("Authentication error: Token verification failed"));
     }
   });
 
   io.on("connection", (socket) => {
     console.log(
-      `Socket connected: ${socket.id} | user=${socket.userId || "n/a"} | role=${socket.role || "guest"} | company=${socket.companyId || "n/a"}`
+      `Client connected: ${socket.id}, Role: ${socket.role}, Company: ${
+        socket.companyId || "None"
+      }, UserId: ${socket.userId || "None"}`
     );
-
-    // role-scoped rooms
-    switch (socket.role) {
-      case "superadmin":
-        socket.join("superadmin_room");
-        break;
-      case "admin":
-        if (socket.companyId) {
-          socket.join(`admin_room_${socket.companyId}`);
-          socket.join(`company_${socket.companyId}`);
-          socket.join(`user_${socket.userId}`);
-        }
-        break;
-      case "hr":
-        if (socket.companyId) {
-          socket.join(`hr_room_${socket.companyId}`);
-          socket.join(`company_${socket.companyId}`);
-          socket.join(`user_${socket.userId}`);
-        }
-        break;
-      case "employee":
-        if (socket.companyId) {
-          socket.join(`employee_room_${socket.companyId}`);
-          socket.join(`company_${socket.companyId}`);
-          socket.join(`user_${socket.userId}`);
-        }
-        break;
-      default:
-        break;
-    }
-
-    // attach your feature routes
+    console.log(`Socket user metadata:`, socket.userMetadata);
+    console.log(`Socket user object:`, socket.user);
     const role = socket.role || "guest";
     router(socket, io, role);
 
     socket.on("disconnect", () => {
-      console.log(`Socket disconnected: ${socket.id}`);
+      console.log(`Client disconnected: ${socket.id}`);
     });
   });
-
-  console.log(
-    "[socket.io] allowed origins:",
-    allowedOrigins.length ? allowedOrigins.join(", ") : "(none)"
-  );
-
-  return io;
 };
