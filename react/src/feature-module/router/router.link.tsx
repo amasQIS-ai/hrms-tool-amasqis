@@ -1537,12 +1537,6 @@ export const publicRoutes = [
     roles: ["public"],
   },
   {
-    path: routes.employeedetails,
-    route: Route,
-    element: <EmployeeDetails />,
-    roles: ["public"],
-  },
-  {
     path: routes.payslipreport,
     element: <PayslipReport />,
     route: Route,
@@ -2106,4 +2100,17 @@ export const authRoutes = [
     element: <ResetPasswordSuccess3 />,
     roles: ["public"],
   },
+  //  {
+  //   path: routes.employeedetails,
+  //   route: Route,
+  //   element: <EmployeeDetails />,
+  //   roles: ["public"],
+  // },
+   {
+    path: routes.employeeDetailPage,
+    route: Route,
+    element: <EmployeeDetails />,
+    roles: ["public"],
+  },
+
 ];

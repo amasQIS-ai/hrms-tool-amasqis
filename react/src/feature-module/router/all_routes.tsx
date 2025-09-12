@@ -336,6 +336,7 @@ export const all_routes = {
   //HRM
   employeeList: "/employees",
   employeeGrid: "/employees-grid",
+  employeeDetailPage: "/employees/:employeeId",
   departments: "/departments",
   designations: "/designations",
   policy: "/policy",
@@ -390,7 +391,7 @@ export const all_routes = {
   taskreport: "/task-report",
   userreport: "/user-report",
   employeereport: "/employee-report",
-  employeedetails: "/employee-details",
+  employeedetails: "/employeedetails",
   payslipreport: "/payslip-report",
   attendancereport: "/attendance-report",
   leavereport: "/leave-report",

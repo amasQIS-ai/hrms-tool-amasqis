@@ -73,6 +73,13 @@ export const getTenantCollections = (tenantDbName) => {
     socialFeeds: db.collection("socialFeeds"),
     follows: db.collection("follows"),
     hashtags: db.collection("hashtags"),
+
+       // hr employee section collection
+    hr: db.collection("hr"),   
+    permissions:  db.collection("permissions"),
+    policy: db.collection("policy"),
+    designations: db.collection("designations"),
+    assets: db.collection("assets"),
   };
 };
 

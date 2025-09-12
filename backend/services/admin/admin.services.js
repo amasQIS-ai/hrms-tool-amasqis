@@ -2201,35 +2201,35 @@ export const deleteTodo = async (companyId, todoId) => {
 };
 
 // Delete todo permanently
-export const deleteTodoPermanently = async (companyId, todoId) => {
-  try {
-    const collections = getTenantCollections(companyId);
+// export const deleteTodoPermanently = async (companyId, todoId) => {
+//   try {
+//     const collections = getTenantCollections(companyId);
 
-    const result = await collections.todos.deleteOne({
-      _id: new ObjectId(todoId),
-    });
+//     const result = await collections.todos.deleteOne({
+//       _id: new ObjectId(todoId),
+//     });
 
-    if (result.deletedCount === 0) {
-      return { done: false, error: "Todo not found" };
-    }
+//     if (result.deletedCount === 0) {
+//       return { done: false, error: "Todo not found" };
+//     }
 
-    // Add activity log
-    await collections.activities.insertOne({
-      employeeId: "system",
-      action: "Todo Permanently Deleted",
-      description: `Permanently deleted todo with ID: ${todoId}`,
-      createdAt: new Date(),
-    });
+//     // Add activity log
+//     await collections.activities.insertOne({
+//       employeeId: "system",
+//       action: "Todo Permanently Deleted",
+//       description: `Permanently deleted todo with ID: ${todoId}`,
+//       createdAt: new Date(),
+//     });
 
-    return {
-      done: true,
-      message: "Todo permanently deleted",
-    };
-  } catch (error) {
-    console.error("Error permanently deleting todo:", error);
-    return { done: false, error: error.message };
-  }
-};
+//     return {
+//       done: true,
+//       message: "Todo permanently deleted",
+//     };
+//   } catch (error) {
+//     console.error("Error permanently deleting todo:", error);
+//     return { done: false, error: error.message };
+//   }
+// };
 
 // Get todo statistics
 export const getTodoStatistics = async (companyId, filter = "all") => {

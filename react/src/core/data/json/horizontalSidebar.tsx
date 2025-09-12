@@ -705,6 +705,222 @@ export const HorizontalSidebarData = [
                 menuValue: "Payroll Items",
                 route: "/payroll/payroll-items",
                 base: "payroll-items",
+              },{
+                menuValue: 'Crm',
+                base: 'crm',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  {
+                    menuValue: 'Contacts',
+                    route: routes.contactGrid,
+                    base: 'contact',
+                  },
+                  {
+                    menuValue: 'Companies',
+                    route: routes.companiesGrid,
+                    base: 'company',
+                  },
+                  {
+                    menuValue: 'Deals',
+                    route: routes.dealsGrid,
+                    base: 'deals',
+                  },
+                  {
+                    menuValue: 'Leads',
+                    route: routes.leadsGrid,
+                    base: 'leads',
+                  },
+                  {
+                    menuValue: ' Pipeline',
+                    route: routes.pipeline,
+                    base: 'pipeline',
+                  },
+                  {
+                    menuValue: 'Analytics',
+                    route: routes.analytics,
+                    base: 'analytics',
+                  },
+                  {
+                    menuValue: 'Activities',
+                    route: routes.activities,
+                    base: 'activities',
+                  },
+                ],
+              },
+              {
+                menuValue: 'Employee',
+                base: 'employee',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  {
+                    menuValue: 'Employees List',
+                    route: routes.employeeList,
+                    base: 'employees',
+                    base2: 'employee-list',
+                  },
+                  {
+                    menuValue: 'Employees Grid',
+                    route: routes.employeeGrid,
+                    base: 'employees',
+                    base2: 'employee-grid',
+                  },
+                  {
+                    menuValue: 'Employees Details',
+                    route: routes.employeeDetailPage,
+                    base: 'employees',
+                    base2: 'employee-details',
+                  },
+                  {
+                    menuValue: 'Departments',
+                    route: routes.departments,
+                    base: 'departments',
+                  },
+                  {
+                    menuValue: 'Designations',
+                    route: routes.designations,
+                    base: 'designations',
+                  },
+                  {
+                    menuValue: 'Policies',
+                    route: routes.policy,
+                    base: 'employees',
+                    base2: 'policy',
+                  },
+                ],
+              },
+              {
+                menuValue: 'Tickets',
+                base: 'ticket',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  {
+                    menuValue: 'Tickets',
+                    route: routes.ticketList,
+                    base: 'ticket-list',
+                  },
+                  {
+                    menuValue: 'Tickets Detail',
+                    route: routes.ticketDetails,
+                    base: 'ticket-details',
+                  },
+                ],
+              },
+              {
+                menuValue: 'Holidays',
+                route: routes.holidays,
+                base: 'holidays',
+                customSubmenuTwo: false,
+              },
+              {
+                menuValue: 'Attendance',
+                base: 'attendance',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  {
+                    menuValue: 'Leaves (Admin)',
+                    route: routes.leaveadmin,
+                    hasSubRoute: false,
+                    showSubRoute: false,
+                  },
+                  {
+                    menuValue: 'Leaves (Employee)',
+                    route: routes.leaveemployee,
+                    hasSubRoute: false,
+                    showSubRoute: false,
+                  },
+                  {
+                    menuValue: 'Leave Settings',
+                    route: routes.leavesettings,
+                    hasSubRoute: false,
+                    showSubRoute: false,
+                  },
+                  {
+                    menuValue: 'Attendance (Admin)',
+                    route: routes.attendanceadmin,
+                    base: 'attendance-admin',
+                  },
+                  {
+                    menuValue: 'Attendance (Employee)',
+                    route: routes.attendanceemployee,
+                    base: 'attendance-employee',
+                  },
+  
+                  {
+                    menuValue: 'Timesheet',
+                    route: routes.timesheet,
+                    base: 'timesheet',
+                  },
+                  {
+                    menuValue: 'Shift & Schedule',
+                    route: routes.scheduletiming,
+                    base: 'shift-schedule',
+                  },
+                  {
+                    menuValue: 'Overtime',
+                    route: routes.overtime,
+                    base: 'overtime',
+                  },
+                ],
+              },
+              {
+                menuValue: 'Performance',
+                base: 'performance',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  {
+                    menuValue: 'Performance Indicator',
+                    route: routes.performanceIndicator,
+                    base: 'indicator',
+                  },
+                  {
+                    menuValue: 'Performance Review',
+                    route: routes.performanceReview,
+                    base: 'review',
+                  },
+                  {
+                    menuValue: 'Performance Appraisal',
+                    route: routes.performanceAppraisal,
+                    base: 'appraisal',
+                  },
+                  {
+                    menuValue: 'Goal List',
+                    route: routes.goalTracking,
+                    base: 'appraisal',
+                  },
+                  {
+                    menuValue: 'Goal Type',
+                    route: routes.goalType,
+                    base: 'appraisal',
+                  },
+                ],
+              },
+              {
+                menuValue: 'Training',
+                base: 'training',
+                customSubmenuTwo: true,
+                subMenusTwo: [
+                  { menuValue: 'Training List', route: routes.trainingList, base: 'lists' },
+                  { menuValue: 'Trainers', route: routes.trainers, base: 'trainer' },
+                  { menuValue: 'Training Type', route: routes.trainingType, base: 'types' },
+                ],
+              },
+              {
+                menuValue: 'Promotion',
+                route: routes.promotion,
+                base: 'promotion',
+                customSubmenuTwo: false,
+              },
+              {
+                menuValue: 'Resignation',
+                route: routes.resignation,
+                base: 'resignation',
+                customSubmenuTwo: false,
+              },
+              {
+                menuValue: 'Termination',
+                route: routes.termination,
+                base: 'termination',
+                customSubmenuTwo: false,
               },
             ],
           },

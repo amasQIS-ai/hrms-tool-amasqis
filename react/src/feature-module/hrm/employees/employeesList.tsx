@@ -1,21 +1,395 @@
-import React, { useState } from "react";
-import { all_routes } from "../../router/all_routes";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { useState, useEffect, useRef } from 'react';
+import { all_routes } from '../../router/all_routes'
+import { Link } from 'react-router-dom'
 import Table from "../../../core/common/dataTable/index";
 import ImageWithBasePath from "../../../core/common/imageWithBasePath";
-import PredefinedDateRanges from "../../../core/common/datePicker";
-import { employee_list_details } from "../../../core/data/json/employees_list_details";
-import { DatePicker } from "antd";
-import CommonSelect from "../../../core/common/commonSelect";
-import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
+import PredefinedDateRanges from '../../../core/common/datePicker';
+import { employee_list_details } from '../../../core/data/json/employees_list_details';
+import { DatePicker } from 'antd';
+import CommonSelect from '../../../core/common/commonSelect';
+import CollapseHeader from '../../../core/common/collapse-header/collapse-header';
+import { useSocket } from "../../../SocketContext";
+import { Socket } from "socket.io-client";
+import { toast, ToastContainer } from "react-toastify";
+import dayjs from "dayjs";
+
+
+interface Department {
+  _id: string;
+  department: string;
+}
+
+interface Designation {
+  _id: string;
+  departmentId: string;
+  designation: string;
+}
+
+interface Option {
+  label: string,
+  value: string,
+}
+
+interface Employee {
+  _id: string;
+  employeeId: string;
+  firstName: string;
+  lastName: string;
+  avatarUrl: string;
+  account: {
+    userName: string;
+  },
+  contact: {
+    email: string;
+    phone: string;
+  },
+  companyName: string;
+  departmentId: string;
+  designationId: string;
+  status: 'Active' | 'Inactive';
+  dateOfJoining: string | null;
+  about: string;
+  role: string;
+  enabledModules: Record<PermissionModule, boolean>;
+  permissions: Record<PermissionModule, PermissionSet>;
+}
+
+interface EmployeeStats {
+  totalEmployees: number;
+  activeCount: number;
+  inactiveCount: number;
+  newJoinersCount: number;
+}
+
+// Helper Functions
+const generateId = (prefix: string): string => {
+  const randomNum = Math.floor(1 + Math.random() * 9999);
+  const paddedNum = randomNum.toString().padStart(4, '0');
+  return `${prefix}-${paddedNum}`;
+};
+
+// Type definitions
 type PasswordField = "password" | "confirmPassword";
+type PermissionAction = "read" | "write" | "create" | "delete" | "import" | "export";
+type PermissionModule = "holidays" | "leaves" | "clients" | "projects" | "tasks" | "chats" | "assets" | "timingSheets";
+
+interface PermissionSet {
+  read: boolean;
+  write: boolean;
+  create: boolean;
+  delete: boolean;
+  import: boolean;
+  export: boolean;
+}
+
+interface PermissionsState {
+  enabledModules: Record<PermissionModule, boolean>;
+  permissions: Record<PermissionModule, PermissionSet>;
+  selectAll: Record<PermissionModule, boolean>;
+}
+
+const MODULES: PermissionModule[] = [
+  "holidays", "leaves", "clients", "projects", "tasks", "chats", "assets", "timingSheets"
+];
+
+const EMPTY_OPTION = { value: '', label: 'Select Designation' };
+
+const initialState = {
+  enabledModules: {
+    holidays: false,
+    leaves: false,
+    clients: false,
+    projects: false,
+    tasks: false,
+    chats: false,
+    assets: false,
+    timingSheets: false,
+  },
+  permissions: {
+    holidays: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    leaves: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    clients: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    projects: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    tasks: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    chats: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    assets: { read: false, write: false, create: false, delete: false, import: false, export: false },
+    timingSheets: { read: false, write: false, create: false, delete: false, import: false, export: false },
+  },
+  selectAll: {
+    holidays: false,
+    leaves: false,
+    clients: false,
+    projects: false,
+    tasks: false,
+    chats: false,
+    assets: false,
+    timingSheets: false,
+  }
+};
 
 const EmployeeList = () => {
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("basic-info");
+  const [responseData, setResponseData] = useState(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageUpload, setImageUpload] = useState(false);
+  const [department, setDepartment] = useState<Option[]>([]);
+  const [designation, setDesignation] = useState<Option[]>([]);
+  const [allDesignations, setAllDesignations] = useState<Option[]>([]);
+  const [filteredDesignations, setFilteredDesignations] = useState<Option[]>([]);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+  const [selectedDesignation, setSelectedDesignation] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null);
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
+  const [filters, setFilters] = useState({ startDate: "", endDate: "", status: "", departmentId: "" });
+  const [sortedEmployee, setSortedEmployee] = useState<Employee[]>([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [stats, setStats] = useState<EmployeeStats>({
+    totalEmployees: 0,
+    activeCount: 0,
+    inactiveCount: 0,
+    newJoinersCount: 0
+  });
+
+  const [formData, setFormData] = useState({
+    employeeId: generateId("EMP"),
+    avatarUrl: "",
+    firstName: "",
+    lastName: "",
+    dateOfJoining: "",
+    contact: {
+      email: "",
+      phone: "",
+    },
+    account: {
+      userName: "",
+      password: "",
+    },
+    companyName: "",
+    designationId: "",
+    departmentId: "",
+    about: "",
+  })
+  const [permissions, setPermissions] = useState(initialState);
+
+  const socket = useSocket() as Socket | null;
+
+  useEffect(() => {
+    if (!socket) return;
+
+    let isMounted = true;
+
+    setLoading(true);
+
+    const timeoutId = setTimeout(() => {
+      if (loading && isMounted) {
+        console.warn("Employees loading timeout - showing fallback");
+        setError("Employees loading timed out. Please refresh the page.");
+        setLoading(false);
+      }
+    }, 30000);
+
+    socket.emit("hrm/employees/get-employee-stats")
+    socket.emit("hr/departments/get");
+
+    const handleAddEmployeeResponse = (response: any) => {
+      if (!isMounted) return;
+
+      if (response.done) {
+        setResponseData(response.data);
+        setError(null);
+        setLoading(false);
+        if (socket) {
+          socket.emit("hrm/employees/get-employee-stats");
+        }
+      } else {
+        setError(response.error || "Failed to add policy");
+        setLoading(false);
+      }
+    };
+
+    const handleDesignationResponse = (response: any) => {
+      if (!isMounted) return;
+
+      if (response.done && Array.isArray(response.data)) {
+        console.log("Designations response:", response);
+
+        // Map all designations from the response
+        const mappedDesignations = response.data.map((d: Designation) => ({
+          value: d._id,
+          label: d.designation,
+        }));
+
+        setDesignation([
+          { value: '', label: 'Select' },
+          ...mappedDesignations,
+        ]);
+
+        // If we're editing and the designation exists in the new list, keep it selected
+        if (editingEmployee?.designationId) {
+          const designationExists = response.data.some(
+            (d: Designation) => d._id === editingEmployee.designationId
+          );
+          if (!designationExists) {
+            setSelectedDesignation("");
+            setEditingEmployee(prev =>
+              prev ? { ...prev, designationId: "" } : prev
+            );
+          }
+        }
+
+        setError(null);
+        setLoading(false);
+      } else {
+        setError(response.error || "Failed to get designations");
+        setLoading(false);
+      }
+    };
+
+    const handleDepartmentResponse = (response: any) => {
+      if (!isMounted) return;
+
+      if (response.done && Array.isArray(response.data)) {
+        const mappedDepartments = response.data.map((d: Department) => ({
+          value: d._id,
+          label: d.department,
+        }));
+        setDepartment([
+          { value: '', label: 'Select' },
+          ...mappedDepartments,
+        ]);
+        setError(null);
+        setLoading(false);
+      } else {
+        setError(response.error || "Failed to get departments");
+        setLoading(false);
+      }
+    }
+
+    const handleEmployeeResponse = (response: any) => {
+      if (!isMounted) return;
+
+      if (response.done) {
+        console.log(response);
+        if (response.data.stats) {
+          setStats(response.data.stats);
+        }
+        if (Array.isArray(response.data.employees)) {
+          setEmployees(response.data.employees);
+        }
+        setError(null);
+        setLoading(false);
+      } else {
+        setError(response.error || "Failed to fetch employees");
+        setLoading(false);
+      }
+    };
+
+    const handleEmployeeDelete = (response: any) => {
+      if (!isMounted) return;
+
+      if (response.done) {
+        setResponseData(response.data);
+        setError(null);
+        setLoading(false);
+        if (socket) {
+          socket.emit("hrm/employees/get-employee-stats");
+        }
+      } else {
+        setError(response.error || "Failed to add policy");
+        setLoading(false);
+      }
+    }
+
+    const handleUpdateEmployeeResponse = (response: any) => {
+      if (response.done) {
+        // toast.success("Employee updated successfully!");
+        // Optionally refresh employee list
+        if (socket) {
+          socket.emit("hrm/employees/get-employee-stats");
+        }
+        setEditingEmployee(null); // Close modal or reset editing state
+        setError(null);
+        setLoading(false);
+      } else {
+        // toast.error(response.error || "Failed to update employee.");
+        setError(response.error || "Failed to update employee.");
+        setLoading(false);
+      }
+    };
+
+    const handleUpdatePermissionResponse = (response: any) => {
+      if (response.done) {
+        // toast.success("Employee permissions updated successfully!");
+        // Optionally refresh employee list or permissions
+        if (socket) {
+          socket.emit("hrm/employees/get-employee-stats");
+        }
+        setError(null);
+        setLoading(false);
+      } else {
+        // toast.error(response.error || "Failed to update permissions.");
+        setError(response.error || "Failed to update permissions.");
+        setLoading(false);
+      }
+    };
+
+    socket.on("hrm/employees/add-response", handleAddEmployeeResponse);
+    socket.on("hrm/designations/get-response", handleDesignationResponse);
+    socket.on("hr/departments/get-response", handleDepartmentResponse);
+    socket.on("hrm/employees/get-employee-stats-response", handleEmployeeResponse);
+    socket.on("hrm/employees/delete-response", handleEmployeeDelete);
+    socket.on("hrm/employees/update-response", handleUpdateEmployeeResponse);
+    socket.on("hrm/employees/update-permissions-response", handleUpdatePermissionResponse);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+      socket.off("hrm/employees/add-response", handleAddEmployeeResponse);
+      socket.off("hrm/designations/get-response", handleDesignationResponse);
+      socket.off("hr/departments/get-response", handleDepartmentResponse);
+      socket.off("hrm/employees/get-employee-stats-response", handleEmployeeResponse);
+      socket.off("hrm/employees/delete-response", handleEmployeeDelete);
+      socket.off("hrm/employees/update-response", handleUpdateEmployeeResponse);
+      socket.off("hrm/employees/update-permissions-response", handleUpdatePermissionResponse);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
+
+  useEffect(() => {
+    if (editingEmployee && socket) {
+      // Fetch designations for the employee's department
+      console.log("Emitting for departmentID", editingEmployee.departmentId);
+
+      if (editingEmployee.departmentId) {
+        socket.emit("hrm/designations/get", { departmentId: editingEmployee.departmentId });
+      }
+    }
+  }, [editingEmployee, socket]);
+
+  useEffect(() => {
+    if (editingEmployee && editingEmployee.permissions) {
+      setPermissions({
+        enabledModules: { ...initialState.enabledModules, ...editingEmployee.enabledModules },
+        permissions: { ...initialState.permissions, ...editingEmployee.permissions },
+        selectAll: { ...initialState.selectAll }, // reset or compute based on editingEmployee.permissions if needed
+      });
+    } else {
+      setPermissions(initialState);
+    }
+  }, [editingEmployee]);
+
   const data = employee_list_details;
   const columns = [
     {
       title: "Emp ID",
-      dataIndex: "EmpId",
+      dataIndex: "employeeId",
       render: (text: String, record: any) => (
         <Link to={all_routes.employeedetails}>{text}</Link>
       ),
@@ -23,91 +397,79 @@ const EmployeeList = () => {
     },
     {
       title: "Name",
-      dataIndex: "Name",
-      render: (text: string, record: any) => (
-        <div className="d-flex align-items-center">
-          <Link
-            to={all_routes.employeedetails}
-            className="avatar avatar-md"
-            data-bs-toggle="modal"
-            data-inert={true}
-            data-bs-target="#view_details"
-          >
-            <ImageWithBasePath
-              src={`assets/img/users/${record.Image}`}
-              className="img-fluid rounded-circle"
-              alt="img"
-            />
-          </Link>
-          <div className="ms-2">
-            <p className="text-dark mb-0">
-              <Link
-                to={all_routes.employeedetails}
-                data-bs-toggle="modal"
-                data-inert={true}
-                data-bs-target="#view_details"
-              >
-                {record.Name}
-              </Link>
-            </p>
-            <span className="fs-12">{record.CurrentRole}</span>
+      dataIndex: "name",
+      render: (text: string, record: any) => {
+        return (
+          <div className="d-flex align-items-center">
+            <Link
+              to={all_routes.employeedetails}
+              className="avatar avatar-md"
+              data-bs-toggle="modal"
+              data-inert={true}
+              data-bs-target="#view_details"
+            >
+              <img
+                src={record.avatarUrl || "assets/img/favicon.png"}
+                className="img-fluid rounded-circle"
+                alt="img"
+              />
+            </Link>
+            <div className="ms-2">
+              <p className="text-dark mb-0">
+                <Link
+                  to={all_routes.employeedetails}
+                  data-bs-toggle="modal"
+                  data-inert={true}
+                  data-bs-target="#view_details"
+                >
+                  {record.firstName} {record.lastName}
+                </Link>
+              </p>
+              <span className="fs-12">{record.role}</span>
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
       sorter: (a: any, b: any) => a.Name.length - b.Name.length,
     },
     {
       title: "Email",
-      dataIndex: "Email",
+      dataIndex: ["contact", "email"],
       sorter: (a: any, b: any) => a.Email.length - b.Email.length,
     },
     {
       title: "Phone",
-      dataIndex: "Phone",
+      dataIndex: ["contact", "phone"],
       sorter: (a: any, b: any) => a.Phone.length - b.Phone.length,
     },
     {
-      title: "Designation",
-      dataIndex: "Designation",
+      title: "Department",
+      dataIndex: "departmentId",
       render: (text: string, record: any) => (
-        <div className="dropdown me-3">
-          <Link
-            to="#"
-            className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
-            data-bs-toggle="dropdown"
-          >
-            {record.Designation}
-          </Link>
-          <ul className="dropdown-menu  dropdown-menu-end p-3">
-            <li>
-              <Link to="#" className="dropdown-item rounded-1">
-                Developer
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="dropdown-item rounded-1">
-                Executive
-              </Link>
-            </li>
-          </ul>
-        </div>
+        department.find(dep => dep.value === record.departmentId)?.label
       ),
       sorter: (a: any, b: any) => a.Designation.length - b.Designation.length,
     },
     {
       title: "Joining Date",
-      dataIndex: "JoiningDate",
-      sorter: (a: any, b: any) => a.JoiningDate.length - b.JoiningDate.length,
+      dataIndex: "dateOfJoining",
+      sorter: (a: any, b: any) =>
+        new Date(a.dateOfJoining).getTime() - new Date(b.dateOfJoining).getTime(),
+      render: (date: string | Date) => {
+        if (!date) return "-";
+        const d = new Date(date);
+        return d.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+      }
     },
     {
       title: "Status",
-      dataIndex: "Status",
+      dataIndex: "status",
       render: (text: string, record: any) => (
-        <span
-          className={`badge ${
-            text === "Active" ? "badge-success" : "badge-danger"
-          } d-inline-flex align-items-center badge-xs`}
-        >
+        <span className={`badge ${((text === 'active') || (text === 'Active')) ? 'badge-success' : 'badge-danger'} d-inline-flex align-items-center badge-xs`}>
           <i className="ti ti-point-filled me-1" />
           {text}
         </span>
@@ -117,7 +479,7 @@ const EmployeeList = () => {
     {
       title: "",
       dataIndex: "actions",
-      render: () => (
+      render: (_test: any, employee: Employee) => (
         <div className="action-icon d-inline-flex">
           <Link
             to="#"
@@ -125,51 +487,606 @@ const EmployeeList = () => {
             data-bs-toggle="modal"
             data-inert={true}
             data-bs-target="#edit_employee"
+            onClick={() => { setEditingEmployee(employee) }}
           >
             <i className="ti ti-edit" />
           </Link>
-          <Link
-            to="#"
-            data-bs-toggle="modal"
-            data-inert={true}
-            data-bs-target="#delete_modal"
-          >
+          <Link to="#" data-bs-toggle="modal" data-inert={true} data-bs-target="#delete_modal"
+            onClick={() => { setEmployeeToDelete(employee) }}>
             <i className="ti ti-trash" />
           </Link>
         </div>
       ),
     },
-  ];
-
-  const department = [
-    { value: "Select", label: "Select" },
-    { value: "All Department", label: "All Department" },
-    { value: "Finance", label: "Finance" },
-    { value: "Developer", label: "Developer" },
-    { value: "Executive", label: "Executive" },
-  ];
-  const designation = [
-    { value: "Select", label: "Select" },
-    { value: "Finance", label: "Finance" },
-    { value: "Developer", label: "Developer" },
-    { value: "Executive", label: "Executive" },
-  ];
-
-  const getModalContainer = () => {
-    const modalElement = document.getElementById("modal-datepicker");
-    return modalElement ? modalElement : document.body; // Fallback to document.body if modalElement is null
-  };
+  ]
+  console.log("Editing employee", editingEmployee);
 
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
     confirmPassword: false,
   });
 
+  // Helper functions
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    if (name === "email" || name === "phone") {
+      setFormData(prev => ({
+        ...prev,
+        contact: {
+          ...prev.contact,
+          [name]: value
+        }
+      }));
+    } else if (name === "userName" || name === "password") {
+      setFormData(prev => ({
+        ...prev,
+        account: {
+          ...prev.account,
+          [name]: value
+        }
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const onSelectStatus = (status: string) => {
+    if (!status) return;
+    setSelectedStatus(status);
+    applyFilters({ status });
+  };
+
+  const onSelectDepartment = (id: string) => {
+    console.log(id);
+    applyFilters({ departmentId: id });
+  };
+
+  const applyFilters = (updatedFields: {
+    departmentId?: string;
+    status?: string;
+    startDate?: string;
+    endDate?: string;
+  }) => {
+    try {
+      setFilters(prevFilters => {
+        const newFilters = { ...prevFilters, ...updatedFields };
+        if (socket) {
+          socket.emit("hrm/employees/get-employee-stats", { ...newFilters });
+        }
+        return newFilters;
+      });
+    } catch (error) {
+      console.error("Error applying filters:", error);
+    }
+  };
+
+
+  // Handle file upload
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "amasqis");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dwc3b5zfe/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    return data.secure_url;
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const maxSize = 4 * 1024 * 1024; // 4MB
+    if (file.size > maxSize) {
+      toast.error("File size must be less than 4MB.", { position: "top-right", autoClose: 3000 });
+      event.target.value = "";
+      return;
+    }
+
+    if (["image/jpeg", "image/png", "image/jpg", "image/ico"].includes(file.type)) {
+      setImageUpload(true);
+      try {
+        const uploadedUrl = await uploadImage(file);
+        setFormData(prev => ({ ...prev, avatarUrl: uploadedUrl }));
+        setImageUpload(false);
+      } catch (error) {
+        setImageUpload(false);
+        toast.error("Failed to upload image. Please try again.", { position: "top-right", autoClose: 3000 });
+        event.target.value = "";
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      toast.error("Please upload image file only.", { position: "top-right", autoClose: 3000 });
+      event.target.value = "";
+    }
+  };
+
+  const removeLogo = () => {
+    setFormData(prev => ({ ...prev, avatarUrl: "" }));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handleDateRangeFilter = (ranges: { start?: string; end?: string } = { start: "", end: "" }) => {
+    try {
+      if (ranges.start && ranges.end) {
+        ;
+        applyFilters({ startDate: ranges.start, endDate: ranges.end });
+      } else {
+        applyFilters({ startDate: "", endDate: "" });
+      }
+    } catch (error) {
+      console.error("Error handling time range selection:", error);
+    }
+  };
+
+
+  // Handle date change
+  const handleDateChange = (date: string) => {
+    setFormData(prev => ({ ...prev, dateOfJoining: date }));
+  };
+
+  // Handle select dropdown changes
+  const handleSelectChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  // Toggle password visibility
   const togglePasswordVisibility = (field: PasswordField) => {
-    setPasswordVisibility((prevState) => ({
-      ...prevState,
-      [field]: !prevState[field],
+    setPasswordVisibility(prev => ({
+      ...prev,
+      [field]: !prev[field]
     }));
+  };
+
+  const handleSort = (order: string) => {
+    setSortOrder(order);
+    if (!order) {
+      setSortedEmployee(employees);
+      return;
+    }
+    const sortedData = [...employees].sort((a, b) => {
+      console.log("from sorted data", employees);
+
+      const nameA = a.firstName.toLowerCase() || "a";
+      const nameB = b.firstName.toLowerCase() || "b";
+
+      if (order === "ascending") {
+        return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+      }
+      if (order === "descending") {
+        return nameA > nameB ? -1 : nameA < nameB ? 1 : 0;
+      }
+      return 0;
+    });
+    setSortedEmployee(sortedData); // may not need this later
+    setEmployees(sortedData);
+  };
+
+
+  const deleteEmployee = (id: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      if (!socket) {
+        setError("Socket connection is not available");
+        setLoading(false);
+        return;
+      }
+
+      if (!id) {
+        setError("Employee ID is required");
+        setLoading(false);
+        return;
+      }
+
+      socket.emit("hrm/employees/delete", { _id: id });
+    } catch (error) {
+      console.error("Delete error:", error);
+      setError("Failed to initiate policy deletion");
+      setLoading(false);
+    }
+  };
+
+  // ======================
+  // PERMISSIONS HANDLERS
+  // ======================
+
+  // Constant array matching PermissionModule union type exactly
+  const MODULES: PermissionModule[] = [
+    "holidays",
+    "leaves",
+    "clients",
+    "projects",
+    "tasks",
+    "chats",
+    "assets",
+    "timingSheets", // Correct spelling, make sure this matches everywhere
+  ];
+
+  // Constant array for actions, matching PermissionSet keys exactly
+  const ACTIONS: PermissionAction[] = [
+    "read",
+    "write",
+    "create",
+    "delete",
+    "import",
+    "export",
+  ];
+
+  // Toggle individual permission (single action in a module)
+  const handlePermissionChange = (
+    module: PermissionModule,
+    action: PermissionAction,
+    checked: boolean
+  ) => {
+    setPermissions((prev) => {
+      const updatedModulePermissions = {
+        ...prev.permissions[module],
+        [action]: checked,
+      };
+
+      // Check if all actions selected for this module
+      const allSelected = ACTIONS.every(
+        (act) => updatedModulePermissions[act]
+      );
+
+      return {
+        ...prev,
+        permissions: {
+          ...prev.permissions,
+          [module]: updatedModulePermissions,
+        },
+        selectAll: {
+          ...prev.selectAll,
+          [module]: allSelected,
+        },
+      };
+    });
+  };
+
+  // Toggle enable/disable a module
+  const toggleModule = (module: PermissionModule) => {
+    setPermissions((prev) => ({
+      ...prev,
+      enabledModules: {
+        ...prev.enabledModules,
+        [module]: !prev.enabledModules[module],
+      },
+    }));
+  };
+
+  // Toggle "Select All" for a specific module (all permissions checked or unchecked)
+  const toggleSelectAllForModule = (module: PermissionModule) => {
+    setPermissions((prev) => {
+      const newSelectAllState = !prev.selectAll[module];
+
+      // Build a new permission set with all actions set to newSelectAllState
+      const newPermissionsForModule: PermissionSet = ACTIONS.reduce(
+        (acc, action) => {
+          acc[action] = newSelectAllState;
+          return acc;
+        },
+        {} as PermissionSet
+      );
+
+      return {
+        ...prev,
+        permissions: {
+          ...prev.permissions,
+          [module]: newPermissionsForModule,
+        },
+        selectAll: {
+          ...prev.selectAll,
+          [module]: newSelectAllState,
+        },
+      };
+    });
+  };
+
+  // Toggle "Enable All Modules" master switch
+  const toggleAllModules = (enable: boolean) => {
+    setPermissions((prev) => {
+      const newEnabledModules: Record<PermissionModule, boolean> = MODULES.reduce(
+        (acc, module) => {
+          acc[module] = enable;
+          return acc;
+        },
+        {} as Record<PermissionModule, boolean>
+      );
+
+      return {
+        ...prev,
+        enabledModules: newEnabledModules,
+      };
+    });
+  };
+
+  // Toggle "Select All" permissions globally (all modules & all actions)
+  const toggleGlobalSelectAll = (checked: boolean) => {
+    setPermissions((prev) => {
+      // Build new permissions for every module & action
+      const newPermissions: Record<PermissionModule, PermissionSet> = MODULES.reduce(
+        (accModules, module) => {
+          const newModulePermissions: PermissionSet = ACTIONS.reduce(
+            (accActions, action) => {
+              accActions[action] = checked;
+              return accActions;
+            },
+            {} as PermissionSet
+          );
+          accModules[module] = newModulePermissions;
+          return accModules;
+        },
+        {} as Record<PermissionModule, PermissionSet>
+      );
+
+      // Build new selectAll flags for every module
+      const newSelectAll: Record<PermissionModule, boolean> = MODULES.reduce(
+        (acc, module) => {
+          acc[module] = checked;
+          return acc;
+        },
+        {} as Record<PermissionModule, boolean>
+      );
+
+      return {
+        ...prev,
+        permissions: newPermissions,
+        selectAll: newSelectAll,
+      };
+    });
+  };
+
+  // ======================
+  // FORM SUBMISSION
+  // ======================
+
+  // Validate form before submission
+  const validateForm = (): boolean => {
+    // Check required fields
+    if (!formData.firstName) {
+      alert("Please fill in first name");
+      return false;
+    }
+    if (!formData.contact.email) {
+      alert("Please fill in email");
+      return false;
+    }
+    if (!formData.account.userName) {
+      alert("Please fill in username");
+      return false;
+    }
+    if (!formData.account.password) {
+      alert("Please fill in password");
+      return false;
+    }
+    if (!formData.contact.phone) {
+      alert("Please fill in phone");
+      return false;
+    }
+
+    // Check password match
+    if (formData.account.password !== confirmPassword) {
+      alert("Passwords don't match!");
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+console.log("Helllo1");
+
+      setError("null");
+
+      if (!validateForm()) {
+        return;
+      }
+      console.log("Helllo1");
+
+      const anyModuleEnabled = Object.values(permissions.enabledModules).some(Boolean);
+      if (!anyModuleEnabled) {
+        setError("Please enable at least one module before saving permissions.");
+        return;
+      }
+      console.log("Helllo1");
+      setLoading(true);
+      // Extract basic info fields separately
+      const {
+        employeeId,
+        avatarUrl,
+        firstName,
+        lastName,
+        dateOfJoining,
+        contact: {
+          email,
+          phone,
+        },
+        account: {
+          userName,
+          password,
+        },
+        companyName,
+        departmentId,
+        designationId,
+        about,
+      } = formData;
+
+      const basicInfo = {
+        employeeId,
+        avatarUrl,
+        firstName,
+        lastName,
+        dateOfJoining,
+        account: {
+          userName,
+          password,
+        },
+        contact: {
+          email,
+          phone,
+        },
+        companyName,
+        departmentId,
+        designationId,
+        about,
+      };
+console.log("Helllo1");
+      // Prepare full submission data
+      const submissionData = {
+        employeeData: basicInfo,
+        permissionsData: {
+          permissions: permissions.permissions,
+          enabledModules: permissions.enabledModules,
+        }
+      };
+
+      console.log("Full Submission Data:", submissionData);
+
+      if (socket) {
+        socket.emit("hrm/employees/add", submissionData);
+        handleResetFormData();
+        setActiveTab('basic-info');
+      } else {
+        console.log("Socket connection is not available");
+        setError("Socket connection is not available.");
+        setLoading(false);
+      }
+
+    } catch (error) {
+      console.error("Error submitting form and permissions:", error);
+      setError("An error occurred while submitting data.");
+    }
+    setLoading(false);
+  };
+
+  // 1. Update basic info
+  const handleUpdateSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingEmployee) {
+      toast.error("No employee selected for editing.");
+      return;
+    }
+    const payload = {
+      employeeId: editingEmployee.employeeId,
+      firstName: editingEmployee.firstName,
+      lastName: editingEmployee.lastName,
+      account: {
+        userName: editingEmployee.account.userName,
+      },
+      contact: {
+        email: editingEmployee.contact.email,
+        phone: editingEmployee.contact.phone,
+      },
+      companyName: editingEmployee.companyName || editingEmployee.companyName,
+      departmentId: editingEmployee.departmentId,
+      designationId: editingEmployee.designationId,
+      dateOfJoining: editingEmployee.dateOfJoining,
+      about: editingEmployee.about,
+      avatarUrl: editingEmployee.avatarUrl,
+      status: editingEmployee.status,
+    };
+    console.log("update payload", payload);
+
+    if (socket) {
+      socket.emit("hrm/employees/update", payload);
+      toast.success("Employee update request sent.");
+    } else {
+      toast.error("Socket connection is not available.");
+    }
+  };
+
+  // 2. Update permissions
+  const handlePermissionUpdateSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!editingEmployee) {
+      console.log("****he**-**");
+      toast.error("No employee selected for editing.");
+      return;
+    }
+    const payload = {
+      employeeId: editingEmployee._id,
+      permissions: permissions.permissions,
+      enabledModules: permissions.enabledModules,
+    };
+    console.log("edit perm payload", payload);
+
+    if (socket) {
+      socket.emit("hrm/employees/update-permissions", payload);
+      // toast.success("Employee permissions update request sent.");
+      setPermissions(initialState);
+    } else {
+      console.log(error);
+      return;
+      // toast.error("Socket connection is not available.");
+    }
+  };
+  console.log("editing employee", editingEmployee)
+  const handleResetFormData = () => {
+    setFormData({
+      employeeId: generateId("EMP"),
+      avatarUrl: "",
+      firstName: "",
+      lastName: "",
+      dateOfJoining: "",
+      contact: {
+        email: "",
+        phone: "",
+      },
+      account: {
+        userName: "",
+        password: "",
+      },
+      companyName: "",
+      departmentId: "",
+      designationId: "",
+      about: "",
+    });
+
+    setPermissions(initialState);
+    setError("");
+  }
+
+  // Modal container helper (for DatePicker positioning)
+  const getModalContainer = (): HTMLElement => {
+    const modalElement = document.getElementById('modal-datepicker');
+    return modalElement ? modalElement : document.body;
+  };
+
+  const handleNext = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    // Save logic here...
+
+    // After successful save:
+    setActiveTab("address");
+  };
+
+  const allPermissionsSelected = () => {
+    return MODULES.every(module =>
+      ACTIONS.every(action => permissions.permissions[module][action])
+    );
   };
 
   return (
@@ -245,6 +1162,7 @@ const EmployeeList = () => {
                   data-inert={true}
                   data-bs-target="#add_employee"
                   className="btn btn-primary d-flex align-items-center"
+                  onClick={() => generateId("EMP")}
                 >
                   <i className="ti ti-circle-plus me-2" />
                   Add Employee
@@ -271,15 +1189,15 @@ const EmployeeList = () => {
                       <p className="fs-12 fw-medium mb-1 text-truncate">
                         Total Employee
                       </p>
-                      <h4>1007</h4>
+                      <h4>{stats?.totalEmployees || 0}</h4>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <span className="badge badge-soft-purple badge-sm fw-normal">
                       <i className="ti ti-arrow-wave-right-down" />
                       +19.01%
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -295,18 +1213,16 @@ const EmployeeList = () => {
                       </span>
                     </div>
                     <div className="ms-2 overflow-hidden">
-                      <p className="fs-12 fw-medium mb-1 text-truncate">
-                        Active
-                      </p>
-                      <h4>1007</h4>
+                      <p className="fs-12 fw-medium mb-1 text-truncate">Active</p>
+                      <h4>{stats?.activeCount}</h4>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <span className="badge badge-soft-primary badge-sm fw-normal">
                       <i className="ti ti-arrow-wave-right-down" />
                       +19.01%
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -322,18 +1238,16 @@ const EmployeeList = () => {
                       </span>
                     </div>
                     <div className="ms-2 overflow-hidden">
-                      <p className="fs-12 fw-medium mb-1 text-truncate">
-                        InActive
-                      </p>
-                      <h4>1007</h4>
+                      <p className="fs-12 fw-medium mb-1 text-truncate">InActive</p>
+                      <h4>{stats?.inactiveCount}</h4>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <span className="badge badge-soft-dark badge-sm fw-normal">
                       <i className="ti ti-arrow-wave-right-down" />
                       +19.01%
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -352,15 +1266,15 @@ const EmployeeList = () => {
                       <p className="fs-12 fw-medium mb-1 text-truncate">
                         New Joiners
                       </p>
-                      <h4>67</h4>
+                      <h4>{stats?.newJoinersCount}</h4>
                     </div>
                   </div>
-                  <div>
+                  {/* <div>
                     <span className="badge badge-soft-secondary badge-sm fw-normal">
                       <i className="ti ti-arrow-wave-right-down" />
                       +19.01%
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -368,11 +1282,11 @@ const EmployeeList = () => {
           </div>
           <div className="card">
             <div className="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
-              <h5>Plan List</h5>
+              <h5>Employee List</h5>
               <div className="d-flex my-xl-auto right-content align-items-center flex-wrap row-gap-3">
                 <div className="me-3">
                   <div className="input-icon-end position-relative">
-                    <PredefinedDateRanges />
+                    <PredefinedDateRanges onChange={handleDateRangeFilter} />
                     <span className="input-icon-addon">
                       <i className="ti ti-chevron-down" />
                     </span>
@@ -383,25 +1297,33 @@ const EmployeeList = () => {
                     to="#"
                     className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                     data-bs-toggle="dropdown"
+                    role="button"
+                    aria-expanded="false"
                   >
-                    Designation
+                    Department
+                    {selectedDepartment
+                      ? `: ${department.find(dep => dep.value === selectedDepartment)?.label || "None"
+                      }`
+                      : ": None"}
                   </Link>
-                  <ul className="dropdown-menu  dropdown-menu-end p-3">
-                    <li>
-                      <Link to="#" className="dropdown-item rounded-1">
-                        Finance
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="dropdown-item rounded-1">
-                        Developer
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="dropdown-item rounded-1">
-                        Executive
-                      </Link>
-                    </li>
+                  <ul className="dropdown-menu dropdown-menu-end p-3">
+                    {department
+                      .filter(dep => dep.value)
+                      .map(dep => (
+                        <li key={dep.value}>
+                          <Link
+                            to="#"
+                            className={`dropdown-item rounded-1${selectedDepartment === dep.value ? " active" : ""}`}
+                            onClick={e => {
+                              e.preventDefault();
+                              setSelectedDepartment(dep.value);
+                              onSelectDepartment(dep.value);
+                            }}
+                          >
+                            {dep.label}
+                          </Link>
+                        </li>
+                      ))}
                   </ul>
                 </div>
                 <div className="dropdown me-3">
@@ -410,16 +1332,33 @@ const EmployeeList = () => {
                     className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                     data-bs-toggle="dropdown"
                   >
-                    Select Status
+                    Select status {selectedStatus ? `: ${selectedStatus.charAt(0).toUpperCase() + selectedStatus.slice(1)}` : ": None"}
                   </Link>
                   <ul className="dropdown-menu  dropdown-menu-end p-3">
                     <li>
-                      <Link to="#" className="dropdown-item rounded-1">
+                      <Link
+                        to="#"
+                        className="dropdown-item rounded-1"
+                        onClick={() => onSelectStatus("all")}
+                      >
+                        All
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="#"
+                        className="dropdown-item rounded-1"
+                        onClick={() => onSelectStatus("active")}
+                      >
                         Active
                       </Link>
                     </li>
                     <li>
-                      <Link to="#" className="dropdown-item rounded-1">
+                      <Link
+                        to="#"
+                        className="dropdown-item rounded-1"
+                        onClick={() => onSelectStatus("inactive")}
+                      >
                         Inactive
                       </Link>
                     </li>
@@ -431,20 +1370,42 @@ const EmployeeList = () => {
                     className="dropdown-toggle btn btn-white d-inline-flex align-items-center"
                     data-bs-toggle="dropdown"
                   >
-                    Sort By : Last 7 Days
+                    Sort By{sortOrder ? `: ${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)}` : ": None"}
                   </Link>
-                  <ul className="dropdown-menu  dropdown-menu-end p-3">
+                  <ul className="dropdown-menu dropdown-menu-end p-3">
                     <li>
-                      <Link to="#" className="dropdown-item rounded-1">
+                      <button
+                        type="button"
+                        className="dropdown-item rounded-1"
+                        onClick={() => handleSort("ascending")}
+                      >
                         Ascending
-                      </Link>
+                      </button>
+                    </li>
+                    <li>  
+                      <button
+                        type="button"
+                        className="dropdown-item rounded-1"
+                        onClick={() => handleSort("descending")}
+                      >
+                        Descending
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="dropdown-item rounded-1"
+                        onClick={() => handleSort("")}
+                      >
+                        None
+                      </button>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             <div className="card-body p-0">
-              <Table dataSource={data} columns={columns} Selection={true} />
+              <Table dataSource={employees} columns={columns} Selection={true} />
             </div>
           </div>
         </div>
@@ -458,6 +1419,7 @@ const EmployeeList = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
       {/* /Page Wrapper */}
       {/* Add Employee */}
       <div className="modal fade" id="add_employee">
@@ -466,7 +1428,7 @@ const EmployeeList = () => {
             <div className="modal-header">
               <div className="d-flex align-items-center">
                 <h4 className="modal-title me-2">Add New Employee</h4>
-                <span>Employee ID : EMP -0024</span>
+                <span>Employee ID : {formData.employeeId}</span>
               </div>
               <button
                 type="button"
@@ -477,25 +1439,27 @@ const EmployeeList = () => {
                 <i className="ti ti-x" />
               </button>
             </div>
-            <form action={all_routes.employeeList}>
+            <form action={all_routes.employeeList} onSubmit={handleSubmit}>
               <div className="contact-grids-tab">
                 <ul className="nav nav-underline" id="myTab" role="tablist">
                   <li className="nav-item" role="presentation">
                     <button
-                      className="nav-link active"
                       id="info-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#basic-info"
+                      className={`nav-link ${activeTab === "basic-info" ? "active" : ""}`}
                       type="button"
                       role="tab"
                       aria-selected="true"
+                      onClick={() => setActiveTab("basic-info")}
                     >
                       Basic Information
                     </button>
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className="nav-link"
+                      className={`nav-link ${activeTab === "address" ? "active" : ""}`}
+                      onClick={() => setActiveTab("address")}
                       id="address-tab"
                       data-bs-toggle="tab"
                       data-bs-target="#address"
@@ -510,7 +1474,7 @@ const EmployeeList = () => {
               </div>
               <div className="tab-content" id="myTabContent">
                 <div
-                  className="tab-pane fade show active"
+                  className={`tab-pane fade ${activeTab === "basic-info" ? "show active" : ""}`}
                   id="basic-info"
                   role="tabpanel"
                   aria-labelledby="info-tab"
@@ -520,9 +1484,17 @@ const EmployeeList = () => {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="d-flex align-items-center flex-wrap row-gap-3 bg-light w-100 rounded p-3 mb-4">
-                          <div className="d-flex align-items-center justify-content-center avatar avatar-xxl rounded-circle border border-dashed me-2 flex-shrink-0 text-dark frames">
-                            <i className="ti ti-photo text-gray-2 fs-16" />
-                          </div>
+                          {formData.avatarUrl ? (
+                            <img
+                              src={formData.avatarUrl}
+                              alt="Profile"
+                              className="avatar avatar-xxl rounded-circle border border-dashed me-2 flex-shrink-0"
+                            />
+                          ) : (
+                            <div className="d-flex align-items-center justify-content-center avatar avatar-xxl rounded-circle border border-dashed me-2 flex-shrink-0 text-dark frames">
+                              <i className="ti ti-photo text-gray-2 fs-16" />
+                            </div>
+                          )}
                           <div className="profile-upload">
                             <div className="mb-2">
                               <h6 className="mb-1">Upload Profile Image</h6>
@@ -532,16 +1504,33 @@ const EmployeeList = () => {
                             </div>
                             <div className="profile-uploader d-flex align-items-center">
                               <div className="drag-upload-btn btn btn-sm btn-primary me-2">
-                                Upload
+                                {loading ? "Uploading..." : "Upload"}
                                 <input
                                   type="file"
                                   className="form-control image-sign"
-                                  multiple
+                                  accept=".png,.jpeg,.jpg,.ico"
+                                  ref={fileInputRef}
+                                  onChange={handleImageUpload}
+                                  disabled={loading}
+                                  style={{
+                                    cursor: loading ? "not-allowed" : "pointer",
+                                    opacity: 0,
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    height: "100%",
+                                  }}
                                 />
                               </div>
-                              <Link to="#" className="btn btn-light btn-sm">
+                              <button
+                                type="button"
+                                className="btn btn-light btn-sm"
+                                onClick={() => setFormData(prev => ({ ...prev, avatarUrl: "" }))}
+                                disabled={loading} // Disable cancel during loading for safety
+                              >
                                 Cancel
-                              </Link>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -551,13 +1540,19 @@ const EmployeeList = () => {
                           <label className="form-label">
                             First Name <span className="text-danger"> *</span>
                           </label>
-                          <input type="text" className="form-control" />
+                          <input type="text" className="form-control"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="mb-3">
                           <label className="form-label">Last Name</label>
-                          <input type="email" className="form-control" />
+                          <input type="text" className="form-control"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -565,7 +1560,9 @@ const EmployeeList = () => {
                           <label className="form-label">
                             Employee ID <span className="text-danger"> *</span>
                           </label>
-                          <input type="text" className="form-control" />
+                          <input type="text" className="form-control"
+                            value={formData.employeeId}
+                            readOnly />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -582,6 +1579,9 @@ const EmployeeList = () => {
                               }}
                               getPopupContainer={getModalContainer}
                               placeholder="DD-MM-YYYY"
+                              name="dateOfJoining"
+                              value={formData.dateOfJoining}
+                              onChange={handleDateChange}
                             />
                             <span className="input-icon-addon">
                               <i className="ti ti-calendar text-gray-7" />
@@ -594,7 +1594,10 @@ const EmployeeList = () => {
                           <label className="form-label">
                             Username <span className="text-danger"> *</span>
                           </label>
-                          <input type="text" className="form-control" />
+                          <input type="text" className="form-control"
+                            name="userName"
+                            value={formData.account.userName}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -602,7 +1605,10 @@ const EmployeeList = () => {
                           <label className="form-label">
                             Email <span className="text-danger"> *</span>
                           </label>
-                          <input type="email" className="form-control" />
+                          <input type="email" className="form-control"
+                            name="email"
+                            value={formData.contact.email}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -618,6 +1624,9 @@ const EmployeeList = () => {
                                   : "password"
                               }
                               className="pass-input form-control"
+                              name="password"
+                              value={formData.account.password}
+                              onChange={handleChange}
                             />
                             <span
                               className={`ti toggle-passwords ${
@@ -646,6 +1655,9 @@ const EmployeeList = () => {
                                   : "password"
                               }
                               className="pass-input form-control"
+                              name="confirmPassword"
+                              value={confirmPassword}
+                              onChange={e => setConfirmPassword(e.target.value)}
                             />
                             <span
                               className={`ti toggle-passwords ${
@@ -665,7 +1677,10 @@ const EmployeeList = () => {
                           <label className="form-label">
                             Phone Number <span className="text-danger"> *</span>
                           </label>
-                          <input type="text" className="form-control" />
+                          <input type="text" className="form-control"
+                            name="phone"
+                            value={formData.contact.phone}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -673,7 +1688,10 @@ const EmployeeList = () => {
                           <label className="form-label">
                             Company<span className="text-danger"> *</span>
                           </label>
-                          <input type="text" className="form-control" />
+                          <input type="text" className="form-control"
+                            name="companyName"
+                            value={formData.companyName}
+                            onChange={handleChange} />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -682,7 +1700,18 @@ const EmployeeList = () => {
                           <CommonSelect
                             className="select"
                             options={department}
-                            defaultValue={department[0]}
+                            defaultValue={EMPTY_OPTION}
+                            onChange={option => {
+                              if (option) {
+                                handleSelectChange('departmentId', option.value);
+                                setSelectedDepartment(option.value);
+                                setDesignation([{ value: '', label: 'Select' }]);
+                                handleSelectChange('designationId', '');
+                                if (socket) {
+                                  socket.emit("hrm/designations/get", { departmentId: option.value });
+                                }
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -692,7 +1721,12 @@ const EmployeeList = () => {
                           <CommonSelect
                             className="select"
                             options={designation}
-                            defaultValue={designation[0]}
+                            defaultValue={EMPTY_OPTION}
+                            onChange={option => {
+                              if (option) {
+                                handleSelectChange('designationId', option.value);
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -705,6 +1739,9 @@ const EmployeeList = () => {
                             className="form-control"
                             rows={3}
                             defaultValue={""}
+                            name="about"
+                            value={formData.about}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -718,17 +1755,13 @@ const EmployeeList = () => {
                     >
                       Cancel
                     </button>
-                    <button
-                      type="button"
-                      data-bs-dismiss="modal"
-                      className="btn btn-primary"
-                    >
-                      Save{" "}
+                    <button type="button" className="btn btn-primary" onClick={handleNext}>
+                      Save and Next
                     </button>
                   </div>
                 </div>
                 <div
-                  className="tab-pane fade"
+                  className={`tab-pane fade ${activeTab === "address" ? "show active" : ""}`}
                   id="address"
                   role="tabpanel"
                   aria-labelledby="address-tab"
@@ -745,6 +1778,8 @@ const EmployeeList = () => {
                                 className="form-check-input me-2"
                                 type="checkbox"
                                 role="switch"
+                                checked={Object.values(permissions.enabledModules).every(Boolean)}
+                                onChange={(e) => toggleAllModules(e.target.checked)}
                               />
                               Enable all Module
                             </label>
@@ -754,7 +1789,8 @@ const EmployeeList = () => {
                               <input
                                 className="form-check-input"
                                 type="checkbox"
-                                defaultChecked
+                                checked={Object.values(permissions.selectAll).every(Boolean)}
+                                onChange={(e) => toggleGlobalSelectAll(e.target.checked)}
                               />
                               Select All
                             </label>
@@ -765,652 +1801,43 @@ const EmployeeList = () => {
                     <div className="table-responsive border rounded">
                       <table className="table">
                         <tbody>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                    defaultChecked
-                                  />
-                                  Holidays
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Leaves
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Clients
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Projects
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Tasks
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Chats
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                    defaultChecked
-                                  />
-                                  Assets
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Timing Sheets
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
+                          {MODULES.map((module) => (
+                            <tr key={module}>
+                              <td>
+                                <div className="form-check form-switch me-2">
+                                  <label className="form-check-label mt-0">
+                                    <input
+                                      className="form-check-input me-2"
+                                      type="checkbox"
+                                      role="switch"
+                                      checked={permissions.enabledModules[module]}
+                                      onChange={() => toggleModule(module)}
+                                    />
+                                    {module.charAt(0).toUpperCase() + module.slice(1)}
+                                  </label>
+                                </div>
+                              </td>
+
+                              {ACTIONS.map((action) => (
+                                <td key={action}>
+                                  <div className="form-check d-flex align-items-center">
+                                    <label className="form-check-label mt-0">
+                                      <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        checked={permissions.permissions[module][action]}
+                                        onChange={(e) =>
+                                          handlePermissionChange(module, action, e.target.checked)
+                                        }
+                                        disabled={!permissions.enabledModules[module]} // disable if module not enabled
+                                      />
+                                      {action.charAt(0).toUpperCase() + action.slice(1)}
+                                    </label>
+                                  </div>
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -1424,13 +1851,13 @@ const EmployeeList = () => {
                       Cancel
                     </button>
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-primary"
                       data-bs-toggle="modal"
                       data-inert={true}
                       data-bs-target="#success_modal"
                     >
-                      Save{" "}
+                      Save
                     </button>
                   </div>
                 </div>
@@ -1447,7 +1874,7 @@ const EmployeeList = () => {
             <div className="modal-header">
               <div className="d-flex align-items-center">
                 <h4 className="modal-title me-2">Edit Employee</h4>
-                <span>Employee ID : EMP -0024</span>
+                <span>Employee ID : {editingEmployee?.employeeId}</span>
               </div>
               <button
                 type="button"
@@ -1502,11 +1929,19 @@ const EmployeeList = () => {
                       <div className="col-md-12">
                         <div className="d-flex align-items-center flex-wrap row-gap-3 bg-light w-100 rounded p-3 mb-4">
                           <div className="d-flex align-items-center justify-content-center avatar avatar-xxl rounded-circle border border-dashed me-2 flex-shrink-0 text-dark frames">
-                            <ImageWithBasePath
-                              src="assets/img/users/user-13.jpg"
-                              alt="img"
-                              className="rounded-circle"
-                            />
+                            {editingEmployee?.avatarUrl ? (
+                              <img
+                                src={editingEmployee.avatarUrl}
+                                alt="Profile"
+                                className="avatar avatar-xxl rounded-circle border border-dashed me-2 flex-shrink-0"
+                              />
+                            ) : (
+                              <ImageWithBasePath
+                                src="assets/img/users/user-13.jpg"
+                                alt="img"
+                                className="rounded-circle"
+                              />
+                            )}
                           </div>
                           <div className="profile-upload">
                             <div className="mb-2">
@@ -1521,12 +1956,60 @@ const EmployeeList = () => {
                                 <input
                                   type="file"
                                   className="form-control image-sign"
-                                  multiple
+                                  accept=".png,.jpeg,.jpg,.ico"
+                                  onChange={async (event) => {
+                                    const file = event.target.files?.[0];
+                                    if (!file) return;
+                                    const maxSize = 4 * 1024 * 1024;
+                                    if (file.size > maxSize) {
+                                      toast.error("File size must be less than 4MB.");
+                                      event.target.value = "";
+                                      return;
+                                    }
+                                    if (["image/jpeg", "image/png", "image/jpg", "image/ico"].includes(file.type)) {
+                                      try {
+                                        const formData = new FormData();
+                                        formData.append("file", file);
+                                        formData.append("upload_preset", "amasqis");
+                                        const res = await fetch(
+                                          "https://api.cloudinary.com/v1_1/dwc3b5zfe/image/upload",
+                                          { method: "POST", body: formData }
+                                        );
+                                        const data = await res.json();
+                                        setEditingEmployee(prev =>
+                                          prev ? { ...prev, avatarUrl: data.secure_url } : prev
+                                        );
+                                      } catch (error) {
+                                        toast.error("Failed to upload image. Please try again.");
+                                        event.target.value = "";
+                                      }
+                                    } else {
+                                      toast.error("Please upload image file only.");
+                                      event.target.value = "";
+                                    }
+                                  }}
+                                  style={{
+                                    cursor: "pointer",
+                                    opacity: 0,
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    height: "100%",
+                                  }}
                                 />
                               </div>
-                              <Link to="#" className="btn btn-light btn-sm">
+                              <button
+                                type="button"
+                                className="btn btn-light btn-sm"
+                                onClick={() =>
+                                  setEditingEmployee(prev =>
+                                    prev ? { ...prev, avatarUrl: "" } : prev
+                                  )
+                                }
+                              >
                                 Cancel
-                              </Link>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -1539,7 +2022,10 @@ const EmployeeList = () => {
                           <input
                             type="text"
                             className="form-control"
-                            defaultValue="Anthony"
+                            value={editingEmployee?.firstName || ""}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, firstName: e.target.value } : prev)}
                           />
                         </div>
                       </div>
@@ -1547,9 +2033,12 @@ const EmployeeList = () => {
                         <div className="mb-3">
                           <label className="form-label">Last Name</label>
                           <input
-                            type="email"
+                            type="text"
                             className="form-control"
-                            defaultValue="Lewis"
+                            value={editingEmployee?.lastName || ""}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, lastName: e.target.value } : prev)}
                           />
                         </div>
                       </div>
@@ -1561,7 +2050,8 @@ const EmployeeList = () => {
                           <input
                             type="text"
                             className="form-control"
-                            defaultValue="Emp-001"
+                            value={editingEmployee?.employeeId}
+                            readOnly
                           />
                         </div>
                       </div>
@@ -1573,12 +2063,19 @@ const EmployeeList = () => {
                           <div className="input-icon-end position-relative">
                             <DatePicker
                               className="form-control datetimepicker"
-                              format={{
-                                format: "DD-MM-YYYY",
-                                type: "mask",
-                              }}
+                              format="DD-MM-YYYY"
                               getPopupContainer={getModalContainer}
                               placeholder="DD-MM-YYYY"
+                              name="dateOfJoining"
+                              value={editingEmployee?.dateOfJoining ? dayjs(editingEmployee.dateOfJoining) : null}
+                              onChange={(date: dayjs.Dayjs | null) => {
+                                setEditingEmployee(prev =>
+                                  prev ? {
+                                    ...prev,
+                                    dateOfJoining: date ? date.toDate().toISOString() : ""
+                                  } : prev
+                                );
+                              }}
                             />
                             <span className="input-icon-addon">
                               <i className="ti ti-calendar text-gray-7" />
@@ -1594,7 +2091,10 @@ const EmployeeList = () => {
                           <input
                             type="text"
                             className="form-control"
-                            defaultValue="Anthony"
+                            value={editingEmployee?.account.userName}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, account: { ...prev.account, userName: e.target.value } } : prev)}
                           />
                         </div>
                       </div>
@@ -1606,63 +2106,11 @@ const EmployeeList = () => {
                           <input
                             type="email"
                             className="form-control"
-                            defaultValue="anthony@example.com	"
+                            value={editingEmployee?.contact.email}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, contact: { ...prev.contact, email: e.target.value } } : prev)}
                           />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3 ">
-                          <label className="form-label">
-                            Password <span className="text-danger"> *</span>
-                          </label>
-                          <div className="pass-group">
-                            <input
-                              type={
-                                passwordVisibility.password
-                                  ? "text"
-                                  : "password"
-                              }
-                              className="pass-input form-control"
-                            />
-                            <span
-                              className={`ti toggle-passwords ${
-                                passwordVisibility.password
-                                  ? "ti-eye"
-                                  : "ti-eye-off"
-                              }`}
-                              onClick={() =>
-                                togglePasswordVisibility("password")
-                              }
-                            ></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="mb-3 ">
-                          <label className="form-label">
-                            Confirm Password{" "}
-                            <span className="text-danger"> *</span>
-                          </label>
-                          <div className="pass-group">
-                            <input
-                              type={
-                                passwordVisibility.confirmPassword
-                                  ? "text"
-                                  : "password"
-                              }
-                              className="pass-input form-control"
-                            />
-                            <span
-                              className={`ti toggle-passwords ${
-                                passwordVisibility.confirmPassword
-                                  ? "ti-eye"
-                                  : "ti-eye-off"
-                              }`}
-                              onClick={() =>
-                                togglePasswordVisibility("confirmPassword")
-                              }
-                            ></span>
-                          </div>
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -1673,7 +2121,10 @@ const EmployeeList = () => {
                           <input
                             type="text"
                             className="form-control"
-                            defaultValue="(123) 4567 890"
+                            value={editingEmployee?.contact.phone}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, contact: { ...prev.contact, phone: e.target.value } } : prev)}
                           />
                         </div>
                       </div>
@@ -1685,7 +2136,10 @@ const EmployeeList = () => {
                           <input
                             type="text"
                             className="form-control"
-                            defaultValue="Abac Company"
+                            value={editingEmployee?.companyName}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, companyName: e.target.value } : prev)}
                           />
                         </div>
                       </div>
@@ -1695,7 +2149,22 @@ const EmployeeList = () => {
                           <CommonSelect
                             className="select"
                             options={department}
-                            defaultValue={department[1]}
+                            defaultValue={department.find(dep => dep.value === editingEmployee?.departmentId) || { value: '', label: 'Select' }}
+                            onChange={option => {
+                              if (option) {
+                                setSelectedDepartment(option.value);
+                                setEditingEmployee(prev =>
+                                  prev ? { ...prev, departmentId: option.value, designationId: "" } : prev
+                                );
+                                setSelectedDesignation("");
+                                if (socket && option.value) {
+                                  console.log("Fetching designations for department:", option.value);
+                                  socket.emit("hrm/designations/get", { departmentId: option.value });
+                                } else {
+                                  setDesignation([{ value: '', label: 'Select' }]);
+                                }
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -1705,7 +2174,15 @@ const EmployeeList = () => {
                           <CommonSelect
                             className="select"
                             options={designation}
-                            defaultValue={designation[1]}
+                            defaultValue={designation.find(dep => dep.value === editingEmployee?.designationId) || { value: '', label: 'Select' }}
+                            onChange={option => {
+                              if (option) {
+                                setSelectedDesignation(option.value);
+                                setEditingEmployee(prev =>
+                                  prev ? { ...prev, designationId: option.value } : prev
+                                );
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -1717,7 +2194,10 @@ const EmployeeList = () => {
                           <textarea
                             className="form-control"
                             rows={3}
-                            defaultValue={""}
+                            value={editingEmployee?.about}
+                            onChange={(e) =>
+                              setEditingEmployee(prev =>
+                                prev ? { ...prev, about: e.target.value } : prev)}
                           />
                         </div>
                       </div>
@@ -1731,12 +2211,8 @@ const EmployeeList = () => {
                     >
                       Cancel
                     </button>
-                    <button
-                      type="button"
-                      data-bs-dismiss="modal"
-                      className="btn btn-primary"
-                    >
-                      Save{" "}
+                    <button type="button" data-bs-dismiss="modal" className="btn btn-primary" onClick={handleUpdateSubmit}>
+                      Save
                     </button>
                   </div>
                 </div>
@@ -1747,683 +2223,90 @@ const EmployeeList = () => {
                   aria-labelledby="address-tab2"
                   tabIndex={0}
                 >
+
                   <div className="modal-body">
                     <div className="card bg-light-500 shadow-none">
                       <div className="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-3">
                         <h6>Enable Options</h6>
                         <div className="d-flex align-items-center justify-content-end">
+
+                          {/* Enable all Modules toggle */}
                           <div className="form-check form-switch me-2">
-                            <label className="form-check-label mt-0">
-                              <input
-                                className="form-check-input me-2"
-                                type="checkbox"
-                                role="switch"
-                              />
-                              Enable all Module
+                            <input
+                              id="enableAllModules"
+                              className="form-check-input me-2"
+                              type="checkbox"
+                              role="switch"
+                              checked={Object.values(permissions.enabledModules).every(Boolean)} // all enabled
+                              onChange={() => toggleAllModules(true)} // implement this to toggle all modules
+                            />
+                            <label className="form-check-label mt-0" htmlFor="enableAllModules">
+                              Enable all Modules
                             </label>
                           </div>
+
+                          {/* Select All - for all permissions across all modules (optional) */}
                           <div className="form-check d-flex align-items-center">
-                            <label className="form-check-label mt-0">
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                defaultChecked
-                              />
+                            <input
+                              id="selectAllPermissions"
+                              className="form-check-input"
+                              type="checkbox"
+                              checked={allPermissionsSelected()} // implement function to check if all permissions are enabled
+                              onChange={() => toggleGlobalSelectAll(true)} // toggle all permissions on/off
+                            />
+                            <label className="form-check-label mt-0" htmlFor="selectAllPermissions">
                               Select All
                             </label>
                           </div>
                         </div>
                       </div>
                     </div>
+
                     <div className="table-responsive border rounded">
                       <table className="table">
                         <tbody>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
+                          {MODULES.map((module) => (
+                            <tr key={module}>
+                              <td>
+                                <div className="form-check form-switch me-2">
                                   <input
+                                    id={`module-${module}`}
                                     className="form-check-input me-2"
                                     type="checkbox"
                                     role="switch"
-                                    defaultChecked
+                                    checked={permissions.enabledModules[module]}
+                                    onChange={() => toggleModule(module)}
                                   />
-                                  Holidays
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Leaves
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Clients
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Projects
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Tasks
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Chats
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                    defaultChecked
-                                  />
-                                  Assets
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    defaultChecked
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div className="form-check form-switch me-2">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input me-2"
-                                    type="checkbox"
-                                    role="switch"
-                                  />
-                                  Timing Sheets
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Read
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Write
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Create
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Delete
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Import
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="form-check d-flex align-items-center">
-                                <label className="form-check-label mt-0">
-                                  <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                  />
-                                  Export
-                                </label>
-                              </div>
-                            </td>
-                          </tr>
+                                  <label className="form-check-label mt-0" htmlFor={`module-${module}`}>
+                                    {module.charAt(0).toUpperCase() + module.slice(1)}
+                                  </label>
+                                </div>
+                              </td>
+
+                              {ACTIONS.map((action) => (
+                                <td key={action} className="align-middle">
+                                  <div className="form-check d-flex align-items-center justify-content-center">
+                                    <input
+                                      id={`perm-${module}-${action}`}
+                                      className="form-check-input"
+                                      type="checkbox"
+                                      checked={permissions.permissions[module][action]}
+                                      onChange={(e) =>
+                                        handlePermissionChange(module, action, e.target.checked)
+                                      }
+                                      disabled={!permissions.enabledModules[module]}
+                                    />
+                                    <label
+                                      className="form-check-label mt-0 ms-1"
+                                      htmlFor={`perm-${module}-${action}`}
+                                    >
+                                      {action.charAt(0).toUpperCase() + action.slice(1)}
+                                    </label>
+                                  </div>
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -2442,6 +2325,7 @@ const EmployeeList = () => {
                       data-bs-toggle="modal"
                       data-inert={true}
                       data-bs-target="#success_modal"
+                      onClick={handlePermissionUpdateSubmit}
                     >
                       Save{" "}
                     </button>
@@ -2450,8 +2334,8 @@ const EmployeeList = () => {
               </div>
             </form>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
       {/* /Edit Employee */}
       {/* Add Employee Success */}
       <div className="modal fade" id="success_modal" role="dialog">
@@ -2464,16 +2348,13 @@ const EmployeeList = () => {
                 </span>
                 <h5 className="mb-2">Employee Added Successfully</h5>
                 <p className="mb-3">
-                  Stephan Peralt has been added with Client ID :{" "}
-                  <span className="text-primary">#EMP - 0001</span>
+                  {formData.firstName} has been added with Employee ID :
+                  <span className="text-primary">#{formData.employeeId}</span>
                 </p>
                 <div>
                   <div className="row g-2">
                     <div className="col-6">
-                      <Link
-                        to={all_routes.employeeList}
-                        className="btn btn-dark w-100"
-                      >
+                      <Link to={all_routes.employeeList} className="btn btn-dark w-100" data-bs-dismiss="modal" onClick={handleResetFormData}>
                         Back to List
                       </Link>
                     </div>
@@ -2481,6 +2362,7 @@ const EmployeeList = () => {
                       <Link
                         to={all_routes.employeedetails}
                         className="btn btn-primary w-100"
+                        onClick={handleResetFormData}
                       >
                         Detail Page
                       </Link>
@@ -2493,8 +2375,50 @@ const EmployeeList = () => {
         </div>
       </div>
       {/* /Add Client Success */}
+      <div className="modal fade" id="delete_modal">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body text-center">
+              <span className="avatar avatar-xl bg-transparent-danger text-danger mb-3">
+                <i className="ti ti-trash-x fs-36" />
+              </span>
+              <h4 className="mb-1">Confirm Deletion</h4>
+              <p className="mb-3">
+                {employeeToDelete
+                  ? `Are you sure you want to delete employee "${employeeToDelete?.firstName}"? This cannot be undone.`
+                  : "You want to delete all the marked items, this can't be undone once you delete."}
+              </p>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-light me-3"
+                  data-bs-dismiss="modal"
+                  onClick={() => setEmployeeToDelete(null)}
+                  disabled={loading}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn btn-danger"
+                  data-bs-dismiss="modal"
+                  onClick={() => {
+                    if (employeeToDelete) {
+                      deleteEmployee(employeeToDelete._id);
+                    }
+                    setEmployeeToDelete(null);
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? 'Deleting...' : 'Yes, Delete'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/*delete policy*/}
     </>
-  );
-};
 
-export default EmployeeList;
+  )
+}
+
+export default EmployeeList
